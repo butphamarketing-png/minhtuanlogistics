@@ -11,8 +11,7 @@
     window.setTimeout(() => pageLoader.remove(), 700);
   }, LOADER_DURATION);
 
-  /* Remove dark background from logo image */
-  const logoImages = Array.from(document.querySelectorAll(".logo-image"));
+  /* Logo: xử lý nền đen trước khi hiện, tránh nháy */
   const removeLogoBackground = (imgEl) =>
     new Promise((resolve) => {
       const source = imgEl.getAttribute("src");
@@ -51,6 +50,29 @@
       img.onerror = () => resolve();
       img.src = source;
     });
+
+  const loaderLogo = document.querySelector(".page-loader-logo");
+  if (loaderLogo) {
+    loaderLogo.style.visibility = "hidden";
+    removeLogoBackground(loaderLogo).then(() => {
+      loaderLogo.style.visibility = "visible";
+    });
+  }
+
+  const loaderRing = document.querySelector(".page-loader-ring");
+  if (loaderRing) {
+    let ringAngle = 0;
+    const spinRing = () => {
+      ringAngle = (ringAngle + 4) % 360;
+      loaderRing.style.transform = `rotate(${ringAngle}deg)`;
+      if (document.getElementById("pageLoader")) {
+        requestAnimationFrame(spinRing);
+      }
+    };
+    requestAnimationFrame(spinRing);
+  }
+
+  const logoImages = Array.from(document.querySelectorAll(".logo-image:not(.page-loader-logo)"));
   logoImages.forEach((imgEl) => {
     removeLogoBackground(imgEl);
   });
@@ -109,9 +131,13 @@
     });
   }
 
-  /* Keep header stable to avoid scroll jitter */
+  /* Header scroll shadow */
   if (siteHeader) {
-    siteHeader.classList.remove("is-scrolled");
+    const onScroll = () => {
+      siteHeader.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   /* Contact form */
@@ -222,6 +248,79 @@
     processObserver.observe(workProcess);
   } else if (workProcess) {
     workProcess.classList.add("is-active");
+  }
+
+  /* Stats count-up from 0 */
+  const statsBand = document.querySelector(".stats-band");
+  const statItems = document.querySelectorAll(".stats-band [data-count]");
+
+  const formatNumber = (value, format) => {
+    if (format === "dot") {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    return String(value);
+  };
+
+  const animateCount = (el, delay = 0) => {
+    if (el.dataset.animated === "true") return;
+
+    const target = Number(el.dataset.count || 0);
+    const suffix = el.dataset.suffix || "";
+    const format = el.dataset.format || "";
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const finish = () => {
+      el.dataset.animated = "true";
+      el.textContent = `${formatNumber(target, format)}${suffix}`;
+    };
+
+    if (reducedMotion) {
+      finish();
+      return;
+    }
+
+    el.textContent = "0";
+
+    window.setTimeout(() => {
+      const duration = 2200;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - (1 - progress) ** 3;
+        const current = Math.round(target * eased);
+        el.textContent = `${formatNumber(current, format)}${suffix}`;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          finish();
+        }
+      };
+
+      requestAnimationFrame(tick);
+    }, delay);
+  };
+
+  const runStatsCountUp = () => {
+    statItems.forEach((el, index) => animateCount(el, index * 150));
+  };
+
+  if (statsBand && statItems.length) {
+    if ("IntersectionObserver" in window) {
+      const statsObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            runStatsCountUp();
+            statsObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2, rootMargin: "0px 0px -30px 0px" }
+      );
+      statsObserver.observe(statsBand);
+    } else {
+      runStatsCountUp();
+    }
   }
 
   /* Hero slideshow */

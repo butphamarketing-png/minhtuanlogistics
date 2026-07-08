@@ -29,7 +29,9 @@ const server = http.createServer((req, res) => {
     if (urlPath === "/") urlPath = "/index.html";
 
     if (urlPath === "/logo.png") {
-      return fs.readFile(externalLogoPath, (err, data) => {
+      const localLogo = path.join(root, "logo.png");
+      const logoPath = fs.existsSync(localLogo) ? localLogo : externalLogoPath;
+      return fs.readFile(logoPath, (err, data) => {
         if (err) {
           res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
           return res.end("Not found: logo.png");
@@ -40,7 +42,9 @@ const server = http.createServer((req, res) => {
     }
 
     if (urlPath === "/hero-slide-1.png") {
-      return fs.readFile(externalHeroSlidePath, (err, data) => {
+      const localHero = path.join(root, "hero-slide-1.png");
+      const heroPath = fs.existsSync(localHero) ? localHero : externalHeroSlidePath;
+      return fs.readFile(heroPath, (err, data) => {
         if (err) {
           res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
           return res.end("Not found: hero-slide-1.png");

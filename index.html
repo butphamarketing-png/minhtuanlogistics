@@ -14,12 +14,18 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" href="/logo.png" as="image" />
+    <link rel="preload" href="/hero-slide-1.png" as="image" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
     <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Đang tải trang">
       <div class="page-loader-inner">
         <div class="page-loader-logo-wrap">
+          <svg class="page-loader-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(0, 61, 165, 0.14)" stroke-width="5" />
+            <circle class="page-loader-ring-arc" cx="60" cy="60" r="52" fill="none" stroke-width="5" stroke-linecap="round" />
+          </svg>
           <img class="page-loader-logo logo-image" src="/logo.png" alt="Logo Minh Tuấn" />
         </div>
         <p class="page-loader-brand">
@@ -171,7 +177,7 @@
       <section id="services" class="section services-showcase">
         <div class="container">
           <div class="section-head center-head reveal">
-            <p class="eyebrow">Our Services</p>
+            <p class="eyebrow">DỊCH VỤ</p>
             <h2>GIẢI PHÁP TOÀN DIỆN CHO DOANH NGHIỆP</h2>
           </div>
 
@@ -289,7 +295,7 @@
           </div>
 
           <div class="why-grid">
-            <article class="why-feature-card reveal" style="transition-delay: 0.05s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -303,7 +309,7 @@
               <span class="why-arrow" aria-hidden="true">→</span>
             </article>
 
-            <article class="why-feature-card reveal" style="transition-delay: 0.1s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -318,7 +324,7 @@
               <span class="why-arrow" aria-hidden="true">→</span>
             </article>
 
-            <article class="why-feature-card reveal" style="transition-delay: 0.15s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -334,7 +340,7 @@
               <span class="why-arrow" aria-hidden="true">→</span>
             </article>
 
-            <article class="why-feature-card reveal" style="transition-delay: 0.2s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -350,7 +356,7 @@
               <span class="why-arrow" aria-hidden="true">→</span>
             </article>
 
-            <article class="why-feature-card reveal" style="transition-delay: 0.25s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -366,7 +372,7 @@
               <span class="why-arrow" aria-hidden="true">→</span>
             </article>
 
-            <article class="why-feature-card reveal" style="transition-delay: 0.3s">
+            <article class="why-feature-card reveal">
               <div class="why-icon-wrap">
                 <span class="why-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -445,19 +451,19 @@
           <h2 class="stats-title">Những con số tạo nên sự tin tưởng</h2>
           <div class="stats-grid">
             <article class="stat-item">
-              <strong>15+</strong>
+              <strong data-count="15" data-suffix="+">0</strong>
               <span>Năm kinh nghiệm</span>
             </article>
             <article class="stat-item">
-              <strong>1.500+</strong>
+              <strong data-count="1500" data-suffix="+" data-format="dot">0</strong>
               <span>Doanh nghiệp hợp tác</span>
             </article>
             <article class="stat-item">
-              <strong>5.000+</strong>
+              <strong data-count="5000" data-suffix="+" data-format="dot">0</strong>
               <span>Lô hàng hoàn tất</span>
             </article>
             <article class="stat-item">
-              <strong>100+</strong>
+              <strong data-count="100" data-suffix="+">0</strong>
               <span>Đối tác quốc tế</span>
             </article>
           </div>
@@ -626,10 +632,6 @@
                 <p>Xuất nhập khẩu • Thương mại • Dịch vụ</p>
                 <a class="btn btn-cta" href="#contactForm">Liên hệ ngay <span class="arrow" aria-hidden="true">→</span></a>
               </div>
-              <div class="connect-side-pills" aria-label="Liên hệ nhanh">
-                <a class="connect-pill" href="tel:0938961012">Hotline</a>
-                <a class="connect-pill" href="#contactForm">Tư vấn</a>
-              </div>
             </div>
 
             <div class="connect-links reveal">
@@ -744,6 +746,17 @@
 
     <footer class="footer">
       <div class="container footer-grid">
+        <div class="footer-col footer-col-contact">
+          <h4>Thông tin liên hệ</h4>
+          <ul class="footer-contact">
+            <li><strong>📞 Hotline</strong><span>0938 961 012</span></li>
+            <li><strong>📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
+            <li><strong>✉ Email</strong><span>info@minhtuan.com</span></li>
+            <li><strong>🌐 Website</strong><span>www.minhtuan.com</span></li>
+            <li><strong>🕘 Giờ làm việc</strong><span>Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
+          </ul>
+        </div>
+
         <div class="footer-col">
           <div class="footer-brand">
             <img class="logo-image footer-logo-image" src="/logo.png" alt="Logo Minh Tuấn" />
@@ -762,23 +775,15 @@
           </div>
         </div>
 
-        <div class="footer-col">
+        <div class="footer-col footer-col-services">
           <h4>Dịch vụ</h4>
           <ul>
-            <li><a href="dich-vu.html">Xuất nhập khẩu</a></li>
+            <li><a href="dich-vu.html#xnk">Xuất nhập khẩu</a></li>
             <li><a href="dich-vu.html#thuong-mai">Thương mại</a></li>
             <li><a href="dich-vu.html#logistics">Logistics</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Thông tin liên hệ</h4>
-          <ul class="footer-contact">
-            <li><strong>📞 Hotline</strong><span>0938 961 012</span></li>
-            <li><strong>📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
-            <li><strong>✉ Email</strong><span>info@minhtuan.com</span></li>
-            <li><strong>🌐 Website</strong><span>www.minhtuan.com</span></li>
-            <li><strong>🕘 Giờ làm việc</strong><span>Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
+            <li><a href="dich-vu.html#kho-van">Kho vận</a></li>
+            <li><a href="dich-vu.html#hai-quan">Khai báo hải quan</a></li>
+            <li><a href="dich-vu.html#tu-van">Tư vấn doanh nghiệp</a></li>
           </ul>
         </div>
       </div>
