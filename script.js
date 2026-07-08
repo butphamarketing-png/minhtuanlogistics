@@ -51,28 +51,7 @@
       img.src = source;
     });
 
-  const loaderLogo = document.querySelector(".page-loader-logo");
-  if (loaderLogo) {
-    loaderLogo.style.visibility = "hidden";
-    removeLogoBackground(loaderLogo).then(() => {
-      loaderLogo.style.visibility = "visible";
-    });
-  }
-
-  const loaderRing = document.querySelector(".page-loader-ring");
-  if (loaderRing) {
-    let ringAngle = 0;
-    const spinRing = () => {
-      ringAngle = (ringAngle + 4) % 360;
-      loaderRing.style.transform = `rotate(${ringAngle}deg)`;
-      if (document.getElementById("pageLoader")) {
-        requestAnimationFrame(spinRing);
-      }
-    };
-    requestAnimationFrame(spinRing);
-  }
-
-  const logoImages = Array.from(document.querySelectorAll(".logo-image:not(.page-loader-logo)"));
+  const logoImages = Array.from(document.querySelectorAll(".logo-image"));
   logoImages.forEach((imgEl) => {
     removeLogoBackground(imgEl);
   });
@@ -324,7 +303,6 @@
   }
 
   /* Hero slideshow */
-  const hero = document.querySelector(".hero");
   const slides = Array.from(document.querySelectorAll(".slide"));
   const dotsWrap = document.getElementById("slideDots");
   const prevBtn = document.getElementById("slidePrev");
@@ -371,6 +349,7 @@
   };
 
   const start = () => {
+    if (slides.length <= 1) return;
     stop();
     timer = setInterval(next, INTERVAL);
   };
@@ -380,7 +359,6 @@
   prevBtn?.addEventListener("click", prev);
   nextBtn?.addEventListener("click", next);
 
-  /* Swipe mobile */
   let touchX = 0;
   slideshow?.addEventListener(
     "touchstart",
@@ -411,47 +389,6 @@
     render();
     start();
   }
-
-  /* Hero hover glow */
-  hero?.addEventListener("mouseenter", () => hero.classList.add("is-hover"));
-  hero?.addEventListener("mouseleave", () => {
-    hero.classList.remove("is-hover");
-    resetParallax();
-  });
-
-  /* Parallax mouse move */
-  const media = document.getElementById("heroMedia");
-  const activeImg = () => document.querySelector(".slide.is-active img");
-  const cards = Array.from(document.querySelectorAll(".glass-card"));
-
-  const resetParallax = () => {
-    const img = activeImg();
-    if (img) img.style.transform = "scale(1)";
-    cards.forEach((card) => {
-      card.style.transform = "";
-    });
-  };
-
-  media?.addEventListener("mousemove", (e) => {
-    const rect = media.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const moveX = x * 12;
-    const moveY = y * 10;
-
-    const img = activeImg();
-    if (img) {
-      const scale = hero?.classList.contains("is-hover") ? 1.03 : 1;
-      img.style.transform = `scale(${scale}) translate(${moveX}px, ${moveY}px)`;
-    }
-
-    cards.forEach((card) => {
-      const depth = Number(card.dataset.depth || 0.06);
-      card.style.transform = `translate(${moveX * depth * 18}px, ${moveY * depth * 18}px)`;
-    });
-  });
-
-  media?.addEventListener("mouseleave", resetParallax);
 
   /* Testimonials slider */
   const track = document.getElementById("testimonialTrack");

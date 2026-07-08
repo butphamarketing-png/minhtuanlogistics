@@ -19,14 +19,16 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
-    <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Đang tải trang">
+    <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" aria-label="Đang tải trang">
       <div class="page-loader-inner">
         <div class="page-loader-logo-wrap">
-          <svg class="page-loader-ring" viewBox="0 0 120 120" aria-hidden="true">
-            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(0, 61, 165, 0.14)" stroke-width="5" />
-            <circle class="page-loader-ring-arc" cx="60" cy="60" r="52" fill="none" stroke-width="5" stroke-linecap="round" />
-          </svg>
-          <img class="page-loader-logo logo-image" src="/logo.png" alt="Logo Minh Tuấn" />
+          <div class="page-loader-ring-wrap" aria-hidden="true">
+            <svg class="page-loader-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(0, 61, 165, 0.18)" stroke-width="5" />
+              <circle class="page-loader-ring-arc" cx="60" cy="60" r="52" fill="none" stroke="#003da5" stroke-width="5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <img class="page-loader-logo" src="/logo.png" alt="Logo Minh Tuấn" />
         </div>
         <p class="page-loader-brand">
           <strong>MINH TUẤN</strong>
@@ -96,7 +98,46 @@
 
     <main>
       <section id="home" class="hero">
-        <div class="hero-layout">
+        <div class="hero-banner" id="heroBanner">
+          <div class="slideshow" id="slideshow" aria-roledescription="carousel">
+            <div class="slides" id="slides">
+              <article class="slide is-active">
+                <img src="/hero-slide-1.png" alt="Giải pháp logistics toàn diện Minh Tuấn" loading="eager" />
+              </article>
+              <article class="slide">
+                <img
+                  src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80"
+                  alt="Xuất nhập khẩu cảng biển"
+                  loading="lazy"
+                />
+              </article>
+              <article class="slide">
+                <img
+                  src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=80"
+                  alt="Vận tải nội địa và kho bãi"
+                  loading="lazy"
+                />
+              </article>
+              <article class="slide">
+                <img
+                  src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80"
+                  alt="Vận chuyển hàng không quốc tế"
+                  loading="lazy"
+                />
+              </article>
+            </div>
+
+            <button class="slide-nav prev" id="slidePrev" type="button" aria-label="Slide trước">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button class="slide-nav next" id="slideNext" type="button" aria-label="Slide sau">
+              <span aria-hidden="true">›</span>
+            </button>
+            <div class="slide-dots" id="slideDots" role="tablist" aria-label="Chỉ số slideshow"></div>
+          </div>
+        </div>
+
+        <div class="container hero-intro">
           <div class="hero-copy">
             <p class="hero-kicker">Giải pháp vận chuyển và xuất nhập khẩu</p>
             <h1>Giải pháp XNK – Thương Mại – Dịch Vụ toàn cầu</h1>
@@ -112,25 +153,6 @@
               </a>
               <a class="btn btn-ghost" href="#services">Xem dịch vụ</a>
             </div>
-          </div>
-
-          <div class="hero-media" id="heroMedia">
-            <div class="hero-glow" aria-hidden="true"></div>
-            <div class="hero-map" aria-hidden="true"></div>
-            <div class="hero-overlay" aria-hidden="true"></div>
-
-            <div class="slideshow" id="slideshow" aria-roledescription="carousel">
-              <div class="slides" id="slides">
-                <article class="slide is-active">
-                  <img src="/hero-slide-1.png" alt="Slideshow logistics Minh Tuấn" loading="eager" />
-                </article>
-              </div>
-
-              <button class="slide-nav prev" id="slidePrev" type="button" aria-label="Slide trước">‹</button>
-              <button class="slide-nav next" id="slideNext" type="button" aria-label="Slide sau">›</button>
-              <div class="slide-dots" id="slideDots" role="tablist" aria-label="Chỉ số slideshow"></div>
-            </div>
-
           </div>
         </div>
       </section>
