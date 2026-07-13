@@ -143,10 +143,12 @@
 
           <div class="hero-copy-wrap">
             <div class="hero-copy hero-copy--minimal">
-              <p class="hero-desc" data-i18n="hero.desc">
-                CÔNG TY TNHH XNK TM DV MINH TUẤN đồng hành cùng doanh nghiệp bằng quy
-                trình chuẩn quốc tế, phản hồi nhanh và cam kết hiệu quả vận hành.
-              </p>
+              <p class="hero-brand" data-i18n="hero.brand">MINH TUẤN LOGISTICS</p>
+              <h1 class="hero-headline">
+                <span class="hero-headline-line" data-i18n="hero.headline1">Đồng hành doanh nghiệp</span>
+                <span class="hero-headline-line hero-headline-line--accent" data-i18n="hero.headline2">trên hành trình XNK toàn cầu</span>
+              </h1>
+              <p class="hero-lead" data-i18n="hero.lead">Quy trình chuẩn quốc tế · Phản hồi nhanh · Cam kết hiệu quả vận hành</p>
               <div class="hero-actions">
                 <a class="btn btn-cta" href="#contact">
                   <span data-i18n="hero.cta_consult">Nhận tư vấn ngay</span>
@@ -161,7 +163,9 @@
 
       <section id="about" class="section about-company">
         <div class="container">
-          <p class="about-badge reveal" data-i18n="about.badge">Giới thiệu về Minh Tuấn Logistics</p>
+          <div class="section-head center-head about-section-head reveal">
+            <h2 data-i18n="about.badge">Giới thiệu về Minh Tuấn Logistics</h2>
+          </div>
           <div class="about-layout">
             <figure class="about-image-single reveal">
               <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80" alt="Cảng biển logistics" loading="lazy" />
@@ -202,8 +206,7 @@
       <section id="services" class="section services-showcase">
         <div class="container">
           <div class="section-head center-head reveal">
-            <p class="eyebrow" data-i18n="services.eyebrow">DỊCH VỤ</p>
-            <h2 data-i18n="services.title">GIẢI PHÁP TOÀN DIỆN CHO DOANH NGHIỆP</h2>
+            <h2 data-i18n="services.title">GIẢI PHÁP TOÀN DIỆN</h2>
           </div>
 
           <div class="services-grid services-slider-mobile reveal-group">
@@ -325,15 +328,12 @@
 
             <div class="why-radial-center">
               <div class="why-radial-center-inner">
-                <img src="/logo.png" alt="" width="64" height="64" />
-                <strong>MINH TUẤN</strong>
-                <span>Logistics</span>
-                <p data-i18n="why.tagline">Đồng hành xuất nhập khẩu &amp; logistics</p>
+                <img class="logo-image why-radial-logo" src="/logo.png" alt="Logo Minh Tuấn" />
               </div>
             </div>
 
             <div class="why-radial-side why-radial-side--left">
-              <div class="why-radial-item why-radial-item--left reveal">
+              <div class="why-radial-item why-radial-item--left reveal reveal-left">
                 <p class="why-radial-label" data-i18n="why.f1.title">Uy tín &amp; Kinh nghiệm</p>
                 <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -342,7 +342,7 @@
                   </svg>
                 </span>
               </div>
-              <div class="why-radial-item why-radial-item--left reveal">
+              <div class="why-radial-item why-radial-item--left reveal reveal-left">
                 <p class="why-radial-label" data-i18n="why.f2.title">Giải pháp toàn diện</p>
                 <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -352,7 +352,7 @@
                   </svg>
                 </span>
               </div>
-              <div class="why-radial-item why-radial-item--left reveal">
+              <div class="why-radial-item why-radial-item--left reveal reveal-left">
                 <p class="why-radial-label" data-i18n="why.f3.title">Giao hàng đúng tiến độ</p>
                 <span class="why-radial-icon why-radial-icon--accent" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -366,7 +366,7 @@
             </div>
 
             <div class="why-radial-side why-radial-side--right">
-              <div class="why-radial-item why-radial-item--right reveal">
+              <div class="why-radial-item why-radial-item--right reveal reveal-right">
                 <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" />
@@ -377,7 +377,7 @@
                 </span>
                 <p class="why-radial-label" data-i18n="why.f4.title">Mạng lưới đối tác rộng</p>
               </div>
-              <div class="why-radial-item why-radial-item--right reveal">
+              <div class="why-radial-item why-radial-item--right reveal reveal-right">
                 <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" />
@@ -388,7 +388,7 @@
                 </span>
                 <p class="why-radial-label" data-i18n="why.f5.title">Chi phí tối ưu</p>
               </div>
-              <div class="why-radial-item why-radial-item--right reveal">
+              <div class="why-radial-item why-radial-item--right reveal reveal-right">
                 <span class="why-radial-icon why-radial-icon--accent" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <path d="M4 12a8 8 0 1 1 16 0" />
@@ -823,18 +823,7 @@
 
     <footer class="footer">
       <div class="container footer-grid">
-        <div class="footer-col footer-col-contact">
-          <h4 data-i18n="footer.contact_title">Thông tin liên hệ</h4>
-          <ul class="footer-contact">
-            <li><strong data-i18n="footer.hotline">📞 Hotline</strong><span>0938 961 012</span></li>
-            <li><strong data-i18n="footer.address">📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
-            <li><strong data-i18n="footer.email">✉ Email</strong><span>info@minhtuan.com</span></li>
-            <li><strong data-i18n="footer.website">🌐 Website</strong><span>www.minhtuan.com</span></li>
-            <li><strong data-i18n="footer.hours">🕘 Giờ làm việc</strong><span data-i18n="footer.hours_value">Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
+        <div class="footer-col footer-col-brand">
           <div class="footer-brand">
             <img class="logo-image footer-logo-image" src="/logo.png" alt="Logo Minh Tuấn" />
             <div>
@@ -850,6 +839,17 @@
             <a href="mailto:info@minhtuan.com" aria-label="Email">✉</a>
             <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
           </div>
+        </div>
+
+        <div class="footer-col footer-col-contact">
+          <h4 data-i18n="footer.contact_title">Thông tin liên hệ</h4>
+          <ul class="footer-contact">
+            <li><strong data-i18n="footer.hotline">📞 Hotline</strong><span>0938 961 012</span></li>
+            <li><strong data-i18n="footer.address">📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
+            <li><strong data-i18n="footer.email">✉ Email</strong><span>info@minhtuan.com</span></li>
+            <li><strong data-i18n="footer.website">🌐 Website</strong><span>www.minhtuan.com</span></li>
+            <li><strong data-i18n="footer.hours">🕘 Giờ làm việc</strong><span data-i18n="footer.hours_value">Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
+          </ul>
         </div>
 
         <div class="footer-col footer-col-services">
@@ -874,14 +874,6 @@
         </div>
       </div>
     </footer>
-
-    <div class="floating-contact">
-      <a class="float-btn call" href="tel:0938961012" data-i18n-aria="aria.call" data-i18n-title="aria.call" title="Hotline">☎</a>
-      <a class="float-btn zalo" href="https://zalo.me/0938961012" target="_blank" rel="noopener" data-i18n-aria="aria.zalo" data-i18n-title="aria.zalo" title="Zalo">💬</a>
-      <a class="float-btn messenger" href="https://m.me/" target="_blank" rel="noopener" data-i18n-aria="aria.messenger" title="Messenger">💙</a>
-      <a class="float-btn chat" href="#contact" data-i18n-aria="aria.live_chat" title="Live Chat">💬</a>
-      <button class="float-btn top" id="backToTop" type="button" data-i18n-aria="aria.back_top" data-i18n-title="aria.back_top" title="Lên đầu trang">⬆</button>
-    </div>
 
     <script src="translations.js"></script>
     <script src="i18n.js"></script>

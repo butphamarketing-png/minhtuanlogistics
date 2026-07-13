@@ -68,6 +68,18 @@
     updateSwitcherUI();
   };
 
+  const closeSwitcher = (switcher) => {
+    if (!switcher) return;
+    switcher.classList.remove("is-open");
+    switcher.querySelector(".lang-toggle")?.setAttribute("aria-expanded", "false");
+  };
+
+  const openSwitcher = (switcher) => {
+    if (!switcher) return;
+    switcher.classList.add("is-open");
+    switcher.querySelector(".lang-toggle")?.setAttribute("aria-expanded", "true");
+  };
+
   const buildSwitcher = () => {
     const navInner = document.querySelector(".nav-inner");
     if (!navInner || document.getElementById("langSwitcher")) return;
@@ -75,32 +87,66 @@
     const switcher = document.createElement("div");
     switcher.className = "lang-switcher";
     switcher.id = "langSwitcher";
-    switcher.setAttribute("role", "group");
-    switcher.setAttribute("data-i18n-aria", "aria.lang");
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "lang-toggle";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-haspopup", "true");
+    toggle.setAttribute("aria-label", t("aria.lang"));
+    toggle.innerHTML = `<span class="lang-flag">${FLAG_SVG[currentLocale]}</span><span class="lang-label">${t(`lang.${currentLocale}`)}</span>`;
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (switcher.classList.contains("is-open")) closeSwitcher(switcher);
+      else openSwitcher(switcher);
+    });
+    switcher.appendChild(toggle);
+
+    const options = document.createElement("div");
+    options.className = "lang-options";
+    options.setAttribute("role", "group");
 
     SUPPORTED.forEach((lang) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "lang-btn";
       btn.dataset.lang = lang;
-      btn.innerHTML = `<span class="lang-flag">${FLAG_SVG[lang]}</span><span class="lang-label" data-i18n="lang.${lang}">${lang.toUpperCase()}</span>`;
+      btn.innerHTML = `<span class="lang-flag">${FLAG_SVG[lang]}</span><span class="lang-label" data-i18n="lang.${lang}">${t(`lang.${lang}`)}</span>`;
       if (lang === currentLocale) btn.classList.add("is-active");
       btn.setAttribute("aria-pressed", lang === currentLocale ? "true" : "false");
-      btn.addEventListener("click", () => setLocale(lang));
-      switcher.appendChild(btn);
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setLocale(lang);
+        closeSwitcher(switcher);
+      });
+      options.appendChild(btn);
     });
+
+    switcher.appendChild(options);
 
     const navCta = navInner.querySelector(".nav-cta");
     if (navCta) navInner.insertBefore(switcher, navCta);
     else navInner.appendChild(switcher);
 
-    switcher.setAttribute("aria-label", t("aria.lang"));
+    document.addEventListener("click", (e) => {
+      if (!switcher.contains(e.target)) closeSwitcher(switcher);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeSwitcher(switcher);
+    });
   };
 
   const updateSwitcherUI = () => {
     const switcher = document.getElementById("langSwitcher");
     if (!switcher) return;
-    switcher.setAttribute("aria-label", t("aria.lang"));
+
+    const toggle = switcher.querySelector(".lang-toggle");
+    if (toggle) {
+      toggle.setAttribute("aria-label", t("aria.lang"));
+      toggle.innerHTML = `<span class="lang-flag">${FLAG_SVG[currentLocale]}</span><span class="lang-label">${t(`lang.${currentLocale}`)}</span>`;
+    }
+
     switcher.querySelectorAll(".lang-btn").forEach((btn) => {
       const active = btn.dataset.lang === currentLocale;
       btn.classList.toggle("is-active", active);

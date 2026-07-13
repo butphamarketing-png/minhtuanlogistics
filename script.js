@@ -58,18 +58,59 @@
 
   setupMobileCallBar();
 
-  /* Floating contact on subpages */
-  if (!document.querySelector(".floating-contact")) {
-    const floatWrap = document.createElement("div");
-    floatWrap.className = "floating-contact";
-    floatWrap.innerHTML = `
-      <a class="float-btn call" href="tel:${phone}" title="${menuLabel("aria.call")}" aria-label="${menuLabel("aria.call")}">☎</a>
-      <a class="float-btn zalo" href="https://zalo.me/${phone}" target="_blank" rel="noopener" title="${menuLabel("aria.zalo")}" aria-label="${menuLabel("aria.zalo")}">💬</a>
-      <a class="float-btn chat" href="lien-he.html" title="${menuLabel("aria.live_chat")}" aria-label="${menuLabel("aria.live_chat")}">💬</a>
-      <button class="float-btn top" id="backToTop" type="button" title="${menuLabel("aria.back_top")}" aria-label="${menuLabel("aria.back_top")}">⬆</button>
+  const FLOAT_ICONS = {
+    phone:
+      '<svg class="float-btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.8c.4-1 1.6-1.3 2.4-.5l1.6 1.6c.7.7.8 1.8.2 2.6l-1 1.3c1.2 2.1 3.1 4 5.2 5.2l1.3-1c.8-.6 1.9-.5 2.6.2l1.6 1.6c.8.8.5 2-.5 2.4-1.3.5-2.7.7-4.1.4-3.5-.8-6.7-3.1-9.1-6.4-.8-1.1-1.2-2.4-1-3.8Z"/></svg>',
+    zalo:
+      '<svg class="float-btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16a2 2 0 0 1 2 2v7.2a2 2 0 0 1-2 2H9.2L5 19.8v-3.3H4a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2Z"/><path d="M8.2 10.8h7.6M8.2 14h4.8"/><path d="M13.8 10.8V14"/></svg>',
+    messenger:
+      '<svg class="float-btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8c-4.8 0-8.7 3.2-8.7 7.2 0 2.3 1.2 4.4 3.1 5.8L5.2 21l4.6-2.4c.8.2 1.6.3 2.4.3 4.8 0 8.7-3.2 8.7-7.2S16.8 2.8 12 2.8Z"/><path class="float-btn-ico-fill" d="m10.4 8.2 5.2 4.1-3.6 1.4 1.4 3.9 4.1-5.1-3.6-1.4 1.1-2.9Z"/></svg>',
+    chat:
+      '<svg class="float-btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14a1.8 1.8 0 0 1 1.8 1.8v8.4A1.8 1.8 0 0 1 19 18.5H9.6L6 21.2v-2.7H5A1.8 1.8 0 0 1 3.2 16.7V8.3A1.8 1.8 0 0 1 5 6.5Z"/><path d="M8.2 11h7.6M8.2 13.8h5.2"/></svg>',
+    top:
+      '<svg class="float-btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18.5V7.2"/><path d="m7.8 11 4.2-4.2L16.2 11"/></svg>',
+  };
+
+  const initFloatingContact = () => {
+    let wrap = document.querySelector(".floating-contact");
+    if (!wrap) {
+      wrap = document.createElement("div");
+      wrap.className = "floating-contact";
+      document.body.appendChild(wrap);
+    }
+
+    const chatHref = document.getElementById("contact") ? "#contact" : "lien-he.html";
+
+    wrap.innerHTML = `
+      <span class="float-sparkle float-sparkle--1" aria-hidden="true"></span>
+      <span class="float-sparkle float-sparkle--2" aria-hidden="true"></span>
+      <span class="float-sparkle float-sparkle--3" aria-hidden="true"></span>
+      <a class="float-btn call float-btn--glow" href="tel:${phone}" data-i18n-aria="aria.call" data-i18n-title="aria.call" title="${menuLabel("aria.call")}">
+        <span class="float-btn-shine" aria-hidden="true"></span>
+        ${FLOAT_ICONS.phone}
+      </a>
+      <a class="float-btn zalo float-btn--glow" href="https://zalo.me/${phone}" target="_blank" rel="noopener" data-i18n-aria="aria.zalo" data-i18n-title="aria.zalo" title="${menuLabel("aria.zalo")}">
+        <span class="float-btn-shine" aria-hidden="true"></span>
+        ${FLOAT_ICONS.zalo}
+      </a>
+      <a class="float-btn messenger float-btn--glow" href="https://m.me/" target="_blank" rel="noopener" data-i18n-aria="aria.messenger" data-i18n-title="aria.messenger" title="${menuLabel("aria.messenger")}">
+        <span class="float-btn-shine" aria-hidden="true"></span>
+        ${FLOAT_ICONS.messenger}
+      </a>
+      <a class="float-btn chat float-btn--glow" href="${chatHref}" data-i18n-aria="aria.live_chat" data-i18n-title="aria.live_chat" title="${menuLabel("aria.live_chat")}">
+        <span class="float-btn-shine" aria-hidden="true"></span>
+        ${FLOAT_ICONS.chat}
+      </a>
+      <button class="float-btn top" id="backToTop" type="button" data-i18n-aria="aria.back_top" data-i18n-title="aria.back_top" title="${menuLabel("aria.back_top")}">
+        <span class="float-btn-shine" aria-hidden="true"></span>
+        ${FLOAT_ICONS.top}
+      </button>
     `;
-    document.body.appendChild(floatWrap);
-  }
+
+    window.I18N?.apply?.(wrap);
+  };
+
+  initFloatingContact();
 
   /* Image performance helpers */
   document.querySelectorAll("img").forEach((img) => {
@@ -201,6 +242,12 @@
     document.querySelectorAll(".mobile-call-bar [data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (key) el.textContent = menuLabel(key);
+    });
+    document.querySelectorAll(".floating-contact [data-i18n-aria], .floating-contact [data-i18n-title]").forEach((el) => {
+      const ariaKey = el.getAttribute("data-i18n-aria");
+      const titleKey = el.getAttribute("data-i18n-title");
+      if (ariaKey) el.setAttribute("aria-label", menuLabel(ariaKey));
+      if (titleKey) el.title = menuLabel(titleKey);
     });
   });
 
