@@ -11,11 +11,10 @@
     window.setTimeout(() => pageLoader.remove(), 700);
   }, LOADER_DURATION);
 
-  /* Logo: xử lý nền đen trước khi hiện, tránh nháy */
-  const removeLogoBackground = (imgEl) =>
+  /* Logo: xóa nền đen, dùng chung cho loader và header */
+  const processLogoSource = (source) =>
     new Promise((resolve) => {
-      const source = imgEl.getAttribute("src");
-      if (!source) return resolve();
+      if (!source) return resolve(source);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -24,7 +23,7 @@
           canvas.width = img.naturalWidth;
           canvas.height = img.naturalHeight;
           const ctx = canvas.getContext("2d");
-          if (!ctx) return resolve();
+          if (!ctx) return resolve(source);
           ctx.drawImage(img, 0, 0);
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           const data = imageData.data;
@@ -41,20 +40,35 @@
             }
           }
           ctx.putImageData(imageData, 0, 0);
-          imgEl.src = canvas.toDataURL("image/png");
+          resolve(canvas.toDataURL("image/png"));
         } catch (_) {
-          /* Keep original source if processing fails */
+          resolve(source);
         }
-        resolve();
       };
-      img.onerror = () => resolve();
+      img.onerror = () => resolve(source);
       img.src = source;
     });
 
-  const logoImages = Array.from(document.querySelectorAll(".logo-image"));
-  logoImages.forEach((imgEl) => {
-    removeLogoBackground(imgEl);
-  });
+  const applyLogoEverywhere = (processedSrc) => {
+    const loaderLogo = document.querySelector(".page-loader-logo");
+    if (loaderLogo) {
+      loaderLogo.src = processedSrc;
+      loaderLogo.classList.remove("is-processing");
+      loaderLogo.classList.add("is-ready");
+    }
+    document.querySelectorAll(".logo-image").forEach((imgEl) => {
+      imgEl.src = processedSrc;
+    });
+  };
+
+  const loaderLogo = document.querySelector(".page-loader-logo");
+  const headerLogo = document.querySelector(".logo-image");
+  const logoSource =
+    loaderLogo?.getAttribute("src") || headerLogo?.getAttribute("src") || "/logo.png";
+
+  if (loaderLogo) loaderLogo.classList.add("is-processing");
+
+  processLogoSource(logoSource).then(applyLogoEverywhere);
 
   /* Menu mobile */
   const menuToggle = document.getElementById("menuToggle");
