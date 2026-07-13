@@ -1,15 +1,85 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_DURATION = 4000;
+  const LOADER_KEY = "mt_logistics_seen";
+  const LOADER_DURATION = 2200;
   const pageLoader = document.getElementById("pageLoader");
+  const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
-  window.setTimeout(() => {
-    if (!pageLoader) return;
-    pageLoader.classList.add("is-done");
+  if (pageLoader && sessionStorage.getItem(LOADER_KEY)) {
+    pageLoader.remove();
     document.body.classList.remove("is-loading");
-    window.setTimeout(() => pageLoader.remove(), 700);
-  }, LOADER_DURATION);
+  } else if (pageLoader) {
+    sessionStorage.setItem(LOADER_KEY, "1");
+    window.setTimeout(() => {
+      pageLoader.classList.add("is-done");
+      document.body.classList.remove("is-loading");
+      window.setTimeout(() => pageLoader.remove(), 700);
+    }, LOADER_DURATION);
+  } else {
+    document.body.classList.remove("is-loading");
+  }
+
+  /* Scroll progress */
+  const scrollProgress = document.createElement("div");
+  scrollProgress.className = "scroll-progress";
+  scrollProgress.setAttribute("aria-hidden", "true");
+  scrollProgress.innerHTML = "<span></span>";
+  document.body.appendChild(scrollProgress);
+  const scrollProgressBar = scrollProgress.firstElementChild;
+
+  const updateScrollProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+    scrollProgressBar.style.width = `${ratio * 100}%`;
+  };
+
+  /* Mobile call bar */
+  const setupMobileCallBar = () => {
+    if (!window.matchMedia("(max-width: 1024px)").matches) return;
+    if (document.querySelector(".mobile-call-bar")) return;
+
+    const bar = document.createElement("div");
+    bar.className = "mobile-call-bar";
+    bar.innerHTML = `
+      <div>
+        <small data-i18n="mobile.call_sub">Tư vấn logistics 24/7</small>
+        <strong>0938 961 012</strong>
+      </div>
+      <a href="tel:${phone}">
+        <span aria-hidden="true">☎</span>
+        <span data-i18n="mobile.call_now">Gọi ngay</span>
+      </a>
+    `;
+    document.body.appendChild(bar);
+    document.body.classList.add("has-mobile-call-bar");
+    window.I18N?.apply?.(bar);
+  };
+
+  setupMobileCallBar();
+
+  /* Floating contact on subpages */
+  if (!document.querySelector(".floating-contact")) {
+    const floatWrap = document.createElement("div");
+    floatWrap.className = "floating-contact";
+    floatWrap.innerHTML = `
+      <a class="float-btn call" href="tel:${phone}" title="${menuLabel("aria.call")}" aria-label="${menuLabel("aria.call")}">☎</a>
+      <a class="float-btn zalo" href="https://zalo.me/${phone}" target="_blank" rel="noopener" title="${menuLabel("aria.zalo")}" aria-label="${menuLabel("aria.zalo")}">💬</a>
+      <a class="float-btn chat" href="lien-he.html" title="${menuLabel("aria.live_chat")}" aria-label="${menuLabel("aria.live_chat")}">💬</a>
+      <button class="float-btn top" id="backToTop" type="button" title="${menuLabel("aria.back_top")}" aria-label="${menuLabel("aria.back_top")}">⬆</button>
+    `;
+    document.body.appendChild(floatWrap);
+  }
+
+  /* Image performance helpers */
+  document.querySelectorAll("img").forEach((img) => {
+    if (!img.hasAttribute("decoding")) img.decoding = "async";
+    if (img.complete) img.classList.add("is-loaded");
+    else {
+      img.addEventListener("load", () => img.classList.add("is-loaded"), { once: true });
+      img.addEventListener("error", () => img.classList.add("is-loaded"), { once: true });
+    }
+  });
 
   /* Logo: xóa nền đen, dùng chung cho loader và header */
   const processLogoSource = (source) =>
@@ -80,7 +150,7 @@
     mainMenu.classList.add("is-open");
     menuToggle.classList.add("is-open");
     menuToggle.setAttribute("aria-expanded", "true");
-    menuToggle.setAttribute("aria-label", "Đóng menu");
+    menuToggle.setAttribute("aria-label", menuLabel("aria.close_menu"));
     menuOverlay.hidden = false;
     document.body.classList.add("menu-open");
   };
@@ -89,7 +159,7 @@
     mainMenu.classList.remove("is-open");
     menuToggle.classList.remove("is-open");
     menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Mở menu");
+    menuToggle.setAttribute("aria-label", menuLabel("aria.open_menu"));
     menuOverlay.hidden = true;
     document.body.classList.remove("menu-open");
   };
@@ -124,13 +194,28 @@
     });
   }
 
+  window.addEventListener("localechange", () => {
+    if (menuToggle && !mainMenu?.classList.contains("is-open")) {
+      menuToggle.setAttribute("aria-label", menuLabel("aria.open_menu"));
+    }
+    document.querySelectorAll(".mobile-call-bar [data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (key) el.textContent = menuLabel(key);
+    });
+  });
+
   /* Header scroll shadow */
   if (siteHeader) {
     const onScroll = () => {
       siteHeader.classList.toggle("is-scrolled", window.scrollY > 8);
+      siteHeader.classList.toggle("is-compact", window.scrollY > 120);
+      updateScrollProgress();
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+  } else {
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
   }
 
   /* Contact form */
@@ -171,10 +256,10 @@
 
   const buildMessage = (name, phoneValue, need) =>
     [
-      "Yêu cầu tư vấn từ website Minh Tuấn",
-      `Họ tên: ${name}`,
-      `SĐT: ${phoneValue}`,
-      `Nhu cầu: ${need}`,
+      menuLabel("msg.consult_request"),
+      `${menuLabel("msg.name")}: ${name}`,
+      `${menuLabel("msg.phone")}: ${phoneValue}`,
+      `${menuLabel("msg.need")}: ${need}`,
     ].join("\n");
 
   if (contactForm) {
@@ -187,7 +272,7 @@
       const need = contactForm.need.value.trim();
 
       if (!validate(name, phoneValue, need)) {
-        showNote("Vui lòng điền đầy đủ và đúng thông tin bắt buộc.", "error");
+        showNote(menuLabel("msg.form_error"), "error");
         return;
       }
 
@@ -196,13 +281,13 @@
 
       if (channel === "zalo") {
         window.open(`https://zalo.me/${phone}?text=${encoded}`, "_blank", "noopener");
-        showNote("Đã mở Zalo. Vui lòng gửi tin nhắn để hoàn tất.", "success");
+        showNote(menuLabel("msg.zalo_opened"), "success");
         return;
       }
 
-      const subject = encodeURIComponent("Yêu cầu tư vấn - Minh Tuấn");
+      const subject = encodeURIComponent(menuLabel("msg.email_subject"));
       window.location.href = `mailto:${email}?subject=${subject}&body=${encoded}`;
-      showNote("Đã mở ứng dụng Email. Vui lòng nhấn Gửi để hoàn tất.", "success");
+      showNote(menuLabel("msg.email_opened"), "success");
     });
   }
 
@@ -218,7 +303,7 @@
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     revealElements.forEach((el) => observer.observe(el));
   } else {
@@ -330,7 +415,7 @@
     slides.forEach((_, i) => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.setAttribute("aria-label", `Chuyển tới slide ${i + 1}`);
+      btn.setAttribute("aria-label", `${menuLabel("aria.slideshow")} ${i + 1}`);
       if (i === 0) btn.classList.add("is-active");
       btn.addEventListener("click", () => goTo(i));
       dotsWrap.appendChild(btn);

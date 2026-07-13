@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CÔNG TY TNHH XNK TM DV MINH TUẤN</title>
+    <title data-i18n="meta.home.title">CÔNG TY TNHH XNK TM DV MINH TUẤN</title>
     <meta
       name="description"
+      data-i18n="meta.home.description"
       content="Website chính thức CÔNG TY TNHH XNK TM DV MINH TUẤN - Giải pháp Xuất Nhập Khẩu - Thương Mại - Dịch Vụ chuyên nghiệp, hiện đại."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <meta name="theme-color" content="#003da5" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap"
       rel="stylesheet"
     />
     <link rel="preload" href="/logo.png" as="image" />
@@ -19,7 +22,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
-    <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" aria-label="Đang tải trang">
+    <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" data-i18n-aria="aria.loading">
       <div class="page-loader-inner">
         <div class="page-loader-logo-wrap">
           <div class="page-loader-ring-wrap" aria-hidden="true">
@@ -41,7 +44,7 @@
     <div class="site-header" id="siteHeader">
       <div class="topbar">
         <div class="topbar-inner">
-          <div class="topbar-marquee" aria-label="Thông tin liên hệ">
+          <div class="topbar-marquee" data-i18n-aria="aria.contact_info">
             <div class="topbar-track">
               <span class="topbar-chip">Hotline: 0938 961 012</span>
               <span class="topbar-dot" aria-hidden="true">•</span>
@@ -73,7 +76,7 @@
             class="menu-toggle"
             id="menuToggle"
             type="button"
-            aria-label="Mở menu"
+            data-i18n-aria="aria.open_menu"
             aria-expanded="false"
             aria-controls="mainMenu"
           >
@@ -102,7 +105,7 @@
           <div class="slideshow" id="slideshow" aria-roledescription="carousel">
             <div class="slides" id="slides">
               <article class="slide is-active">
-                <img src="/hero-slide-1.png" alt="Giải pháp logistics toàn diện Minh Tuấn" loading="eager" />
+                <img src="/hero-slide-1.png" alt="Giải pháp logistics toàn diện Minh Tuấn" loading="eager" fetchpriority="high" decoding="async" />
               </article>
               <article class="slide">
                 <img
@@ -127,32 +130,29 @@
               </article>
             </div>
 
-            <button class="slide-nav prev" id="slidePrev" type="button" aria-label="Slide trước">
+            <button class="slide-nav prev" id="slidePrev" type="button" data-i18n-aria="aria.slide_prev">
               <span aria-hidden="true">‹</span>
             </button>
-            <button class="slide-nav next" id="slideNext" type="button" aria-label="Slide sau">
+            <button class="slide-nav next" id="slideNext" type="button" data-i18n-aria="aria.slide_next">
               <span aria-hidden="true">›</span>
             </button>
-            <div class="slide-dots" id="slideDots" role="tablist" aria-label="Chỉ số slideshow"></div>
+            <div class="slide-dots" id="slideDots" role="tablist" data-i18n-aria="aria.slideshow"></div>
           </div>
 
           <div class="hero-overlay" aria-hidden="true"></div>
 
           <div class="hero-copy-wrap">
-            <div class="hero-copy">
-              <p class="hero-kicker">Giải pháp vận chuyển và xuất nhập khẩu</p>
-              <h1>Giải pháp XNK – Thương Mại – Dịch Vụ toàn cầu</h1>
-              <p class="hero-sub">Kết nối giao thương trong nước và quốc tế</p>
-              <p class="hero-desc">
+            <div class="hero-copy hero-copy--minimal">
+              <p class="hero-desc" data-i18n="hero.desc">
                 CÔNG TY TNHH XNK TM DV MINH TUẤN đồng hành cùng doanh nghiệp bằng quy
                 trình chuẩn quốc tế, phản hồi nhanh và cam kết hiệu quả vận hành.
               </p>
               <div class="hero-actions">
                 <a class="btn btn-cta" href="#contact">
-                  Nhận tư vấn ngay
+                  <span data-i18n="hero.cta_consult">Nhận tư vấn ngay</span>
                   <span class="arrow" aria-hidden="true">→</span>
                 </a>
-                <a class="btn btn-ghost btn-ghost-light" href="#services">Xem dịch vụ</a>
+                <a class="btn btn-ghost btn-ghost-light" href="#services" data-i18n="hero.cta_services">Xem dịch vụ</a>
               </div>
             </div>
           </div>
@@ -160,39 +160,40 @@
       </section>
 
       <section id="about" class="section about-company">
-        <div class="container about-layout">
-          <figure class="about-image-single reveal">
-            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80" alt="Cảng biển logistics" loading="lazy" />
-          </figure>
+        <div class="container">
+          <p class="about-badge reveal" data-i18n="about.badge">Giới thiệu về Minh Tuấn Logistics</p>
+          <div class="about-layout">
+            <figure class="about-image-single reveal">
+              <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80" alt="Cảng biển logistics" loading="lazy" />
+            </figure>
 
-          <div class="about-copy">
-            <p class="about-badge reveal">VỀ CHÚNG TÔI</p>
-            <h2 class="reveal">Đối tác tin cậy trong lĩnh vực Xuất nhập khẩu & Logistics</h2>
-            <p class="section-text reveal">
+            <div class="about-copy">
+            <h2 class="about-title reveal" data-i18n="about.title">Đối tác tin cậy trong lĩnh vực Xuất nhập khẩu & Logistics</h2>
+            <p class="section-text reveal" data-i18n="about.text">
               Minh Tuấn cung cấp giải pháp XNK và logistics toàn diện cho doanh nghiệp theo định hướng quốc tế.
               Chúng tôi tập trung vào tốc độ xử lý, độ chính xác trong vận hành và khả năng đồng hành dài hạn.
             </p>
             <ul class="about-points">
               <li class="reveal">
                 <span class="point-icon" aria-hidden="true">✓</span>
-                <span>10+ năm kinh nghiệm</span>
+                <span data-i18n="about.point1">10+ năm kinh nghiệm</span>
               </li>
               <li class="reveal">
                 <span class="point-icon" aria-hidden="true">✓</span>
-                <span>Quy trình chuyên nghiệp</span>
+                <span data-i18n="about.point2">Quy trình chuyên nghiệp</span>
               </li>
               <li class="reveal">
                 <span class="point-icon" aria-hidden="true">✓</span>
-                <span>Đội ngũ giàu kinh nghiệm</span>
+                <span data-i18n="about.point3">Đội ngũ giàu kinh nghiệm</span>
               </li>
               <li class="reveal">
                 <span class="point-icon" aria-hidden="true">✓</span>
-                <span>Hỗ trợ 24/7</span>
+                <span data-i18n="about.point4">Hỗ trợ 24/7</span>
               </li>
             </ul>
             <div class="about-actions reveal">
-              <a class="btn btn-cta" href="#services">Tìm hiểu thêm <span class="arrow" aria-hidden="true">→</span></a>
-              <a class="btn btn-ghost" href="#contact">Liên hệ ngay</a>
+              <a class="btn btn-cta" href="#services"><span data-i18n="about.learn_more">Tìm hiểu thêm</span> <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="btn btn-ghost" href="#contact" data-i18n="about.contact_now">Liên hệ ngay</a>
             </div>
           </div>
         </div>
@@ -201,11 +202,11 @@
       <section id="services" class="section services-showcase">
         <div class="container">
           <div class="section-head center-head reveal">
-            <p class="eyebrow">DỊCH VỤ</p>
-            <h2>GIẢI PHÁP TOÀN DIỆN CHO DOANH NGHIỆP</h2>
+            <p class="eyebrow" data-i18n="services.eyebrow">DỊCH VỤ</p>
+            <h2 data-i18n="services.title">GIẢI PHÁP TOÀN DIỆN CHO DOANH NGHIỆP</h2>
           </div>
 
-          <div class="services-grid services-slider-mobile">
+          <div class="services-grid services-slider-mobile reveal-group">
             <article class="service-cover-card reveal">
               <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=80" alt="Xuất nhập khẩu cảng biển" loading="lazy" />
               <div class="service-overlay"></div>
@@ -218,7 +219,7 @@
                     <path d="M12 8.5V5" />
                   </svg>
                 </span>
-                <h3>Xuất nhập khẩu</h3>
+                <h3 data-i18n="services.import_export">Xuất nhập khẩu</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Xuất nhập khẩu">→</a>
               </div>
             </article>
@@ -235,7 +236,7 @@
                     <circle cx="18" cy="17.5" r="1.8" />
                   </svg>
                 </span>
-                <h3>Vận tải nội địa</h3>
+                <h3 data-i18n="services.domestic">Vận tải nội địa</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Vận tải nội địa">→</a>
               </div>
             </article>
@@ -250,7 +251,7 @@
                     <path d="m11.8 15.7 2.1 3.5" />
                   </svg>
                 </span>
-                <h3>Vận chuyển hàng không</h3>
+                <h3 data-i18n="services.air">Vận chuyển hàng không</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Vận chuyển hàng không">→</a>
               </div>
             </article>
@@ -266,7 +267,7 @@
                     <path d="M9 10h.01M12 10h.01M15 10h.01M9 13.5h.01M12 13.5h.01M15 13.5h.01M11 20.5V17h2v3.5" />
                   </svg>
                 </span>
-                <h3>Kho bãi & Logistics</h3>
+                <h3 data-i18n="services.warehouse">Kho bãi & Logistics</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Kho bãi và logistics">→</a>
               </div>
             </article>
@@ -283,7 +284,7 @@
                     <path d="M6 13.2 9.5 16a3.8 3.8 0 0 0 5 0l3.5-2.8" />
                   </svg>
                 </span>
-                <h3>Thương mại</h3>
+                <h3 data-i18n="services.trade">Thương mại</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Thương mại">→</a>
               </div>
             </article>
@@ -300,7 +301,7 @@
                     <path d="M7 19c1 .9 2.4 1.5 4 1.5h2.2" />
                   </svg>
                 </span>
-                <h3>Tư vấn doanh nghiệp</h3>
+                <h3 data-i18n="services.consulting">Tư vấn doanh nghiệp</h3>
                 <a href="#contact" class="service-arrow" aria-label="Xem chi tiết Tư vấn doanh nghiệp">→</a>
               </div>
             </article>
@@ -309,33 +310,41 @@
       </section>
 
       <section class="section why-choose" id="why-choose">
+        <div class="why-choose-bg" aria-hidden="true"></div>
         <div class="container">
-          <div class="section-head center-head reveal">
-            <p class="why-badge">WHY CHOOSE US</p>
-            <h2>Tại sao doanh nghiệp lựa chọn Minh Tuấn?</h2>
-            <p class="section-text">
-              Chúng tôi mang đến giải pháp vận hành đồng bộ, dịch vụ tận tâm và hiệu quả tối ưu cho doanh nghiệp trong từng dự án.
-            </p>
+          <div class="section-head center-head reveal why-choose-head">
+            <h2 data-i18n="why.title">Tại sao doanh nghiệp lựa chọn Minh Tuấn?</h2>
           </div>
 
-          <div class="why-grid">
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+          <div class="why-radial reveal">
+            <div class="why-radial-orbit" aria-hidden="true">
+              <svg class="why-radial-ring" viewBox="0 0 400 400">
+                <circle cx="200" cy="200" r="188" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="7 9" />
+              </svg>
+            </div>
+
+            <div class="why-radial-center">
+              <div class="why-radial-center-inner">
+                <img src="/logo.png" alt="" width="64" height="64" />
+                <strong>MINH TUẤN</strong>
+                <span>Logistics</span>
+                <p data-i18n="why.tagline">Đồng hành xuất nhập khẩu &amp; logistics</p>
+              </div>
+            </div>
+
+            <div class="why-radial-side why-radial-side--left">
+              <div class="why-radial-item why-radial-item--left reveal">
+                <p class="why-radial-label" data-i18n="why.f1.title">Uy tín &amp; Kinh nghiệm</p>
+                <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <path d="M12 3 4 7v5c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V7l-8-4Z" />
                     <path d="m9.5 12 1.8 1.8L14.8 10" />
                   </svg>
                 </span>
               </div>
-              <h3>Uy tín & Kinh nghiệm</h3>
-              <p>Hơn 10 năm đồng hành cùng nhiều doanh nghiệp trong lĩnh vực xuất nhập khẩu và thương mại.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
-
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+              <div class="why-radial-item why-radial-item--left reveal">
+                <p class="why-radial-label" data-i18n="why.f2.title">Giải pháp toàn diện</p>
+                <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" />
                     <path d="M12 12v8" />
@@ -343,14 +352,9 @@
                   </svg>
                 </span>
               </div>
-              <h3>Giải pháp toàn diện</h3>
-              <p>Cung cấp dịch vụ từ tư vấn, khai báo hải quan đến vận chuyển và logistics.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
-
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+              <div class="why-radial-item why-radial-item--left reveal">
+                <p class="why-radial-label" data-i18n="why.f3.title">Giao hàng đúng tiến độ</p>
+                <span class="why-radial-icon why-radial-icon--accent" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <rect x="2.5" y="8" width="12" height="7.5" rx="1.5" />
                     <path d="M14.5 10h4l3 3v2.5h-7Z" />
@@ -359,14 +363,11 @@
                   </svg>
                 </span>
               </div>
-              <h3>Giao hàng đúng tiến độ</h3>
-              <p>Quy trình vận hành chuyên nghiệp giúp tối ưu thời gian và chi phí.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
+            </div>
 
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+            <div class="why-radial-side why-radial-side--right">
+              <div class="why-radial-item why-radial-item--right reveal">
+                <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" />
                     <path d="M3 12h18" />
@@ -374,15 +375,10 @@
                     <path d="M12 3.5a14 14 0 0 0 0 17" />
                   </svg>
                 </span>
+                <p class="why-radial-label" data-i18n="why.f4.title">Mạng lưới đối tác rộng</p>
               </div>
-              <h3>Mạng lưới đối tác rộng</h3>
-              <p>Kết nối với nhiều đối tác trong và ngoài nước, hỗ trợ giao thương hiệu quả.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
-
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+              <div class="why-radial-item why-radial-item--right reveal">
+                <span class="why-radial-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" />
                     <path d="M12 7.5v9" />
@@ -390,15 +386,10 @@
                     <path d="M8.8 14.2h6.4" />
                   </svg>
                 </span>
+                <p class="why-radial-label" data-i18n="why.f5.title">Chi phí tối ưu</p>
               </div>
-              <h3>Chi phí tối ưu</h3>
-              <p>Giải pháp linh hoạt, phù hợp với từng nhu cầu và ngân sách của doanh nghiệp.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
-
-            <article class="why-feature-card reveal">
-              <div class="why-icon-wrap">
-                <span class="why-icon" aria-hidden="true">
+              <div class="why-radial-item why-radial-item--right reveal">
+                <span class="why-radial-icon why-radial-icon--accent" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
                     <path d="M4 12a8 8 0 1 1 16 0" />
                     <rect x="3" y="12" width="4" height="7" rx="1.2" />
@@ -406,11 +397,9 @@
                     <path d="M7 19c1 .9 2.4 1.5 4 1.5h2.2" />
                   </svg>
                 </span>
+                <p class="why-radial-label" data-i18n="why.f6.title">Hỗ trợ 24/7</p>
               </div>
-              <h3>Hỗ trợ 24/7</h3>
-              <p>Đội ngũ tư vấn luôn sẵn sàng đồng hành và xử lý nhanh mọi yêu cầu.</p>
-              <span class="why-arrow" aria-hidden="true">→</span>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -418,8 +407,8 @@
       <section id="process" class="section work-process">
         <div class="container">
           <div class="section-head center-head reveal">
-            <h2>Quy trình làm việc chuyên nghiệp</h2>
-            <p class="section-text">
+            <h2 data-i18n="process.title">Quy trình làm việc chuyên nghiệp</h2>
+            <p class="section-text" data-i18n="process.text">
               Mỗi dự án đều được triển khai theo quy trình rõ ràng, minh bạch và tối ưu nhằm mang đến hiệu quả cao nhất cho khách hàng.
             </p>
           </div>
@@ -427,44 +416,56 @@
           <div class="timeline-grid">
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">01</span>
-              <div class="timeline-icon">📞</div>
-              <h3>Tiếp nhận yêu cầu</h3>
-              <p>Lắng nghe nhu cầu và thông tin từ khách hàng.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6.8 4.5h2.2l1.1 3.8-1.9 1.1a12 12 0 0 0 5.5 5.5l1.1-1.9 3.8 1.1v2.2a1.8 1.8 0 0 1-1.9 1.9C9.9 18.1 5.9 14.1 4.9 8.7a1.8 1.8 0 0 1 1.9-2.2Z"/></svg>
+              </div>
+              <h3 data-i18n="process.s1.title">Tiếp nhận yêu cầu</h3>
+              <p data-i18n="process.s1.text">Lắng nghe nhu cầu và thông tin từ khách hàng.</p>
             </article>
 
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">02</span>
-              <div class="timeline-icon">💬</div>
-              <h3>Tư vấn giải pháp</h3>
-              <p>Đề xuất phương án phù hợp với từng loại hàng hóa và thị trường.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3C7 3 3 6.6 3 11c0 2.5 1.2 4.7 3.1 6.2L5 21l3.4-1.8c1.1.3 2.3.5 3.6.5 5 0 9-3.6 9-8.1S17 3 12 3Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg>
+              </div>
+              <h3 data-i18n="process.s2.title">Tư vấn giải pháp</h3>
+              <p data-i18n="process.s2.text">Đề xuất phương án phù hợp với từng loại hàng hóa và thị trường.</p>
             </article>
 
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">03</span>
-              <div class="timeline-icon">📑</div>
-              <h3>Báo giá</h3>
-              <p>Lập báo giá minh bạch, rõ ràng và tối ưu chi phí.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 4h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-4 3v-3H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
+              </div>
+              <h3 data-i18n="process.s3.title">Báo giá</h3>
+              <p data-i18n="process.s3.text">Lập báo giá minh bạch, rõ ràng và tối ưu chi phí.</p>
             </article>
 
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">04</span>
-              <div class="timeline-icon">🤝</div>
-              <h3>Ký kết hợp đồng</h3>
-              <p>Thống nhất phương án triển khai và cam kết tiến độ.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 10 5 7.5 2.5 10l3 2.5L8 10Z"/><path d="M16 10 19 7.5 21.5 10l-3 2.5L16 10Z"/><path d="m8 10 2.4 2.2a2.3 2.3 0 0 0 3.2 0L16 10"/><path d="M6 13.2 9.5 16a3.8 3.8 0 0 0 5 0l3.5-2.8"/></svg>
+              </div>
+              <h3 data-i18n="process.s4.title">Ký kết hợp đồng</h3>
+              <p data-i18n="process.s4.text">Thống nhất phương án triển khai và cam kết tiến độ.</p>
             </article>
 
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">05</span>
-              <div class="timeline-icon">🚢</div>
-              <h3>Triển khai dịch vụ</h3>
-              <p>Thực hiện vận chuyển, khai báo hải quan và các dịch vụ liên quan.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 16.5 12 21l9-4.5"/><path d="M3 12h18l-2 4.5H5L3 12Z"/><path d="M8 12V8.5h8V12"/><path d="M12 8.5V5"/></svg>
+              </div>
+              <h3 data-i18n="process.s5.title">Triển khai dịch vụ</h3>
+              <p data-i18n="process.s5.text">Thực hiện vận chuyển, khai báo hải quan và các dịch vụ liên quan.</p>
             </article>
 
             <article class="timeline-step reveal">
               <span class="timeline-index" aria-hidden="true">06</span>
-              <div class="timeline-icon">✅</div>
-              <h3>Bàn giao & Hỗ trợ</h3>
-              <p>Hoàn tất dự án, bàn giao hồ sơ và tiếp tục hỗ trợ sau dịch vụ.</p>
+              <div class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m9.5 12 1.8 1.8L14.8 10"/><circle cx="12" cy="12" r="8.5"/></svg>
+              </div>
+              <h3 data-i18n="process.s6.title">Bàn giao & Hỗ trợ</h3>
+              <p data-i18n="process.s6.text">Hoàn tất dự án, bàn giao hồ sơ và tiếp tục hỗ trợ sau dịch vụ.</p>
             </article>
           </div>
         </div>
@@ -472,34 +473,34 @@
 
       <section class="section stats-band">
         <div class="container">
-          <h2 class="stats-title">Những con số tạo nên sự tin tưởng</h2>
+          <h2 class="stats-title" data-i18n="stats.title">Những con số tạo nên sự tin tưởng</h2>
           <div class="stats-grid">
             <article class="stat-item">
               <strong data-count="15" data-suffix="+">0</strong>
-              <span>Năm kinh nghiệm</span>
+              <span data-i18n="stats.years">Năm kinh nghiệm</span>
             </article>
             <article class="stat-item">
               <strong data-count="1500" data-suffix="+" data-format="dot">0</strong>
-              <span>Doanh nghiệp hợp tác</span>
+              <span data-i18n="stats.clients">Doanh nghiệp hợp tác</span>
             </article>
             <article class="stat-item">
               <strong data-count="5000" data-suffix="+" data-format="dot">0</strong>
-              <span>Lô hàng hoàn tất</span>
+              <span data-i18n="stats.shipments">Lô hàng hoàn tất</span>
             </article>
             <article class="stat-item">
               <strong data-count="100" data-suffix="+">0</strong>
-              <span>Đối tác quốc tế</span>
+              <span data-i18n="stats.partners">Đối tác quốc tế</span>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section testimonials" id="testimonials">
+      <section class="section testimonials section-lazy" id="testimonials">
         <div class="testimonial-decor" aria-hidden="true"></div>
         <div class="container">
           <div class="section-head center-head reveal">
-            <h2>Khách hàng nói gì về Minh Tuấn</h2>
-            <p class="section-text">
+            <h2 data-i18n="testimonials.title">Khách hàng nói gì về Minh Tuấn</h2>
+            <p class="section-text" data-i18n="testimonials.text">
               Sự tin tưởng và hài lòng của khách hàng là minh chứng rõ nhất cho chất lượng dịch vụ mà Minh Tuấn luôn hướng đến.
             </p>
           </div>
@@ -511,12 +512,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Nguyễn Minh Đức</strong>
-                    <span>Giám đốc · Công ty ABC Logistics</span>
+                    <strong data-i18n="testimonials.t1.name">Nguyễn Minh Đức</strong>
+                    <span data-i18n="testimonials.t1.role">Giám đốc · Công ty ABC Logistics</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Minh Tuấn hỗ trợ rất chuyên nghiệp, quy trình rõ ràng và luôn chủ động cập nhật tiến độ. Chúng tôi yên tâm khi giao các lô hàng quan trọng.</p>
+                <p data-i18n="testimonials.t1.text">Minh Tuấn hỗ trợ rất chuyên nghiệp, quy trình rõ ràng và luôn chủ động cập nhật tiến độ. Chúng tôi yên tâm khi giao các lô hàng quan trọng.</p>
               </article>
 
               <article class="testimonial-card">
@@ -524,12 +525,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Trần Thu Hà</strong>
-                    <span>Founder · Sunrise Trading</span>
+                    <strong data-i18n="testimonials.t2.name">Trần Thu Hà</strong>
+                    <span data-i18n="testimonials.t2.role">Founder · Sunrise Trading</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Từ tư vấn đến triển khai đều nhanh và minh bạch. Chi phí hợp lý, đội ngũ nhiệt tình, giải quyết phát sinh rất kịp thời.</p>
+                <p data-i18n="testimonials.t2.text">Từ tư vấn đến triển khai đều nhanh và minh bạch. Chi phí hợp lý, đội ngũ nhiệt tình, giải quyết phát sinh rất kịp thời.</p>
               </article>
 
               <article class="testimonial-card">
@@ -537,12 +538,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Lê Quốc Bảo</strong>
-                    <span>Trưởng phòng XNK · Hòa Phát Trade</span>
+                    <strong data-i18n="testimonials.t3.name">Lê Quốc Bảo</strong>
+                    <span data-i18n="testimonials.t3.role">Trưởng phòng XNK · Hòa Phát Trade</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Dịch vụ logistics đồng bộ, giao hàng đúng tiến độ. Hồ sơ hải quan được chuẩn bị bài bản và chính xác.</p>
+                <p data-i18n="testimonials.t3.text">Dịch vụ logistics đồng bộ, giao hàng đúng tiến độ. Hồ sơ hải quan được chuẩn bị bài bản và chính xác.</p>
               </article>
 
               <article class="testimonial-card">
@@ -550,12 +551,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Phạm Ngọc Anh</strong>
-                    <span>CEO · Sunrise Import</span>
+                    <strong data-i18n="testimonials.t4.name">Phạm Ngọc Anh</strong>
+                    <span data-i18n="testimonials.t4.role">CEO · Sunrise Import</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Đối tác đáng tin cậy. Luôn tư vấn giải pháp tối ưu theo từng loại hàng và thị trường, giúp tiết kiệm chi phí rõ rệt.</p>
+                <p data-i18n="testimonials.t4.text">Đối tác đáng tin cậy. Luôn tư vấn giải pháp tối ưu theo từng loại hàng và thị trường, giúp tiết kiệm chi phí rõ rệt.</p>
               </article>
 
               <article class="testimonial-card">
@@ -563,12 +564,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Hoàng Văn Nam</strong>
-                    <span>Giám đốc vận hành · Mekong Supply</span>
+                    <strong data-i18n="testimonials.t5.name">Hoàng Văn Nam</strong>
+                    <span data-i18n="testimonials.t5.role">Giám đốc vận hành · Mekong Supply</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Hỗ trợ 24/7 rất hữu ích. Mọi yêu cầu đều được phản hồi nhanh, vận hành chuyên nghiệp và đúng cam kết.</p>
+                <p data-i18n="testimonials.t5.text">Hỗ trợ 24/7 rất hữu ích. Mọi yêu cầu đều được phản hồi nhanh, vận hành chuyên nghiệp và đúng cam kết.</p>
               </article>
 
               <article class="testimonial-card">
@@ -576,12 +577,12 @@
                 <div class="testimonial-user">
                   <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="Avatar khách hàng" loading="lazy" />
                   <div>
-                    <strong>Vũ Mai Phương</strong>
-                    <span>Quản lý mua hàng · Delta Commerce</span>
+                    <strong data-i18n="testimonials.t6.name">Vũ Mai Phương</strong>
+                    <span data-i18n="testimonials.t6.role">Quản lý mua hàng · Delta Commerce</span>
                   </div>
                 </div>
                 <div class="stars" aria-label="5 sao">★★★★★</div>
-                <p>Đánh giá cao sự chủ động và trách nhiệm của đội ngũ. Dịch vụ toàn diện từ tư vấn đến bàn giao.</p>
+                <p data-i18n="testimonials.t6.text">Đánh giá cao sự chủ động và trách nhiệm của đội ngũ. Dịch vụ toàn diện từ tư vấn đến bàn giao.</p>
               </article>
             </div>
             <div class="testimonial-dots" id="testimonialDots"></div>
@@ -589,61 +590,113 @@
         </div>
       </section>
 
-      <section id="news" class="section news-section">
+      <section id="news" class="section news-section section-lazy">
         <div class="container">
-          <div class="section-head center-head reveal">
-            <p class="why-badge">TIN TỨC MỚI</p>
-            <h2>Cập nhật tin tức & kiến thức xuất nhập khẩu</h2>
-            <p class="section-text">
-              Theo dõi các xu hướng thị trường, quy định mới và kinh nghiệm thực tế trong lĩnh vực xuất nhập khẩu, logistics và thương mại.
-            </p>
+          <div class="news-head reveal">
+            <h2 data-i18n="news.title">Tin tức mới nhất</h2>
+            <a href="tin-tuc.html" class="news-view-all" data-i18n="news.view_all">Xem tất cả</a>
           </div>
 
-          <div class="news-grid">
-            <article class="news-card reveal">
-              <div class="news-thumb">
-                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80" alt="Quy trình xuất nhập khẩu" loading="lazy" />
-              </div>
-              <div class="news-body">
-                <div class="news-meta"><span>12/03/2026</span><span>XNK</span></div>
-                <h3>Quy trình xuất nhập khẩu hàng hóa năm 2026</h3>
-                <p>Tổng hợp các bước cần nắm để tối ưu thời gian thông quan và giảm rủi ro vận hành.</p>
-                <a class="news-link" href="#news">Đọc tiếp <span>→</span></a>
-              </div>
+          <div class="news-layout reveal">
+            <article class="news-featured">
+              <a href="tin-tuc.html" class="news-featured-link">
+                <img
+                  src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80"
+                  alt="Quy trình xuất nhập khẩu"
+                  loading="lazy"
+                />
+                <div class="news-featured-overlay">
+                  <time class="news-date news-date--light" datetime="2026-03-12">
+                    <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
+                      <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+                      <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
+                    </svg>
+                    12/03/2026
+                  </time>
+                  <h3 data-i18n="news.n1.title">Quy trình xuất nhập khẩu hàng hóa năm 2026</h3>
+                </div>
+              </a>
             </article>
 
-            <article class="news-card reveal">
-              <div class="news-thumb">
-                <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80" alt="Khai báo hải quan" loading="lazy" />
-              </div>
-              <div class="news-body">
-                <div class="news-meta"><span>05/03/2026</span><span>Hải quan</span></div>
-                <h3>Những lưu ý khi khai báo hải quan</h3>
-                <p>Các điểm doanh nghiệp thường gặp lỗi và cách chuẩn bị hồ sơ chính xác hơn.</p>
-                <a class="news-link" href="#news">Đọc tiếp <span>→</span></a>
-              </div>
-            </article>
+            <div class="news-feed">
+              <article class="news-feed-item">
+                <span class="news-feed-dot" aria-hidden="true"></span>
+                <a href="tin-tuc.html" class="news-feed-link">
+                  <div class="news-feed-thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=400&q=80"
+                      alt="Khai báo hải quan"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="news-feed-body">
+                    <time class="news-date" datetime="2026-03-05">
+                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
+                      </svg>
+                      05/03/2026
+                    </time>
+                    <h3 data-i18n="news.n2.title">Những lưu ý khi khai báo hải quan</h3>
+                  </div>
+                </a>
+              </article>
 
-            <article class="news-card reveal">
-              <div class="news-thumb">
-                <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80" alt="Chi phí logistics" loading="lazy" />
-              </div>
-              <div class="news-body">
-                <div class="news-meta"><span>28/02/2026</span><span>Logistics</span></div>
-                <h3>Giải pháp tối ưu chi phí logistics</h3>
-                <p>Các phương án vận hành giúp doanh nghiệp kiểm soát chi phí hiệu quả hơn.</p>
-                <a class="news-link" href="#news">Đọc tiếp <span>→</span></a>
-              </div>
-            </article>
+              <article class="news-feed-item">
+                <span class="news-feed-dot" aria-hidden="true"></span>
+                <a href="tin-tuc.html" class="news-feed-link">
+                  <div class="news-feed-thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"
+                      alt="Chi phí logistics"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="news-feed-body">
+                    <time class="news-date" datetime="2026-02-28">
+                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
+                      </svg>
+                      28/02/2026
+                    </time>
+                    <h3 data-i18n="news.n3.title">Giải pháp tối ưu chi phí logistics</h3>
+                  </div>
+                </a>
+              </article>
+
+              <article class="news-feed-item">
+                <span class="news-feed-dot" aria-hidden="true"></span>
+                <a href="tin-tuc.html" class="news-feed-link">
+                  <div class="news-feed-thumb">
+                    <img
+                      src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=400&q=80"
+                      alt="Xu hướng logistics"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="news-feed-body">
+                    <time class="news-date" datetime="2026-02-20">
+                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
+                      </svg>
+                      20/02/2026
+                    </time>
+                    <h3 data-i18n="news.n4.title">Xu hướng logistics quốc tế 2026</h3>
+                  </div>
+                </a>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section connect-hub" id="connect">
+      <section class="section connect-hub section-lazy" id="connect">
         <div class="container">
           <div class="section-head center-head reveal">
-            <h2>Sẵn sàng hợp tác cùng Minh Tuấn?</h2>
-            <p class="section-text">
+            <h2 data-i18n="connect.title">Sẵn sàng hợp tác cùng Minh Tuấn?</h2>
+            <p class="section-text" data-i18n="connect.text">
               Kết nối nhanh qua các kênh chính thức để được tư vấn giải pháp xuất nhập khẩu, thương mại và logistics phù hợp.
             </p>
           </div>
@@ -652,9 +705,9 @@
             <div class="connect-banner reveal">
               <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80" alt="Giải pháp logistics Minh Tuấn" loading="lazy" />
               <div class="connect-banner-overlay">
-                <h3>Giải pháp Logistics toàn diện</h3>
-                <p>Xuất nhập khẩu • Thương mại • Dịch vụ</p>
-                <a class="btn btn-cta" href="#contactForm">Liên hệ ngay <span class="arrow" aria-hidden="true">→</span></a>
+                <h3 data-i18n="connect.banner.title">Giải pháp Logistics toàn diện</h3>
+                <p data-i18n="connect.banner.sub">Xuất nhập khẩu • Thương mại • Dịch vụ</p>
+                <a class="btn btn-cta" href="#contactForm"><span data-i18n="about.contact_now">Liên hệ ngay</span> <span class="arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
 
@@ -664,8 +717,8 @@
                   <svg viewBox="0 0 24 24"><path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v7h3v-7h2.7l.3-3H12V10c0-.6.4-1 1-1Z" fill="currentColor" stroke="none"/></svg>
                 </span>
                 <span class="connect-info">
-                  <strong>Fanpage Facebook</strong>
-                  <small>Theo dõi để cập nhật tin tức và dịch vụ mới</small>
+                  <strong data-i18n="connect.facebook.title">Fanpage Facebook</strong>
+                  <small data-i18n="connect.facebook.sub">Theo dõi để cập nhật tin tức và dịch vụ mới</small>
                 </span>
                 <span class="connect-arrow" aria-hidden="true">›</span>
               </a>
@@ -675,8 +728,8 @@
                   <svg viewBox="0 0 24 24"><path d="M12 3C7 3 3 6.6 3 11c0 2.5 1.2 4.7 3.1 6.2L5 21l3.4-1.8c1.1.3 2.3.5 3.6.5 5 0 9-3.6 9-8.1S17 3 12 3Z" fill="none"/><path d="M8.5 10.5h7M8.5 13.5h4.5" /></svg>
                 </span>
                 <span class="connect-info">
-                  <strong>Chat Zalo</strong>
-                  <small>Nhắn tin trực tiếp để được hỗ trợ nhanh</small>
+                  <strong data-i18n="connect.zalo.title">Chat Zalo</strong>
+                  <small data-i18n="connect.zalo.sub">Nhắn tin trực tiếp để được hỗ trợ nhanh</small>
                 </span>
                 <span class="connect-arrow" aria-hidden="true">›</span>
               </a>
@@ -686,8 +739,8 @@
                   <svg viewBox="0 0 24 24"><path d="M6.5 4.8c.4-1 1.6-1.3 2.4-.5l1.6 1.6c.7.7.8 1.8.2 2.6l-1 1.3c1.2 2.1 3.1 4 5.2 5.2l1.3-1c.8-.6 1.9-.5 2.6.2l1.6 1.6c.8.8.5 2-.5 2.4-1.3.5-2.7.7-4.1.4-3.5-.8-6.7-3.1-9.1-6.4-.8-1.1-1.2-2.4-1-3.8Z"/></svg>
                 </span>
                 <span class="connect-info">
-                  <strong>Hotline 0938 961 012</strong>
-                  <small>Gọi ngay để được tư vấn miễn phí</small>
+                  <strong data-i18n="connect.hotline.title">Hotline 0938 961 012</strong>
+                  <small data-i18n="connect.hotline.sub">Gọi ngay để được tư vấn miễn phí</small>
                 </span>
                 <span class="connect-arrow" aria-hidden="true">›</span>
               </a>
@@ -697,7 +750,7 @@
                   <svg viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z"/><circle cx="12" cy="11" r="2.2"/></svg>
                 </span>
                 <span class="connect-info">
-                  <strong>Google Maps</strong>
+                  <strong data-i18n="connect.maps.title">Google Maps</strong>
                   <small>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</small>
                 </span>
                 <span class="connect-arrow" aria-hidden="true">›</span>
@@ -708,7 +761,7 @@
                   <svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
                 </span>
                 <span class="connect-info">
-                  <strong>Email & Website</strong>
+                  <strong data-i18n="connect.email.title">Email & Website</strong>
                   <small>contact@minhtuan.vn • www.minhtuan.com</small>
                 </span>
                 <span class="connect-arrow" aria-hidden="true">›</span>
@@ -718,18 +771,18 @@
         </div>
       </section>
 
-      <section class="section hero-cta" id="contact">
+      <section class="section hero-cta section-lazy" id="contact">
         <div class="hero-cta-bg" aria-hidden="true"></div>
         <div class="container hero-cta-grid">
           <div class="hero-cta-copy reveal">
-            <p class="cta-badge">SẴN SÀNG HỢP TÁC</p>
-            <h2>Sẵn sàng đồng hành cùng Minh Tuấn?</h2>
-            <p>
+            <p class="cta-badge" data-i18n="cta.badge">SẴN SÀNG HỢP TÁC</p>
+            <h2 data-i18n="cta.title">Sẵn sàng đồng hành cùng Minh Tuấn?</h2>
+            <p data-i18n="cta.text">
               Hãy để chúng tôi mang đến giải pháp xuất nhập khẩu, thương mại và logistics tối ưu, giúp doanh nghiệp của bạn phát triển bền vững.
             </p>
             <div class="hero-cta-actions">
-              <a class="btn btn-cta-light" href="tel:0938961012">Liên hệ ngay</a>
-              <a class="btn btn-white" href="#contactForm">Nhận tư vấn miễn phí</a>
+              <a class="btn btn-cta-light" href="tel:0938961012" data-i18n="cta.contact">Liên hệ ngay</a>
+              <a class="btn btn-white" href="#contactForm" data-i18n="cta.free_consult">Nhận tư vấn miễn phí</a>
             </div>
           </div>
 
@@ -741,26 +794,26 @@
         <div class="container contact-form-wrap reveal">
           <form class="contact-form cta-form" id="contactForm" novalidate>
             <div class="form-head">
-              <h3>Gửi yêu cầu tư vấn</h3>
-              <p>Đội ngũ Minh Tuấn sẽ phản hồi sớm nhất có thể.</p>
+              <h3 data-i18n="form.title">Gửi yêu cầu tư vấn</h3>
+              <p data-i18n="form.subtitle">Đội ngũ Minh Tuấn sẽ phản hồi sớm nhất có thể.</p>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="name">Họ và tên *</label>
-                <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" required />
+                <label for="name" data-i18n="form.name">Họ và tên *</label>
+                <input id="name" name="name" type="text" data-i18n-placeholder="form.name_placeholder" placeholder="Nguyễn Văn A" required />
               </div>
               <div class="form-group">
-                <label for="phone">Số điện thoại *</label>
-                <input id="phone" name="phone" type="tel" placeholder="09xx xxx xxx" required />
+                <label for="phone" data-i18n="form.phone">Số điện thoại *</label>
+                <input id="phone" name="phone" type="tel" data-i18n-placeholder="form.phone_placeholder" placeholder="09xx xxx xxx" required />
               </div>
             </div>
             <div class="form-group">
-              <label for="need">Nhu cầu tư vấn *</label>
-              <textarea id="need" name="need" rows="3" placeholder="Mô tả ngắn nhu cầu của bạn..." required></textarea>
+              <label for="need" data-i18n="form.need">Nhu cầu tư vấn *</label>
+              <textarea id="need" name="need" rows="3" data-i18n-placeholder="form.need_placeholder" placeholder="Mô tả ngắn nhu cầu của bạn..." required></textarea>
             </div>
             <div class="form-actions">
-              <button class="btn btn-cta" type="submit" data-channel="email">Gửi qua Email</button>
-              <button class="btn btn-white" type="submit" data-channel="zalo">Gửi qua Zalo</button>
+              <button class="btn btn-cta" type="submit" data-channel="email" data-i18n="form.submit_email">Gửi qua Email</button>
+              <button class="btn btn-white" type="submit" data-channel="zalo" data-i18n="form.submit_zalo">Gửi qua Zalo</button>
             </div>
             <p class="form-note" id="formNote" hidden></p>
           </form>
@@ -771,13 +824,13 @@
     <footer class="footer">
       <div class="container footer-grid">
         <div class="footer-col footer-col-contact">
-          <h4>Thông tin liên hệ</h4>
+          <h4 data-i18n="footer.contact_title">Thông tin liên hệ</h4>
           <ul class="footer-contact">
-            <li><strong>📞 Hotline</strong><span>0938 961 012</span></li>
-            <li><strong>📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
-            <li><strong>✉ Email</strong><span>info@minhtuan.com</span></li>
-            <li><strong>🌐 Website</strong><span>www.minhtuan.com</span></li>
-            <li><strong>🕘 Giờ làm việc</strong><span>Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
+            <li><strong data-i18n="footer.hotline">📞 Hotline</strong><span>0938 961 012</span></li>
+            <li><strong data-i18n="footer.address">📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
+            <li><strong data-i18n="footer.email">✉ Email</strong><span>info@minhtuan.com</span></li>
+            <li><strong data-i18n="footer.website">🌐 Website</strong><span>www.minhtuan.com</span></li>
+            <li><strong data-i18n="footer.hours">🕘 Giờ làm việc</strong><span data-i18n="footer.hours_value">Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
           </ul>
         </div>
 
@@ -785,10 +838,10 @@
           <div class="footer-brand">
             <img class="logo-image footer-logo-image" src="/logo.png" alt="Logo Minh Tuấn" />
             <div>
-              <h3>CÔNG TY TNHH XNK TM DV MINH TUẤN</h3>
+              <h3 data-i18n="footer.company">CÔNG TY TNHH XNK TM DV MINH TUẤN</h3>
             </div>
           </div>
-          <p class="footer-desc">
+          <p class="footer-desc" data-i18n="footer.desc">
             Đối tác tin cậy trong lĩnh vực xuất nhập khẩu, thương mại và dịch vụ với giải pháp toàn diện, chuyên nghiệp và hiệu quả.
           </p>
           <div class="footer-social">
@@ -800,36 +853,38 @@
         </div>
 
         <div class="footer-col footer-col-services">
-          <h4>Dịch vụ</h4>
+          <h4 data-i18n="footer.services">Dịch vụ</h4>
           <ul>
-            <li><a href="dich-vu.html#xnk">Xuất nhập khẩu</a></li>
-            <li><a href="dich-vu.html#thuong-mai">Thương mại</a></li>
-            <li><a href="dich-vu.html#logistics">Logistics</a></li>
-            <li><a href="dich-vu.html#kho-van">Kho vận</a></li>
-            <li><a href="dich-vu.html#hai-quan">Khai báo hải quan</a></li>
-            <li><a href="dich-vu.html#tu-van">Tư vấn doanh nghiệp</a></li>
+            <li><a href="dich-vu.html#xnk" data-i18n="services.import_export">Xuất nhập khẩu</a></li>
+            <li><a href="dich-vu.html#van-tai-noi-dia" data-i18n="services.domestic">Vận tải nội địa</a></li>
+            <li><a href="dich-vu.html#hang-khong" data-i18n="services.air">Vận chuyển hàng không</a></li>
+            <li><a href="dich-vu.html#kho-bai" data-i18n="services.warehouse">Kho bãi & Logistics</a></li>
+            <li><a href="dich-vu.html#thuong-mai" data-i18n="services.trade">Thương mại</a></li>
+            <li><a href="dich-vu.html#tu-van" data-i18n="services.consulting">Tư vấn doanh nghiệp</a></li>
           </ul>
         </div>
       </div>
 
       <div class="container footer-bottom">
-        <p>© 2026 CÔNG TY TNHH XNK TM DV MINH TUẤN. All Rights Reserved.</p>
+        <p data-i18n="footer.copyright">© 2026 CÔNG TY TNHH XNK TM DV MINH TUẤN. All Rights Reserved.</p>
         <div class="footer-links">
-          <a href="#">Chính sách bảo mật</a>
-          <a href="#">Điều khoản sử dụng</a>
-          <a href="#">Sitemap</a>
+          <a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a>
+          <a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a>
+          <a href="#" data-i18n="footer.sitemap">Sitemap</a>
         </div>
       </div>
     </footer>
 
     <div class="floating-contact">
-      <a class="float-btn call" href="tel:0938961012" aria-label="Gọi điện" title="Hotline">☎</a>
-      <a class="float-btn zalo" href="https://zalo.me/0938961012" target="_blank" rel="noopener" aria-label="Chat Zalo" title="Zalo">💬</a>
-      <a class="float-btn messenger" href="https://m.me/" target="_blank" rel="noopener" aria-label="Messenger" title="Messenger">💙</a>
-      <a class="float-btn chat" href="#contact" aria-label="Live Chat" title="Live Chat">💬</a>
-      <button class="float-btn top" id="backToTop" type="button" aria-label="Back to top" title="Lên đầu trang">⬆</button>
+      <a class="float-btn call" href="tel:0938961012" data-i18n-aria="aria.call" data-i18n-title="aria.call" title="Hotline">☎</a>
+      <a class="float-btn zalo" href="https://zalo.me/0938961012" target="_blank" rel="noopener" data-i18n-aria="aria.zalo" data-i18n-title="aria.zalo" title="Zalo">💬</a>
+      <a class="float-btn messenger" href="https://m.me/" target="_blank" rel="noopener" data-i18n-aria="aria.messenger" title="Messenger">💙</a>
+      <a class="float-btn chat" href="#contact" data-i18n-aria="aria.live_chat" title="Live Chat">💬</a>
+      <button class="float-btn top" id="backToTop" type="button" data-i18n-aria="aria.back_top" data-i18n-title="aria.back_top" title="Lên đầu trang">⬆</button>
     </div>
 
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
     <script src="nav.js"></script>
     <script src="script.js"></script>
   </body>

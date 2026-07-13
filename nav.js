@@ -5,66 +5,71 @@
   const currentPage = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
 
   const items = [
-    { label: "Trang chủ", href: "index.html" },
+    { labelKey: "nav.home", href: "index.html" },
     {
-      label: "Giới thiệu",
+      labelKey: "nav.about",
       href: "gioi-thieu.html",
       children: [
-        { label: "Về chúng tôi", href: "gioi-thieu.html" },
-        { label: "Tầm nhìn & Sứ mệnh", href: "gioi-thieu.html#tam-nhin" },
-        { label: "Giá trị cốt lõi", href: "gioi-thieu.html#gia-tri" },
+        { labelKey: "nav.about_us", href: "gioi-thieu.html" },
+        { labelKey: "nav.vision", href: "gioi-thieu.html#tam-nhin" },
+        { labelKey: "nav.values", href: "gioi-thieu.html#gia-tri" },
       ],
     },
     {
-      label: "Dịch vụ",
+      labelKey: "nav.services",
       href: "dich-vu.html",
       children: [
-        { label: "Xuất nhập khẩu", href: "dich-vu.html#xnk" },
-        { label: "Vận tải & Logistics", href: "dich-vu.html#logistics" },
-        { label: "Thương mại", href: "dich-vu.html#thuong-mai" },
-        { label: "Tư vấn doanh nghiệp", href: "dich-vu.html#tu-van" },
+        { labelKey: "services.import_export", href: "dich-vu.html#xnk" },
+        { labelKey: "services.domestic", href: "dich-vu.html#van-tai-noi-dia" },
+        { labelKey: "services.air", href: "dich-vu.html#hang-khong" },
+        { labelKey: "services.warehouse", href: "dich-vu.html#kho-bai" },
+        { labelKey: "services.trade", href: "dich-vu.html#thuong-mai" },
+        { labelKey: "services.consulting", href: "dich-vu.html#tu-van" },
       ],
     },
     {
-      label: "Dự án",
+      labelKey: "nav.projects",
       href: "du-an.html",
       children: [
-        { label: "Dự án tiêu biểu", href: "du-an.html" },
-        { label: "Khách hàng đối tác", href: "du-an.html#khach-hang" },
+        { labelKey: "nav.featured_projects", href: "du-an.html" },
+        { labelKey: "nav.partners", href: "du-an.html#khach-hang" },
       ],
     },
     {
-      label: "Tin tức",
+      labelKey: "nav.news",
       href: "tin-tuc.html",
       children: [
-        { label: "Tin tức & Sự kiện", href: "tin-tuc.html" },
-        { label: "Kiến thức logistics", href: "tin-tuc.html#kien-thuc" },
+        { labelKey: "nav.news_events", href: "tin-tuc.html" },
+        { labelKey: "nav.knowledge", href: "tin-tuc.html#kien-thuc" },
       ],
     },
     {
-      label: "Hình ảnh",
+      labelKey: "nav.gallery",
       href: "hinh-anh.html",
       children: [
-        { label: "Thư viện ảnh", href: "hinh-anh.html" },
-        { label: "Video hoạt động", href: "hinh-anh.html#video" },
+        { labelKey: "nav.photo_gallery", href: "hinh-anh.html" },
+        { labelKey: "nav.videos", href: "hinh-anh.html#video" },
       ],
     },
     {
-      label: "Liên hệ",
+      labelKey: "nav.contact",
       href: "lien-he.html",
       children: [
-        { label: "Thông tin liên hệ", href: "lien-he.html" },
-        { label: "Gửi yêu cầu tư vấn", href: "lien-he.html#tu-van" },
+        { labelKey: "nav.contact_info", href: "lien-he.html" },
+        { labelKey: "nav.contact_form", href: "lien-he.html#tu-van" },
       ],
     },
   ];
+
+  const label = (key) => (window.I18N ? window.I18N.t(key) : key);
 
   const isActive = (href) => {
     const page = href.split("#")[0] || "index.html";
     return page.toLowerCase() === currentPage;
   };
 
-  const hotlineCta = `
+  const buildMenu = () => {
+    const hotlineCta = `
     <li class="menu-cta">
       <a class="btn btn-hotline" href="tel:0938961012">
         <span class="hotline-ico" aria-hidden="true">
@@ -74,27 +79,31 @@
       </a>
     </li>`;
 
-  menu.innerHTML =
-    items
-      .map((item) => {
-        if (!item.children) {
-          return `<li><a href="${item.href}"${isActive(item.href) ? ' class="is-active"' : ""}>${item.label}</a></li>`;
-        }
-        const openClass = isActive(item.href) ? " is-open" : "";
-        const activeClass = isActive(item.href) ? " is-active" : "";
-        const childLinks = item.children
-          .map((child) => `<li><a href="${child.href}">${child.label}</a></li>`)
-          .join("");
-        return `
+    menu.innerHTML =
+      items
+        .map((item) => {
+          const itemLabel = label(item.labelKey);
+          if (!item.children) {
+            return `<li><a href="${item.href}"${isActive(item.href) ? ' class="is-active"' : ""}>${itemLabel}</a></li>`;
+          }
+          const openClass = isActive(item.href) ? " is-open" : "";
+          const activeClass = isActive(item.href) ? " is-active" : "";
+          const childLinks = item.children
+            .map((child) => `<li><a href="${child.href}">${label(child.labelKey)}</a></li>`)
+            .join("");
+          return `
           <li class="has-dropdown${openClass}">
             <a href="${item.href}" class="nav-parent${activeClass}">
-              ${item.label}
+              ${itemLabel}
               <span class="nav-caret" aria-hidden="true">▾</span>
             </a>
             <ul class="dropdown">${childLinks}</ul>
           </li>`;
-      })
-      .join("") + hotlineCta;
+        })
+        .join("") + hotlineCta;
+  };
 
+  buildMenu();
   menu.removeAttribute("data-nav-build");
+  window.addEventListener("localechange", buildMenu);
 })();
