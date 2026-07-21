@@ -18,25 +18,20 @@
       rel="stylesheet"
     />
     <link rel="preload" href="/logo.png" as="image" />
+    <link rel="preload" href="/logo-plane.png" as="image" />
     <link rel="preload" href="/hero-slide-1.png" as="image" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
     <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" data-i18n-aria="aria.loading">
+      <div class="page-loader-flight" aria-hidden="true">
+        <img class="page-loader-plane" src="/logo-plane.png" alt="" />
+        <span class="page-loader-plane-trail"></span>
+      </div>
       <div class="page-loader-inner">
         <div class="page-loader-logo-wrap">
-          <div class="page-loader-ring-wrap" aria-hidden="true">
-            <svg class="page-loader-ring" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(0, 61, 165, 0.18)" stroke-width="5" />
-              <circle class="page-loader-ring-arc" cx="60" cy="60" r="52" fill="none" stroke="#003da5" stroke-width="5" stroke-linecap="round" />
-            </svg>
-          </div>
           <img class="page-loader-logo" src="/logo.png" alt="Logo Minh Tuấn" />
         </div>
-        <p class="page-loader-brand">
-          <strong>MINH TUẤN</strong>
-          <small>Logistics</small>
-        </p>
         <div class="page-loader-bar" aria-hidden="true"><span></span></div>
       </div>
     </div>
@@ -893,6 +888,102 @@
         </div>
       </div>
     </footer>
+
+    <div class="booking-modal" id="bookingModal" hidden aria-hidden="true">
+      <div class="booking-modal-backdrop" data-booking-close tabindex="-1"></div>
+      <div class="booking-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+        <button class="booking-modal-close" type="button" data-booking-close data-i18n-aria="booking.close" aria-label="Đóng">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5 17.5 17.5M17.5 6.5 6.5 17.5"/></svg>
+        </button>
+        <div class="booking-modal-head">
+          <p class="booking-modal-kicker" data-i18n="booking.kicker">ĐẶT LỊCH TƯ VẤN</p>
+          <h2 id="bookingModalTitle" data-i18n="booking.title">Báo giá vận chuyển nhanh</h2>
+          <p data-i18n="booking.subtitle">Điền thông tin lô hàng để Minh Tuấn tư vấn tuyến và chi phí phù hợp.</p>
+        </div>
+        <form class="booking-form" id="bookingForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookingFrom" data-i18n="booking.from">Gửi từ quốc gia *</label>
+              <select id="bookingFrom" name="from" required>
+                <option value="" data-i18n="booking.select_country">Chọn quốc gia</option>
+                <option value="Việt Nam">Việt Nam</option>
+                <option value="Trung Quốc">Trung Quốc</option>
+                <option value="Hàn Quốc">Hàn Quốc</option>
+                <option value="Nhật Bản">Nhật Bản</option>
+                <option value="Đài Loan">Đài Loan</option>
+                <option value="Thái Lan">Thái Lan</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Mỹ">Mỹ</option>
+                <option value="Đức">Đức</option>
+                <option value="Úc">Úc</option>
+                <option value="Anh">Anh</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bookingTo" data-i18n="booking.to">Đến quốc gia *</label>
+              <select id="bookingTo" name="to" required>
+                <option value="" data-i18n="booking.select_country">Chọn quốc gia</option>
+                <option value="Việt Nam">Việt Nam</option>
+                <option value="Trung Quốc">Trung Quốc</option>
+                <option value="Hàn Quốc">Hàn Quốc</option>
+                <option value="Nhật Bản">Nhật Bản</option>
+                <option value="Đài Loan">Đài Loan</option>
+                <option value="Thái Lan">Thái Lan</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Mỹ">Mỹ</option>
+                <option value="Đức">Đức</option>
+                <option value="Úc">Úc</option>
+                <option value="Anh">Anh</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="bookingWeight" data-i18n="booking.weight">Số kg *</label>
+              <input id="bookingWeight" name="weight" type="number" min="0.1" step="0.1" data-i18n-placeholder="booking.weight_placeholder" placeholder="VD: 25" required />
+            </div>
+            <div class="form-group">
+              <label for="bookingQty" data-i18n="booking.qty">Số lượng *</label>
+              <input id="bookingQty" name="qty" type="number" min="1" step="1" data-i18n-placeholder="booking.qty_placeholder" placeholder="VD: 10" required />
+            </div>
+            <div class="form-group">
+              <label for="bookingMode" data-i18n="booking.mode">Hình thức *</label>
+              <select id="bookingMode" name="mode" required>
+                <option value="" data-i18n="booking.select_mode">Chọn hình thức</option>
+                <option value="sea" data-i18n="services.sea">Vận chuyển đường biển</option>
+                <option value="road" data-i18n="services.domestic">Vận chuyển đường bộ</option>
+                <option value="air" data-i18n="services.air">Vận chuyển hàng không</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookingDate" data-i18n="booking.date">Ngày đặt lịch *</label>
+              <input id="bookingDate" name="date" type="date" required />
+            </div>
+            <div class="form-group">
+              <label for="bookingPhone" data-i18n="form.phone">Số điện thoại *</label>
+              <input id="bookingPhone" name="phone" type="tel" data-i18n-placeholder="form.phone_placeholder" placeholder="09xx xxx xxx" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bookingName" data-i18n="form.name">Họ và tên *</label>
+            <input id="bookingName" name="name" type="text" data-i18n-placeholder="form.name_placeholder" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-cta" type="submit" data-channel="zalo" data-i18n="booking.submit_zalo">Gửi đặt lịch Zalo</button>
+            <button class="btn btn-ghost" type="submit" data-channel="email" data-i18n="booking.submit_email">Gửi Email</button>
+          </div>
+          <p class="form-note" id="bookingNote" hidden></p>
+        </form>
+      </div>
+    </div>
 
     <script src="translations.js"></script>
     <script src="i18n.js"></script>

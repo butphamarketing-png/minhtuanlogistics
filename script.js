@@ -2,7 +2,7 @@
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
   const LOADER_KEY = "mt_logistics_seen";
-  const LOADER_DURATION = 2200;
+  const LOADER_DURATION = 2800;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
@@ -671,4 +671,141 @@
   backToTop?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  /* Booking quote popup */
+  const bookingModal = document.getElementById("bookingModal");
+  const bookingForm = document.getElementById("bookingForm");
+  const bookingNote = document.getElementById("bookingNote");
+  const BOOKING_KEY = "mt_booking_seen";
+
+  const modeLabel = (value) => {
+    if (value === "sea") return menuLabel("services.sea");
+    if (value === "road") return menuLabel("services.domestic");
+    if (value === "air") return menuLabel("services.air");
+    return value;
+  };
+
+  const openBookingModal = () => {
+    if (!bookingModal) return;
+    bookingModal.hidden = false;
+    requestAnimationFrame(() => bookingModal.classList.add("is-open"));
+    bookingModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("booking-open");
+    window.setTimeout(() => {
+      bookingForm?.querySelector("select, input")?.focus();
+    }, 80);
+  };
+
+  const closeBookingModal = () => {
+    if (!bookingModal) return;
+    bookingModal.classList.remove("is-open");
+    bookingModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("booking-open");
+    window.setTimeout(() => {
+      bookingModal.hidden = true;
+    }, 320);
+  };
+
+  if (bookingModal) {
+    bookingModal.querySelectorAll("[data-booking-close]").forEach((el) => {
+      el.addEventListener("click", closeBookingModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && bookingModal.classList.contains("is-open")) {
+        closeBookingModal();
+      }
+    });
+
+    const showBooking = () => {
+      if (sessionStorage.getItem(BOOKING_KEY)) return;
+      sessionStorage.setItem(BOOKING_KEY, "1");
+      openBookingModal();
+    };
+
+    const delay = document.getElementById("pageLoader") ? LOADER_DURATION + 500 : 600;
+    window.setTimeout(showBooking, delay);
+
+    const dateInput = bookingForm?.elements.date;
+    if (dateInput) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      dateInput.min = `${yyyy}-${mm}-${dd}`;
+    }
+  }
+
+  if (bookingForm) {
+    const showBookingNote = (message, type) => {
+      if (!bookingNote) return;
+      bookingNote.hidden = false;
+      bookingNote.textContent = message;
+      bookingNote.className = `form-note ${type}`;
+    };
+
+    const clearBookingInvalid = () => {
+      bookingForm.querySelectorAll(".is-invalid").forEach((el) => el.classList.remove("is-invalid"));
+    };
+
+    bookingForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearBookingInvalid();
+
+      const from = bookingForm.from.value.trim();
+      const to = bookingForm.to.value.trim();
+      const weight = bookingForm.weight.value.trim();
+      const qty = bookingForm.qty.value.trim();
+      const mode = bookingForm.mode.value.trim();
+      const date = bookingForm.date.value.trim();
+      const name = bookingForm.name.value.trim();
+      const phoneValue = bookingForm.phone.value.trim();
+      const phoneDigits = phoneValue.replace(/\D/g, "");
+
+      let valid = true;
+      const mark = (field) => {
+        field.classList.add("is-invalid");
+        valid = false;
+      };
+
+      if (!from) mark(bookingForm.from);
+      if (!to) mark(bookingForm.to);
+      if (!weight || Number(weight) <= 0) mark(bookingForm.weight);
+      if (!qty || Number(qty) < 1) mark(bookingForm.qty);
+      if (!mode) mark(bookingForm.mode);
+      if (!date) mark(bookingForm.date);
+      if (!name) mark(bookingForm.name);
+      if (phoneDigits.length < 9 || phoneDigits.length > 11) mark(bookingForm.phone);
+
+      if (!valid) {
+        showBookingNote(menuLabel("msg.form_error"), "error");
+        return;
+      }
+
+      const message = [
+        menuLabel("msg.booking_request"),
+        `${menuLabel("msg.from")}: ${from}`,
+        `${menuLabel("msg.to")}: ${to}`,
+        `${menuLabel("msg.weight")}: ${weight}`,
+        `${menuLabel("msg.qty")}: ${qty}`,
+        `${menuLabel("msg.mode")}: ${modeLabel(mode)}`,
+        `${menuLabel("msg.date")}: ${date}`,
+        `${menuLabel("msg.name")}: ${name}`,
+        `${menuLabel("msg.phone")}: ${phoneValue}`,
+      ].join("\n");
+
+      const encoded = encodeURIComponent(message);
+      const channel = event.submitter?.dataset.channel || "zalo";
+
+      if (channel === "email") {
+        const subject = encodeURIComponent(menuLabel("msg.booking_subject"));
+        window.location.href = `mailto:${email}?subject=${subject}&body=${encoded}`;
+        showBookingNote(menuLabel("msg.email_opened"), "success");
+        return;
+      }
+
+      window.open(`https://zalo.me/${phone}?text=${encoded}`, "_blank", "noopener");
+      showBookingNote(menuLabel("msg.zalo_opened"), "success");
+    });
+  }
 })();
