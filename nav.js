@@ -20,7 +20,8 @@
       href: "dich-vu.html",
       children: [
         { labelKey: "services.import_export", href: "dich-vu.html#xnk" },
-        { labelKey: "services.domestic", href: "dich-vu.html#van-tai-noi-dia" },
+        { labelKey: "services.sea", href: "dich-vu.html#duong-bien" },
+        { labelKey: "services.domestic", href: "dich-vu.html#duong-bo" },
         { labelKey: "services.air", href: "dich-vu.html#hang-khong" },
         { labelKey: "services.warehouse", href: "dich-vu.html#kho-bai" },
         { labelKey: "services.trade", href: "dich-vu.html#thuong-mai" },
