@@ -611,96 +611,8 @@
           </div>
 
           <div class="news-layout reveal">
-            <article class="news-featured">
-              <a href="tin-tuc.html" class="news-featured-link">
-                <img
-                  src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80"
-                  alt="Quy trình xuất nhập khẩu"
-                  loading="lazy"
-                />
-                <div class="news-featured-overlay">
-                  <time class="news-date news-date--light" datetime="2026-03-12">
-                    <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
-                      <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
-                    </svg>
-                    12/03/2026
-                  </time>
-                  <h3 data-i18n="news.n1.title">Quy trình xuất nhập khẩu hàng hóa năm 2026</h3>
-                </div>
-              </a>
-            </article>
-
-            <div class="news-feed">
-              <article class="news-feed-item">
-                <span class="news-feed-dot" aria-hidden="true"></span>
-                <a href="tin-tuc.html" class="news-feed-link">
-                  <div class="news-feed-thumb">
-                    <img
-                      src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=400&q=80"
-                      alt="Khai báo hải quan"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="news-feed-body">
-                    <time class="news-date" datetime="2026-03-05">
-                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
-                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
-                      </svg>
-                      05/03/2026
-                    </time>
-                    <h3 data-i18n="news.n2.title">Những lưu ý khi khai báo hải quan</h3>
-                  </div>
-                </a>
-              </article>
-
-              <article class="news-feed-item">
-                <span class="news-feed-dot" aria-hidden="true"></span>
-                <a href="tin-tuc.html" class="news-feed-link">
-                  <div class="news-feed-thumb">
-                    <img
-                      src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"
-                      alt="Chi phí logistics"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="news-feed-body">
-                    <time class="news-date" datetime="2026-02-28">
-                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
-                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
-                      </svg>
-                      28/02/2026
-                    </time>
-                    <h3 data-i18n="news.n3.title">Giải pháp tối ưu chi phí logistics</h3>
-                  </div>
-                </a>
-              </article>
-
-              <article class="news-feed-item">
-                <span class="news-feed-dot" aria-hidden="true"></span>
-                <a href="tin-tuc.html" class="news-feed-link">
-                  <div class="news-feed-thumb">
-                    <img
-                      src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=400&q=80"
-                      alt="Xu hướng logistics"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="news-feed-body">
-                    <time class="news-date" datetime="2026-02-20">
-                      <svg class="news-date-ico" viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
-                        <path d="M8 3.5v4M16 3.5v4M3.5 10.5h17" />
-                      </svg>
-                      20/02/2026
-                    </time>
-                    <h3 data-i18n="news.n4.title">Xu hướng logistics quốc tế 2026</h3>
-                  </div>
-                </a>
-              </article>
-            </div>
+            <article class="news-featured" id="homeNewsFeatured"></article>
+            <div class="news-feed" id="homeNewsFeed"></div>
           </div>
         </div>
       </section>
@@ -989,5 +901,7 @@
     <script src="i18n.js"></script>
     <script src="nav.js"></script>
     <script src="script.js"></script>
+    <script src="news-data.js"></script>
+    <script src="news.js"></script>
   </body>
 </html>

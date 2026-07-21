@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-i18n="meta.news.title">Tin tức | MINH TUẤN Logistics</title>
+    <meta name="description" content="100 bài viết kiến thức logistics theo từ khóa: vận chuyển biển, bộ, hàng không, hải quan và xuất nhập khẩu." />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -23,12 +24,43 @@
     </div>
     <div class="menu-overlay" id="menuOverlay" hidden></div>
     <main>
-      <section class="subpage-hero"><div class="container"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html" data-i18n="nav.home">Trang chủ</a><span aria-hidden="true">/</span><span data-i18n="page.news.title">Tin tức</span></nav><h1 data-i18n="page.news.title">Tin tức</h1><p data-i18n="page.news.desc">Cập nhật tin tức, sự kiện và kiến thức trong lĩnh vực logistics và xuất nhập khẩu.</p></div></section>
-      <section class="subpage-section"><div class="container subpage-grid">
-        <article class="subpage-card"><h2 data-i18n="page.news.n1_title">Xu hướng logistics quốc tế 2026</h2><p data-i18n="page.news.n1_text">Những thay đổi giúp doanh nghiệp tối ưu chuỗi cung ứng toàn cầu.</p></article>
-        <article class="subpage-card"><h2 data-i18n="page.news.n2_title">Tối ưu thủ tục XNK cho SME</h2><p data-i18n="page.news.n2_text">Các bước thực tiễn giúp rút ngắn thời gian và giảm rủi ro vận hành.</p></article>
-      </div></section>
-      <section class="subpage-section" id="kien-thuc"><div class="container subpage-card"><h2 data-i18n="page.news.knowledge_title">Kiến thức logistics</h2><p data-i18n="page.news.knowledge_text">Chia sẻ kinh nghiệm về vận tải, kho bãi, hải quan và quản trị chuỗi cung ứng.</p></div></section>
+      <section class="subpage-hero">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html" data-i18n="nav.home">Trang chủ</a><span aria-hidden="true">/</span><span data-i18n="page.news.title">Tin tức</span>
+          </nav>
+          <h1 data-i18n="page.news.title">Tin tức</h1>
+          <p data-i18n="page.news.desc">Cập nhật tin tức, sự kiện và kiến thức trong lĩnh vực logistics và xuất nhập khẩu.</p>
+          <p class="news-count" id="newsCount">100 bài viết</p>
+        </div>
+      </section>
+
+      <section class="subpage-section">
+        <div class="container">
+          <form class="news-filters" id="newsFilters" action="tin-tuc.html" method="get">
+            <input type="search" name="q" id="newsSearch" placeholder="Tìm theo từ khóa..." aria-label="Tìm bài viết" />
+            <select name="cat" id="newsCat" aria-label="Lọc danh mục">
+              <option value="">Tất cả danh mục</option>
+              <option value="sea">Đường biển</option>
+              <option value="air">Hàng không</option>
+              <option value="road">Đường bộ</option>
+              <option value="customs">Hải quan</option>
+              <option value="warehouse">Kho bãi</option>
+              <option value="global">Quốc tế</option>
+              <option value="business">Doanh nghiệp</option>
+            </select>
+            <button class="btn btn-cta" type="submit">Lọc</button>
+          </form>
+          <div class="news-grid" id="newsGrid"></div>
+        </div>
+      </section>
+
+      <section class="subpage-section" id="kien-thuc">
+        <div class="container subpage-card">
+          <h2 data-i18n="page.news.knowledge_title">Kiến thức logistics</h2>
+          <p data-i18n="page.news.knowledge_text">Chia sẻ kinh nghiệm về vận tải, kho bãi, hải quan và quản trị chuỗi cung ứng.</p>
+        </div>
+      </section>
     </main>
     <footer class="footer">
       <div class="container footer-grid">
@@ -38,12 +70,6 @@
             <div><h3 data-i18n="footer.company">CÔNG TY TNHH XNK TM DV MINH TUẤN</h3></div>
           </div>
           <p class="footer-desc" data-i18n="footer.desc">Đối tác tin cậy trong lĩnh vực xuất nhập khẩu, thương mại và dịch vụ với giải pháp toàn diện, chuyên nghiệp và hiệu quả.</p>
-          <div class="footer-social">
-            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">f</a>
-            <a href="https://zalo.me/0938961012" target="_blank" rel="noopener" aria-label="Zalo">Z</a>
-            <a href="mailto:info@minhtuan.com" aria-label="Email">✉</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
-          </div>
         </div>
         <div class="footer-col footer-col-contact">
           <h4 data-i18n="footer.contact_title">Thông tin liên hệ</h4>
@@ -51,35 +77,35 @@
             <li><strong data-i18n="footer.hotline">📞 Hotline</strong><span>0938 961 012</span></li>
             <li><strong data-i18n="footer.address">📍 Địa chỉ</strong><span>69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất</span></li>
             <li><strong data-i18n="footer.email">✉ Email</strong><span>info@minhtuan.com</span></li>
-            <li><strong data-i18n="footer.website">🌐 Website</strong><span>www.minhtuan.com</span></li>
-            <li><strong data-i18n="footer.hours">🕘 Giờ làm việc</strong><span data-i18n="footer.hours_value">Thứ 2 – Thứ 7 | 08:00 – 17:30</span></li>
           </ul>
         </div>
         <div class="footer-col footer-col-services">
           <h4 data-i18n="footer.services">Dịch vụ</h4>
           <ul>
-            <li><a href="dich-vu.html#xnk" data-i18n="services.import_export">Xuất nhập khẩu</a></li>
             <li><a href="dich-vu.html#duong-bien" data-i18n="services.sea">Vận chuyển đường biển</a></li>
             <li><a href="dich-vu.html#duong-bo" data-i18n="services.domestic">Vận chuyển đường bộ</a></li>
             <li><a href="dich-vu.html#hang-khong" data-i18n="services.air">Vận chuyển hàng không</a></li>
-            <li><a href="dich-vu.html#kho-bai" data-i18n="services.warehouse">Kho bãi & Logistics</a></li>
-            <li><a href="dich-vu.html#thuong-mai" data-i18n="services.trade">Thương mại</a></li>
-            <li><a href="dich-vu.html#tu-van" data-i18n="services.consulting">Tư vấn doanh nghiệp</a></li>
           </ul>
         </div>
       </div>
       <div class="container footer-bottom">
         <p data-i18n="footer.copyright">© 2026 CÔNG TY TNHH XNK TM DV MINH TUẤN. All Rights Reserved.</p>
-        <div class="footer-links">
-          <a href="#" data-i18n="footer.privacy">Chính sách bảo mật</a>
-          <a href="#" data-i18n="footer.terms">Điều khoản sử dụng</a>
-          <a href="#" data-i18n="footer.sitemap">Sitemap</a>
-        </div>
       </div>
     </footer>
     <script src="translations.js"></script>
     <script src="i18n.js"></script>
     <script src="nav.js"></script>
     <script src="script.js"></script>
+    <script src="news-data.js"></script>
+    <script src="news.js"></script>
+    <script>
+      (() => {
+        const params = new URLSearchParams(location.search);
+        const q = document.getElementById("newsSearch");
+        const cat = document.getElementById("newsCat");
+        if (q && params.get("q")) q.value = params.get("q");
+        if (cat && params.get("cat")) cat.value = params.get("cat");
+      })();
+    </script>
   </body>
 </html>
