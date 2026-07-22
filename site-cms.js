@@ -57,14 +57,17 @@
       });
     }
 
-    if (s.seo?.homeTitle && document.body.matches(".is-loading, #home")) {
+    if (s.seo?.homeTitle && document.body.dataset.page === "home") {
       document.title = s.seo.homeTitle;
     }
 
     const metaDesc = document.querySelector("meta[name='description']");
-    if (metaDesc && s.seo?.homeDescription) metaDesc.content = s.seo.homeDescription;
+    if (metaDesc && s.seo?.homeDescription && document.body.dataset.page === "home") {
+      metaDesc.content = s.seo.homeDescription;
+    }
 
     window.SITE_SETTINGS = s;
+    window.SEO?.apply?.({ webPage: true });
   };
 
   const applyHomepage = (h) => {

@@ -5,6 +5,7 @@
   "email": "contact@minhtuan.vn",
   "address": "69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất",
   "website": "www.minhtuan.com",
+  "siteUrl": "https://www.minhtuan.com",
   "workingHours": "Thứ 2 – Thứ 7 | 08:00 – 17:30",
   "social": {
     "facebook": "https://facebook.com/",
@@ -14,7 +15,9 @@
     "maps": "https://maps.google.com/"
   },
   "seo": {
-    "homeTitle": "CÔNG TY TNHH XNK TM DV MINH TUẤN",
-    "homeDescription": "Website chính thức CÔNG TY TNHH XNK TM DV MINH TUẤN - Giải pháp Xuất Nhập Khẩu - Thương Mại - Dịch Vụ chuyên nghiệp, hiện đại."
+    "homeTitle": "Logistics Xuất Nhập Khẩu TP.HCM | MINH TUẤN - Uy Tín 10+ Năm",
+    "homeDescription": "Công ty logistics uy tín TP.HCM - Dịch vụ xuất nhập khẩu, khai báo hải quan trọn gói, vận chuyển FCL/LCL đường biển, hàng không. Hotline 0938 961 012.",
+    "keywords": "logistics TP.HCM, xuất nhập khẩu uy tín, khai báo hải quan trọn gói, vận chuyển FCL LCL, freight forwarding Việt Nam, công ty logistics Tân Sơn Nhất, vận chuyển đường biển, vận chuyển hàng không, ủy thác xuất nhập khẩu, báo giá vận chuyển, Minh Tuấn Logistics",
+    "ogImage": "/logo.png"
   }
 }

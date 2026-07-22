@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /adminbp/
+Disallow: /api/
+
+Sitemap: https://www.minhtuan.com/sitemap.xml

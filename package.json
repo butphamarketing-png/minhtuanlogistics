@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "keywords": "node scripts/generate-keywords.js",
+    "news": "node scripts/generate-news-posts.js",
+    "validate-news": "node scripts/validate-news.js",
+    "sitemap": "node scripts/generate-sitemap.js"
   },
   "engines": {
     "node": ">=18"

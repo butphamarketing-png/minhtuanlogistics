@@ -173,6 +173,7 @@
           <label>Email<input name="email" value="${esc(s.email)}" /></label>
           <label>Địa chỉ<input name="address" value="${esc(s.address)}" /></label>
           <label>Website<input name="website" value="${esc(s.website)}" /></label>
+          <label>URL website (SEO)<input name="siteUrl" value="${esc(s.siteUrl)}" placeholder="https://www.minhtuan.com" /></label>
           <label>Giờ làm việc<input name="workingHours" value="${esc(s.workingHours)}" /></label>
         </div>
         <h3 style="margin-top:20px">Mạng xã hội</h3>
@@ -187,6 +188,8 @@
         <div class="form-grid">
           <label>Tiêu đề<input name="seo.homeTitle" value="${esc(s.seo?.homeTitle)}" /></label>
           <label style="grid-column:1/-1">Mô tả<textarea name="seo.homeDescription">${esc(s.seo?.homeDescription)}</textarea></label>
+          <label style="grid-column:1/-1">Từ khóa<textarea name="seo.keywords" placeholder="logistics, xuất nhập khẩu, ...">${esc(s.seo?.keywords)}</textarea></label>
+          <label>Ảnh OG (Open Graph)<input name="seo.ogImage" value="${esc(s.seo?.ogImage)}" placeholder="/logo.png" /></label>
         </div>
         <h3 style="margin-top:20px">Footer & Logo</h3>
         <div class="form-grid">
