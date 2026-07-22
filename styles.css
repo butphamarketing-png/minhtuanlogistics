@@ -17,7 +17,7 @@
   --shadow: 0 20px 50px rgba(10, 31, 61, 0.1);
   --shadow-soft: 0 12px 30px rgba(0, 61, 165, 0.1);
   --header-top: 42px;
-  --header-nav: 82px;
+  --header-nav: 96px;
   --transition: 0.3s ease;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 0.25s;
@@ -53,7 +53,7 @@
   --shadow-card-hover: 0 22px 48px rgba(0, 61, 165, 0.16);
   --focus-ring: 0 0 0 3px rgba(0, 91, 255, 0.28);
   --font-serif: "Source Serif 4", "Noto Serif", "Times New Roman", serif;
-  --header-compact: 72px;
+  --header-compact: 84px;
 }
 
 /* Typography utilities */
@@ -446,8 +446,8 @@ a {
 }
 
 .site-header.is-compact .logo-image {
-  width: 108px;
-  height: 64px;
+  width: 136px;
+  height: 82px;
 }
 
 .site-header.is-scrolled .navbar {
@@ -726,8 +726,8 @@ a {
 }
 
 .logo-image {
-  width: 132px;
-  height: 78px;
+  width: 180px;
+  height: 108px;
   object-fit: contain;
   object-position: left center;
   background: transparent;
@@ -3755,8 +3755,8 @@ img.is-loaded {
   }
 
   .logo-image {
-    width: 92px;
-    height: 54px;
+    width: 156px;
+    height: 94px;
   }
 
   .logo-text strong {
@@ -3850,7 +3850,12 @@ img.is-loaded {
   }
 
   .navbar {
-    min-height: 74px;
+    min-height: 88px;
+  }
+
+  .logo-image {
+    width: 152px;
+    height: 92px;
   }
 
   .hero-banner {
