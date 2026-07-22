@@ -18,20 +18,20 @@
       rel="stylesheet"
     />
     <link rel="preload" href="/logo.png" as="image" />
-    <link rel="preload" href="/logo-plane.png" as="image" />
+    <link rel="preload" href="/loader-bg.png" as="image" />
     <link rel="preload" href="/hero-slide-1.png" as="image" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
     <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" data-i18n-aria="aria.loading">
-      <div class="page-loader-flight" aria-hidden="true">
-        <img class="page-loader-plane" src="/logo-plane.png" alt="" />
-        <span class="page-loader-plane-trail"></span>
+      <div class="page-loader-logo-wrap" aria-hidden="true">
+        <img class="page-loader-logo" src="/logo.png" alt="Logo Minh Tuấn" />
       </div>
       <div class="page-loader-inner">
-        <div class="page-loader-logo-wrap">
-          <img class="page-loader-logo" src="/logo.png" alt="Logo Minh Tuấn" />
-        </div>
+        <p class="page-loader-brand">
+          <strong>MINH TUẤN</strong>
+          <small>Logistics</small>
+        </p>
         <div class="page-loader-bar" aria-hidden="true"><span></span></div>
       </div>
     </div>
