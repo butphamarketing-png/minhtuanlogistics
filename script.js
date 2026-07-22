@@ -1,7 +1,7 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_DURATION = 3200;
+  const LOADER_DURATION = 4700;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
@@ -156,23 +156,13 @@
     });
 
   const applyLogoEverywhere = (processedSrc) => {
-    const loaderLogo = document.querySelector(".page-loader-logo");
-    if (loaderLogo) {
-      loaderLogo.src = processedSrc;
-      loaderLogo.classList.remove("is-processing");
-      loaderLogo.classList.add("is-ready");
-    }
     document.querySelectorAll(".logo-image").forEach((imgEl) => {
       imgEl.src = processedSrc;
     });
   };
 
-  const loaderLogo = document.querySelector(".page-loader-logo");
   const headerLogo = document.querySelector(".logo-image");
-  const logoSource =
-    loaderLogo?.getAttribute("src") || headerLogo?.getAttribute("src") || "/logo.png";
-
-  if (loaderLogo) loaderLogo.classList.add("is-processing");
+  const logoSource = headerLogo?.getAttribute("src") || "/logo.png";
 
   processLogoSource(logoSource).then(applyLogoEverywhere);
 
@@ -304,6 +294,14 @@
       `${menuLabel("msg.need")}: ${need}`,
     ].join("\n");
 
+  const submitToCms = (payload) => {
+    fetch("/api/submissions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  };
+
   if (contactForm) {
     contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -317,6 +315,8 @@
         showNote(menuLabel("msg.form_error"), "error");
         return;
       }
+
+      submitToCms({ type: "contact", name, phone: phoneValue, message: need, meta: { channel } });
 
       const message = buildMessage(name, phoneValue, need);
       const encoded = encodeURIComponent(message);
@@ -788,6 +788,14 @@
         `${menuLabel("msg.name")}: ${name}`,
         `${menuLabel("msg.phone")}: ${phoneValue}`,
       ].join("\n");
+
+      submitToCms({
+        type: "booking",
+        name,
+        phone: phoneValue,
+        message,
+        meta: { from, to, weight, qty, mode, date },
+      });
 
       const encoded = encodeURIComponent(message);
       const channel = event.submitter?.dataset.channel || "zalo";

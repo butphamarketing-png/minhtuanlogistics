@@ -95,21 +95,20 @@
     animation: none !important;
   }
 
-  .page-loader-logo.is-ready {
-    animation: loader-logo-fly 2.6s cubic-bezier(0.4, 0.05, 0.2, 1) 0.1s both !important;
+  .page-loader-plane {
+    animation: loader-plane-enter 0.95s cubic-bezier(0.4, 0.05, 0.2, 1) 0.12s both !important;
   }
 
-  .page-loader-logo.is-processing {
-    opacity: 0 !important;
-    animation: none !important;
+  .page-loader-stack {
+    animation: loader-stack-exit 0.95s cubic-bezier(0.4, 0.05, 0.2, 1) 3.65s forwards !important;
   }
 
-  .page-loader-brand {
-    animation: loader-brand-in 0.55s ease 0.95s forwards !important;
+  .page-loader-brand-block {
+    animation: loader-brand-in 0.55s ease 1.08s forwards !important;
   }
 
   .page-loader-bar span {
-    animation: loader-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1.25s forwards !important;
+    animation: loader-progress 2.2s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards !important;
   }
 
   .topbar-track {
@@ -262,28 +261,33 @@ body.has-mobile-call-bar {
   pointer-events: none;
 }
 
-.page-loader-logo-wrap {
-  position: absolute;
-  inset: 0;
+.page-loader-stack {
+  position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.page-loader-inner {
-  position: absolute;
-  z-index: 1;
-  top: 58%;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 0 24px;
-  width: min(100%, 420px);
+  gap: clamp(16px, 3vh, 28px);
+  padding: 24px;
+  will-change: transform, opacity;
+  animation: loader-stack-exit 0.95s cubic-bezier(0.4, 0.05, 0.2, 1) 3.65s forwards;
+}
+
+.page-loader-plane {
+  width: min(340px, 78vw);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 32px rgba(255, 204, 0, 0.38));
+  will-change: transform, opacity;
+  animation: loader-plane-enter 0.95s cubic-bezier(0.4, 0.05, 0.2, 1) 0.12s both;
+}
+
+.page-loader-brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: loader-brand-in 0.55s ease 1.08s forwards;
 }
 
 .page-loader-ring-wrap,
@@ -292,61 +296,39 @@ body.has-mobile-call-bar {
   display: none;
 }
 
-.page-loader.is-active .page-loader-logo.is-ready {
-  animation: loader-logo-fly 2.6s cubic-bezier(0.4, 0.05, 0.2, 1) 0.1s both;
-}
-
-.page-loader-logo {
-  position: relative;
-  z-index: 1;
-  width: min(260px, 68vw);
-  height: auto;
-  max-height: 220px;
-  object-fit: contain;
-  opacity: 0;
-  background: transparent;
-  filter: drop-shadow(0 10px 28px rgba(0, 61, 165, 0.18));
-  will-change: transform, opacity;
-}
-
-.page-loader-logo.is-processing {
-  opacity: 0;
-  animation: none;
-}
-
 .page-loader-brand {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  opacity: 0;
-  animation: loader-brand-in 0.55s ease 0.95s forwards;
+  gap: 6px;
+  align-items: center;
 }
 
 .page-loader-brand strong {
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: clamp(28px, 6.5vw, 40px);
   font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--primary);
+  letter-spacing: 0.06em;
+  color: #e31c23;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .page-loader-brand small {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.12em;
+  font-size: clamp(14px, 3.2vw, 18px);
+  font-weight: 700;
+  color: #003da5;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .page-loader-bar {
-  width: min(240px, 70vw);
-  height: 4px;
-  margin-top: 22px;
+  width: min(280px, 76vw);
+  height: 5px;
+  margin-top: 18px;
   border-radius: 999px;
   background: rgba(0, 61, 165, 0.12);
   overflow: hidden;
   opacity: 0;
-  animation: loader-text-in 0.5s ease 1.15s forwards;
+  animation: loader-text-in 0.45s ease 1.15s forwards;
 }
 
 .page-loader-bar span {
@@ -354,23 +336,26 @@ body.has-mobile-call-bar {
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, #e31c23, #ffcc00);
-  animation: loader-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1.25s forwards !important;
+  background: linear-gradient(90deg, #e31c23, #ffcc00, #003da5);
+  animation: loader-progress 2.2s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards !important;
 }
 
-@keyframes loader-logo-fly {
+@keyframes loader-plane-enter {
   0% {
     transform: translateX(-120vw);
     opacity: 0;
   }
-  8% {
+  12% {
     opacity: 1;
   }
-  38% {
+  100% {
     transform: translateX(0);
     opacity: 1;
   }
-  52% {
+}
+
+@keyframes loader-stack-exit {
+  0% {
     transform: translateX(0);
     opacity: 1;
   }

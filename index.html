@@ -18,21 +18,22 @@
       rel="stylesheet"
     />
     <link rel="preload" href="/logo.png" as="image" />
+    <link rel="preload" href="/logo-plane.png" as="image" />
     <link rel="preload" href="/loader-bg.png" as="image" />
     <link rel="preload" href="/hero-slide-1.png" as="image" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-loading">
     <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" data-i18n-aria="aria.loading">
-      <div class="page-loader-logo-wrap" aria-hidden="true">
-        <img class="page-loader-logo" src="/logo.png" alt="Logo Minh Tuấn" />
-      </div>
-      <div class="page-loader-inner">
-        <p class="page-loader-brand">
-          <strong>MINH TUẤN</strong>
-          <small>Logistics</small>
-        </p>
-        <div class="page-loader-bar" aria-hidden="true"><span></span></div>
+      <div class="page-loader-stack">
+        <img class="page-loader-plane" src="/logo-plane.png" alt="" />
+        <div class="page-loader-brand-block">
+          <p class="page-loader-brand">
+            <strong>MINH TUẤN</strong>
+            <small>Logistics</small>
+          </p>
+          <div class="page-loader-bar" aria-hidden="true"><span></span></div>
+        </div>
       </div>
     </div>
 
@@ -900,6 +901,7 @@
     <script src="translations.js"></script>
     <script src="i18n.js"></script>
     <script src="nav.js"></script>
+    <script src="site-cms.js"></script>
     <script src="script.js"></script>
     <script src="news-data.js"></script>
     <script src="news.js"></script>

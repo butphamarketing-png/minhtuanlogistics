@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin · Minh Tuấn Logistics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div id="loginScreen" class="login-screen">
+      <div class="login-layout">
+        <section class="login-panel">
+          <div class="login-panel-head">
+            <div class="login-logo-row">
+              <img class="login-bp-logo" src="bp-logo.png" alt="Bứt Phá Marketing" />
+              <div>
+                <strong class="login-bp-name">BỨT PHÁ MARKETING</strong>
+                <small>CMS KHÁCH HÀNG</small>
+              </div>
+            </div>
+            <p class="login-kicker"><span aria-hidden="true">✦</span> KHU VỰC QUẢN TRỊ HỆ THỐNG</p>
+            <h1>Đăng nhập CMS</h1>
+            <p class="login-desc">Quản lý toàn bộ website Minh Tuấn Logistics — nội dung, hình ảnh, tin tức và marketing Bứt Phá.</p>
+          </div>
+
+          <form class="login-form" id="loginForm">
+            <label class="field-label">Email quản trị</label>
+            <div class="field-wrap">
+              <span class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </span>
+              <input type="email" name="username" value="admin@minhtuanlogistics.com" autocomplete="username" required />
+            </div>
+
+            <label class="field-label">Mật khẩu</label>
+            <div class="field-wrap">
+              <span class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <input id="loginPassword" type="password" name="password" autocomplete="current-password" required />
+              <button type="button" class="field-toggle" id="togglePassword" aria-label="Hiện mật khẩu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+
+            <p class="login-error" id="loginError" hidden></p>
+
+            <button type="submit" class="btn-login">
+              <span>Đăng nhập CMS</span>
+              <span class="btn-login-arrow" aria-hidden="true">→</span>
+            </button>
+
+            <div class="login-mobile-links">
+              <a href="https://butphamarketing.com/banggia" target="_blank" rel="noopener">Bảng giá dịch vụ</a>
+              <a href="https://zalo.me/0937417982" target="_blank" rel="noopener">Liên hệ kỹ thuật</a>
+            </div>
+          </form>
+        </section>
+
+        <aside class="login-promo">
+          <div class="login-promo-inner">
+            <div class="promo-brand">
+              <img src="bp-logo.png" alt="" />
+              <div>
+                <strong>BỨT PHÁ MARKETING</strong>
+                <small>DÀNH CHO KHÁCH HÀNG</small>
+              </div>
+            </div>
+            <h2>QUẢN LÝ<br />MARKETING &amp; WEBSITE</h2>
+            <p class="promo-lead">Dành riêng cho khách hàng Bứt Phá Marketing — Minh Tuấn Logistics.</p>
+
+            <div class="promo-contacts">
+              <div class="promo-chip"><span>📞</span><div><small>HOTLINE</small><strong>093.741.7982</strong></div></div>
+              <div class="promo-chip"><span>🌐</span><div><small>WEBSITE</small><strong>butphamarketing.com</strong></div></div>
+              <div class="promo-chip"><span>✉</span><div><small>EMAIL</small><strong>butphamarketing@gmail.com</strong></div></div>
+              <div class="promo-chip"><span>💬</span><div><small>ZALO</small><strong>093.741.7982</strong></div></div>
+            </div>
+
+            <p class="promo-section-title">DỊCH VỤ CỦA CHÚNG TÔI</p>
+            <div class="promo-services">
+              <a class="promo-service" href="https://butphamarketing.com/banggia" target="_blank" rel="noopener">
+                <span class="promo-service-ico">🏷</span>
+                <div>
+                  <strong>Bảng giá dịch vụ</strong>
+                  <small>Website, Facebook, Google Maps — giá minh bạch.</small>
+                </div>
+              </a>
+              <a class="promo-service" href="https://zalo.me/0937417982" target="_blank" rel="noopener">
+                <span class="promo-service-ico">🎧</span>
+                <div>
+                  <strong>Liên Hệ Kỹ Thuật</strong>
+                  <small>Hỗ trợ kỹ thuật chuyên nghiệp, tận tâm.</small>
+                </div>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="adminApp" class="admin-app" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img src="/logo.png" alt="" />
+          <strong>CMS Website</strong>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav">
+          <button type="button" data-view="dashboard" class="is-active">📊 Tổng quan</button>
+          <button type="button" data-view="settings">⚙️ Thông tin & Footer</button>
+          <button type="button" data-view="homepage">🏠 Trang chủ</button>
+          <button type="button" data-view="pages">📄 Trang con</button>
+          <button type="button" data-view="news">📰 Tin tức</button>
+          <button type="button" data-view="gallery">🖼️ Thư viện ảnh</button>
+          <button type="button" data-view="translations">🌐 Đa ngôn ngữ</button>
+          <button type="button" data-view="submissions">📬 Yêu cầu KH</button>
+          <button type="button" data-view="media">📁 Media</button>
+        </nav>
+        <div class="sidebar-foot">
+          <a href="/" target="_blank" rel="noopener">↗ Xem website</a>
+          <button type="button" id="logoutBtn">Đăng xuất</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <h2 id="viewTitle">Tổng quan</h2>
+          <span class="topbar-user" id="topbarUser"></span>
+        </header>
+        <div class="content" id="content"></div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

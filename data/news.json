@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "keyword": "vận chuyển hàng hóa",
+    "slug": "van-chuyen-hang-hoa",
+    "title": "Vận chuyển hàng hóa: hướng dẫn thực tiễn cho doanh nghiệp 2026",
+    "excerpt": "Tổng quan giải pháp liên quan đến vận chuyển hàng hóa, giúp tối ưu chi phí và tiến độ logistics.",
+    "category": "road",
+    "categoryLabel": "Đường bộ",
+    "date": "2026-01-01",
+    "dateLabel": "01/01/2026",
+    "photo": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    "cover": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    "body": [
+      "Vận chuyển hàng hóa đang được nhiều doanh nghiệp quan tâm khi mở rộng thị trường.",
+      "Trong nhóm đường bộ, nắm rõ quy trình giúp giảm rủi ro.",
+      "Cần báo giá? Gọi 0938 961 012 — đội ngũ Minh Tuấn sẽ phản hồi sớm."
+    ],
+    "published": true
+  },
+  {
+    "id": 2,
+    "keyword": "logistics Việt Nam",
+    "slug": "logistics-viet-nam",
+    "title": "Logistics Việt Nam: hướng dẫn thực tiễn cho doanh nghiệp 2026",
+    "excerpt": "Tổng quan giải pháp liên quan đến logistics Việt Nam, giúp tối ưu chi phí và tiến độ logistics.",
+    "category": "business",
+    "categoryLabel": "Doanh nghiệp",
+    "date": "2026-01-02",
+    "dateLabel": "02/01/2026",
+    "photo": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+    "cover": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+    "body": [
+      "Logistics Việt Nam đang được nhiều doanh nghiệp quan tâm khi mở rộng thị trường.",
+      "Trong nhóm doanh nghiệp, nắm rõ quy trình giúp giảm rủi ro.",
+      "Cần báo giá? Gọi 0938 961 012 — đội ngũ Minh Tuấn sẽ phản hồi sớm."
+    ],
+    "published": true
+  },
+  {
+    "id": 3,
+    "keyword": "xuất nhập khẩu",
+    "slug": "xuat-nhap-khau",
+    "title": "Xuất nhập khẩu: hướng dẫn thực tiễn cho doanh nghiệp 2026",
+    "excerpt": "Tổng quan giải pháp liên quan đến xuất nhập khẩu, giúp tối ưu chi phí và tiến độ logistics.",
+    "category": "customs",
+    "categoryLabel": "Hải quan",
+    "date": "2026-01-03",
+    "dateLabel": "03/01/2026",
+    "photo": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    "cover": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    "body": [
+      "Xuất nhập khẩu đang được nhiều doanh nghiệp quan tâm khi mở rộng thị trường.",
+      "Trong nhóm hải quan, nắm rõ quy trình giúp giảm rủi ro.",
+      "Cần báo giá? Gọi 0938 961 012 — đội ngũ Minh Tuấn sẽ phản hồi sớm."
+    ],
+    "published": true
+  },
+  {
+    "id": 4,
+    "keyword": "vận chuyển đường biển",
+    "slug": "van-chuyen-duong-bien",
+    "title": "Vận chuyển đường biển: hướng dẫn thực tiễn cho doanh nghiệp 2026",
+    "excerpt": "Tổng quan giải pháp liên quan đến vận chuyển đường biển, giúp tối ưu chi phí và tiến độ logistics.",
+    "category": "sea",
+    "categoryLabel": "Đường biển",
+    "date": "2026-01-04",
+    "dateLabel": "04/01/2026",
+    "photo": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80",
+    "cover": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80",
+    "body": [
+      "Vận chuyển đường biển đang được nhiều doanh nghiệp quan tâm khi mở rộng thị trường.",
+      "Trong nhóm đường biển, nắm rõ quy trình giúp giảm rủi ro.",
+      "Cần báo giá? Gọi 0938 961 012 — đội ngũ Minh Tuấn sẽ phản hồi sớm."
+    ],
+    "published": true
+  },
+  {
+    "id": 5,
+    "keyword": "vận chuyển hàng không",
+    "slug": "van-chuyen-hang-khong",
+    "title": "Vận chuyển hàng không: hướng dẫn thực tiễn cho doanh nghiệp 2026",
+    "excerpt": "Tổng quan giải pháp liên quan đến vận chuyển hàng không, giúp tối ưu chi phí và tiến độ logistics.",
+    "category": "air",
+    "categoryLabel": "Hàng không",
+    "date": "2026-01-05",
+    "dateLabel": "05/01/2026",
+    "photo": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80",
+    "cover": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80",
+    "body": [
+      "Vận chuyển hàng không đang được nhiều doanh nghiệp quan tâm khi mở rộng thị trường.",
+      "Trong nhóm hàng không, nắm rõ quy trình giúp giảm rủi ro.",
+      "Cần báo giá? Gọi 0938 961 012 — đội ngũ Minh Tuấn sẽ phản hồi sớm."
+    ],
+    "published": true
+  }
+]

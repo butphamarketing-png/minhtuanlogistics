@@ -1,0 +1,31 @@
+{
+  "about": {
+    "title": "Giới thiệu",
+    "desc": "Tìm hiểu về CÔNG TY TNHH XNK TM DV MINH TUẤN — đối tác tin cậy trong lĩnh vực xuất nhập khẩu, thương mại và logistics.",
+    "image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80"
+  },
+  "services": {
+    "title": "Dịch vụ",
+    "desc": "Giải pháp toàn diện cho doanh nghiệp trong lĩnh vực xuất nhập khẩu, thương mại và logistics."
+  },
+  "projects": {
+    "title": "Dự án",
+    "desc": "Các dự án logistics và xuất nhập khẩu tiêu biểu mà Minh Tuấn đã triển khai.",
+    "featured": "Triển khai logistics cho doanh nghiệp sản xuất, thương mại và phân phối.",
+    "partners": "Đồng hành cùng nhiều doanh nghiệp trong và ngoài nước."
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "desc": "Kết nối với Minh Tuấn Logistics để được tư vấn giải pháp phù hợp."
+  },
+  "gallery": {
+    "title": "Hình ảnh",
+    "desc": "Thư viện hình ảnh hoạt động và dự án logistics của Minh Tuấn.",
+    "videoTitle": "Video hoạt động",
+    "videoText": "Video giới thiệu dịch vụ và quy trình vận hành logistics chuyên nghiệp."
+  },
+  "news": {
+    "title": "Tin tức",
+    "desc": "Cập nhật tin tức, kiến thức logistics và hoạt động của Minh Tuấn."
+  }
+}
