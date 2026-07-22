@@ -1,16 +1,11 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_KEY = "mt_logistics_seen";
   const LOADER_DURATION = 2800;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
-  if (pageLoader && sessionStorage.getItem(LOADER_KEY)) {
-    pageLoader.remove();
-    document.body.classList.remove("is-loading");
-  } else if (pageLoader) {
-    sessionStorage.setItem(LOADER_KEY, "1");
+  if (pageLoader) {
     window.setTimeout(() => {
       pageLoader.classList.add("is-done");
       document.body.classList.remove("is-loading");
