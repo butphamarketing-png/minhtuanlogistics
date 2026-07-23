@@ -26,6 +26,16 @@ const staticPages = [
   { loc: "/lien-he", priority: "0.8", changefreq: "monthly" },
 ];
 
+const extractSubpageUrls = () => {
+  const subPath = path.join(root, "data", "subpages.json");
+  if (!fs.existsSync(subPath)) return [];
+  const data = JSON.parse(fs.readFileSync(subPath, "utf8"));
+  const urls = [];
+  for (const p of data.about || []) urls.push(`/${p.parent}/${p.slug}`);
+  for (const p of data.services || []) urls.push(`/${p.parent}/${p.slug}`);
+  return urls;
+};
+
 const extractNewsSlugs = () => {
   const postsPath = path.join(root, "data", "news-posts.json");
   if (fs.existsSync(postsPath)) {
@@ -47,6 +57,9 @@ const urlEntry = (loc, priority, changefreq) => `  <url>
     <priority>${priority}</priority>
   </url>`;
 
+const subpageUrls = extractSubpageUrls();
+const subpageEntries = subpageUrls.map((loc) => urlEntry(loc, "0.8", "monthly"));
+
 const slugs = extractNewsSlugs();
 const newsEntries = slugs.map((slug) =>
   urlEntry(`/bai-viet/${encodeURIComponent(slug)}`, "0.6", "monthly")
@@ -55,6 +68,7 @@ const newsEntries = slugs.map((slug) =>
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${staticPages.map((p) => urlEntry(p.loc, p.priority, p.changefreq)).join("\n")}
+${subpageEntries.join("\n")}
 ${newsEntries.join("\n")}
 </urlset>
 `;
@@ -71,5 +85,7 @@ Sitemap: ${SITE_URL}/sitemap.xml
 fs.writeFileSync(path.join(root, "robots.txt"), robots, "utf8");
 
 console.log(`Site URL: ${SITE_URL}`);
-console.log(`Generated sitemap.xml with ${staticPages.length + slugs.length} URLs`);
+console.log(
+  `Generated sitemap.xml with ${staticPages.length + subpageUrls.length + slugs.length} URLs`
+);
 console.log("Updated robots.txt");

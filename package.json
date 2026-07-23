@@ -9,8 +9,9 @@
     "news": "node scripts/generate-news-posts.js",
     "validate-news": "node scripts/validate-news.js",
     "articles": "node scripts/generate-article-pages.js",
+    "subpages": "node scripts/generate-subpages.js",
     "sitemap": "node scripts/generate-sitemap.js",
-    "build": "node scripts/generate-article-pages.js && node scripts/generate-sitemap.js"
+    "build": "node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js"
   },
   "engines": {
     "node": ">=18"

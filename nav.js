@@ -2,71 +2,78 @@
   const menu = document.getElementById("mainMenu");
   if (!menu || !menu.hasAttribute("data-nav-build")) return;
 
-  const currentPage = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+  const pathName = (window.location.pathname || "/").replace(/\/$/, "") || "/";
 
   const items = [
-    { labelKey: "nav.home", href: "index.html" },
+    { labelKey: "nav.home", href: "/" },
     {
       labelKey: "nav.about",
-      href: "gioi-thieu.html",
+      href: "/gioi-thieu",
       children: [
-        { labelKey: "nav.about_us", href: "gioi-thieu.html" },
-        { labelKey: "nav.vision", href: "gioi-thieu.html#tam-nhin" },
-        { labelKey: "nav.values", href: "gioi-thieu.html#gia-tri" },
+        { labelKey: "nav.about_us", href: "/gioi-thieu/ve-chung-toi" },
+        { labelKey: "nav.vision", href: "/gioi-thieu/tam-nhin" },
+        { labelKey: "nav.values", href: "/gioi-thieu/gia-tri" },
       ],
     },
     {
       labelKey: "nav.services",
-      href: "dich-vu.html",
+      href: "/dich-vu",
       children: [
-        { labelKey: "services.import_export", href: "dich-vu.html#xnk" },
-        { labelKey: "services.sea", href: "dich-vu.html#duong-bien" },
-        { labelKey: "services.domestic", href: "dich-vu.html#duong-bo" },
-        { labelKey: "services.air", href: "dich-vu.html#hang-khong" },
-        { labelKey: "services.warehouse", href: "dich-vu.html#kho-bai" },
-        { labelKey: "services.trade", href: "dich-vu.html#thuong-mai" },
-        { labelKey: "services.consulting", href: "dich-vu.html#tu-van" },
+        { labelKey: "services.import_export", href: "/dich-vu/xuat-nhap-khau" },
+        { labelKey: "services.sea", href: "/dich-vu/van-chuyen-duong-bien" },
+        { labelKey: "services.domestic", href: "/dich-vu/van-chuyen-duong-bo" },
+        { labelKey: "services.air", href: "/dich-vu/van-chuyen-hang-khong" },
+        { labelKey: "services.warehouse", href: "/dich-vu/kho-bai-logistics" },
+        { labelKey: "services.trade", href: "/dich-vu/thuong-mai" },
+        { labelKey: "services.consulting", href: "/dich-vu/tu-van-doanh-nghiep" },
       ],
     },
     {
       labelKey: "nav.projects",
-      href: "du-an.html",
+      href: "/du-an",
       children: [
-        { labelKey: "nav.featured_projects", href: "du-an.html" },
-        { labelKey: "nav.partners", href: "du-an.html#khach-hang" },
+        { labelKey: "nav.featured_projects", href: "/du-an" },
+        { labelKey: "nav.partners", href: "/du-an#khach-hang" },
       ],
     },
     {
       labelKey: "nav.news",
-      href: "tin-tuc.html",
+      href: "/tin-tuc",
       children: [
-        { labelKey: "nav.news_events", href: "tin-tuc.html" },
-        { labelKey: "nav.knowledge", href: "tin-tuc.html#kien-thuc" },
+        { labelKey: "nav.news_events", href: "/tin-tuc" },
+        { labelKey: "nav.knowledge", href: "/tin-tuc#kien-thuc" },
       ],
     },
     {
       labelKey: "nav.gallery",
-      href: "hinh-anh.html",
+      href: "/hinh-anh",
       children: [
-        { labelKey: "nav.photo_gallery", href: "hinh-anh.html" },
-        { labelKey: "nav.videos", href: "hinh-anh.html#video" },
+        { labelKey: "nav.photo_gallery", href: "/hinh-anh" },
+        { labelKey: "nav.videos", href: "/hinh-anh#video" },
       ],
     },
     {
       labelKey: "nav.contact",
-      href: "lien-he.html",
+      href: "/lien-he",
       children: [
-        { labelKey: "nav.contact_info", href: "lien-he.html" },
-        { labelKey: "nav.contact_form", href: "lien-he.html#tu-van" },
+        { labelKey: "nav.contact_info", href: "/lien-he" },
+        { labelKey: "nav.contact_form", href: "/lien-he#tu-van" },
       ],
     },
   ];
 
   const label = (key) => (window.I18N ? window.I18N.t(key) : key);
 
+  const normalize = (href) => {
+    const path = (href || "/").split("#")[0].replace(/\.html$/, "");
+    if (!path || path === "index") return "/";
+    return path.startsWith("/") ? path.replace(/\/$/, "") || "/" : `/${path}`;
+  };
+
   const isActive = (href) => {
-    const page = href.split("#")[0] || "index.html";
-    return page.toLowerCase() === currentPage;
+    const target = normalize(href);
+    if (target === "/") return pathName === "/" || pathName === "/index";
+    return pathName === target || pathName.startsWith(`${target}/`);
   };
 
   const buildMenu = () => {
@@ -107,4 +114,34 @@
   buildMenu();
   menu.removeAttribute("data-nav-build");
   window.addEventListener("localechange", buildMenu);
+
+  // Keep desktop dropdown open briefly after mouse leaves (easier to reach items)
+  const CLOSE_DELAY_MS = 350;
+  let closeTimer = null;
+  const isDesktopNav = () => window.matchMedia("(min-width: 1025px)").matches;
+
+  const clearHoverExcept = (keep) => {
+    menu.querySelectorAll(".has-dropdown.is-hover").forEach((el) => {
+      if (el !== keep) el.classList.remove("is-hover");
+    });
+  };
+
+  menu.addEventListener("pointerover", (e) => {
+    if (!isDesktopNav()) return;
+    const item = e.target.closest(".has-dropdown");
+    if (!item || !menu.contains(item)) return;
+    clearTimeout(closeTimer);
+    clearHoverExcept(item);
+    item.classList.add("is-hover");
+  });
+
+  menu.addEventListener("pointerout", (e) => {
+    if (!isDesktopNav()) return;
+    const item = e.target.closest(".has-dropdown");
+    if (!item || !menu.contains(item)) return;
+    const related = e.relatedTarget;
+    if (related && item.contains(related)) return;
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => item.classList.remove("is-hover"), CLOSE_DELAY_MS);
+  });
 })();

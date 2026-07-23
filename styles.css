@@ -821,6 +821,7 @@ a {
 }
 
 .has-dropdown:hover .nav-caret,
+.has-dropdown.is-hover .nav-caret,
 .has-dropdown.is-open .nav-caret {
   transform: rotate(180deg);
 }
@@ -853,11 +854,22 @@ a {
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
-  transition: 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
   z-index: 20;
 }
 
-.has-dropdown:hover .dropdown {
+/* Invisible bridge so the cursor can move from parent → dropdown */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.has-dropdown:hover .dropdown,
+.has-dropdown.is-hover .dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -3365,6 +3377,51 @@ h2 {
   line-height: 1.75;
 }
 
+.subpage-card p + p {
+  margin-top: 16px;
+}
+
+a.subpage-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.subpage-card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(13, 71, 161, 0.12);
+}
+
+a.subpage-card-link h2,
+a.subpage-card-link h3 {
+  color: var(--primary);
+}
+
+.subpage-highlights {
+  margin: 12px 0 0;
+  padding-left: 1.2em;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.subpage-related-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.subpage-card.article-detail h2 {
+  margin-top: 28px;
+}
+
+.subpage-card.article-detail h2:first-child {
+  margin-top: 0;
+}
+
+.subpage-card.article-detail p {
+  margin-top: 12px;
+}
+
 .subpage-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4000,6 +4057,10 @@ img.is-loaded {
     margin-top: 0;
     padding: 4px 0 10px 8px;
     border-radius: 0 0 12px 12px;
+  }
+
+  .dropdown::before {
+    display: none;
   }
 
   .has-dropdown.is-open .dropdown {
