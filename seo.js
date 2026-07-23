@@ -1,5 +1,5 @@
 (() => {
-  const DEFAULT_SITE_URL = "https://www.minhtuan.com";
+  const DEFAULT_SITE_URL = "https://minhtuanlogistics.com";
   const BRAND = "MINH TUẤN Logistics";
   const DEFAULT_OG_IMAGE = "/logo.png";
 

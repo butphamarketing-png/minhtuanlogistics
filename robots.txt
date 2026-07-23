@@ -3,4 +3,4 @@ Allow: /
 Disallow: /adminbp/
 Disallow: /api/
 
-Sitemap: https://www.minhtuan.com/sitemap.xml
+Sitemap: https://minhtuanlogistics.com/sitemap.xml

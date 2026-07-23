@@ -6,11 +6,11 @@ const root = path.resolve(__dirname, "..");
 const getSiteUrl = () => {
   try {
     const settings = JSON.parse(fs.readFileSync(path.join(root, "data", "settings.json"), "utf8"));
-    const raw = settings.siteUrl || settings.website || "https://www.minhtuan.com";
+    const raw = settings.siteUrl || settings.website || "https://minhtuanlogistics.com";
     if (String(raw).startsWith("http")) return String(raw).replace(/\/$/, "");
     return `https://${String(raw).replace(/^\/\//, "").replace(/\/$/, "")}`;
   } catch {
-    return "https://www.minhtuan.com";
+    return "https://minhtuanlogistics.com";
   }
 };
 

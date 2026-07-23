@@ -173,7 +173,7 @@
           <label>Email<input name="email" value="${esc(s.email)}" /></label>
           <label>Địa chỉ<input name="address" value="${esc(s.address)}" /></label>
           <label>Website<input name="website" value="${esc(s.website)}" /></label>
-          <label>URL website (SEO)<input name="siteUrl" value="${esc(s.siteUrl)}" placeholder="https://www.minhtuan.com" /></label>
+          <label>URL website (SEO)<input name="siteUrl" value="${esc(s.siteUrl)}" placeholder="https://minhtuanlogistics.com" /></label>
           <label>Giờ làm việc<input name="workingHours" value="${esc(s.workingHours)}" /></label>
         </div>
         <h3 style="margin-top:20px">Mạng xã hội</h3>
