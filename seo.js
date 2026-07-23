@@ -362,7 +362,7 @@
     if (!post) return;
     const title = `${post.title} | ${BRAND}`;
     const description = (post.metaDescription || post.excerpt || post.body?.[0] || "").slice(0, 160);
-    const url = `${getSiteUrl()}/bai-viet?slug=${encodeURIComponent(post.slug)}`;
+    const url = `${getSiteUrl()}/bai-viet/${encodeURIComponent(post.slug)}`;
     const image = post.cover?.startsWith("data:") ? absUrl(DEFAULT_OG_IMAGE) : post.cover;
 
     document.title = title;
@@ -393,7 +393,7 @@
     upsertJsonLd("schema-breadcrumb", buildBreadcrumb([
       { name: t("nav.home", "Trang chủ"), path: "/" },
       { name: t("nav.news", "Tin tức"), path: "/tin-tuc" },
-      { name: post.keyword, path: `/bai-viet?slug=${encodeURIComponent(post.slug)}` },
+      { name: post.keyword, path: `/bai-viet/${encodeURIComponent(post.slug)}` },
     ]));
   };
 

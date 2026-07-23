@@ -8,7 +8,9 @@
     "keywords": "node scripts/generate-keywords.js",
     "news": "node scripts/generate-news-posts.js",
     "validate-news": "node scripts/validate-news.js",
-    "sitemap": "node scripts/generate-sitemap.js"
+    "articles": "node scripts/generate-article-pages.js",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "build": "node scripts/generate-article-pages.js && node scripts/generate-sitemap.js"
   },
   "engines": {
     "node": ">=18"

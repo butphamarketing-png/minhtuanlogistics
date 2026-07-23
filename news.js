@@ -10,7 +10,7 @@
 
   const cardHtml = (p) => `
     <article class="news-card">
-      <a class="news-card-link" href="bai-viet.html?slug=${encodeURIComponent(p.slug)}" title="${esc(p.title)}">
+      <a class="news-card-link" href="/bai-viet/${encodeURIComponent(p.slug)}" title="${esc(p.title)}">
         <div class="news-card-media">
           <img src="${p.cover}" alt="${esc(p.imageAlt || p.keyword)}" loading="lazy" width="400" height="225" />
           <span class="news-card-tag">${esc(p.categoryLabel)}</span>
@@ -99,8 +99,9 @@
 
     const articleRoot = document.getElementById("articleRoot");
     if (articleRoot) {
-      const slug = new URLSearchParams(window.location.search).get("slug");
-      const post = slug ? window.getNewsBySlug?.(slug) : null;
+      const pathSlug = (window.location.pathname.match(/\/bai-viet\/([^/]+)\/?$/) || [])[1];
+      const slug = pathSlug || new URLSearchParams(window.location.search).get("slug");
+      const post = slug ? window.getNewsBySlug?.(decodeURIComponent(slug)) : null;
       if (!post) {
         articleRoot.innerHTML = `
         <div class="article-missing">
@@ -161,7 +162,7 @@
       if (homeFeatured && latest[0]) {
         const p = latest[0];
         homeFeatured.innerHTML = `
-        <a href="bai-viet.html?slug=${encodeURIComponent(p.slug)}" class="news-featured-link">
+        <a href="/bai-viet/${encodeURIComponent(p.slug)}" class="news-featured-link">
           <img src="${p.cover}" alt="${esc(p.imageAlt || p.keyword)}" loading="lazy" />
           <div class="news-featured-overlay">
             <time class="news-date news-date--light" datetime="${p.date}">${esc(p.dateLabel)}</time>
@@ -176,7 +177,7 @@
             (p) => `
         <article class="news-feed-item">
           <span class="news-feed-dot" aria-hidden="true"></span>
-          <a href="bai-viet.html?slug=${encodeURIComponent(p.slug)}" class="news-feed-link">
+          <a href="/bai-viet/${encodeURIComponent(p.slug)}" class="news-feed-link">
             <div class="news-feed-thumb"><img src="${p.cover}" alt="${esc(p.imageAlt || p.keyword)}" loading="lazy" /></div>
             <div class="news-feed-body">
               <time class="news-date" datetime="${p.date}">${esc(p.dateLabel)}</time>

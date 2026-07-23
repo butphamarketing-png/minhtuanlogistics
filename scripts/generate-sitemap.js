@@ -49,7 +49,7 @@ const urlEntry = (loc, priority, changefreq) => `  <url>
 
 const slugs = extractNewsSlugs();
 const newsEntries = slugs.map((slug) =>
-  urlEntry(`/bai-viet?slug=${encodeURIComponent(slug)}`, "0.6", "monthly")
+  urlEntry(`/bai-viet/${encodeURIComponent(slug)}`, "0.6", "monthly")
 );
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

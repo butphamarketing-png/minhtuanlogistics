@@ -42,9 +42,29 @@ const serveFile = (res, filePath, cache = true) => {
 
 const server = http.createServer((req, res) => {
   try {
-    let urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
+    const rawUrl = req.url || "/";
+    const qs = rawUrl.includes("?") ? rawUrl.slice(rawUrl.indexOf("?") + 1) : "";
+    let urlPath = decodeURIComponent(rawUrl.split("?")[0]);
+
+    // Legacy ?slug= → /bai-viet/{slug}
+    if (urlPath === "/bai-viet" || urlPath === "/bai-viet.html") {
+      const slug = new URLSearchParams(qs).get("slug");
+      if (slug) {
+        res.writeHead(301, { Location: `/bai-viet/${encodeURIComponent(slug)}` });
+        return res.end();
+      }
+    }
+
     if (urlPath === "/") urlPath = "/index.html";
     if (urlPath === "/adminbp") urlPath = "/adminbp/index.html";
+
+    // Clean URLs: /gioi-thieu → gioi-thieu.html, /bai-viet/slug → bai-viet/slug.html
+    if (!path.extname(urlPath) && urlPath !== "/") {
+      const asHtml = path.resolve(root, "." + urlPath + ".html");
+      if (asHtml.startsWith(root) && fs.existsSync(asHtml)) {
+        urlPath = urlPath + ".html";
+      }
+    }
 
     if (urlPath.startsWith("/api/")) {
       return handleApi(req, res, urlPath);

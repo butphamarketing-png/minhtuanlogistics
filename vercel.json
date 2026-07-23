@@ -5,6 +5,14 @@
     { "source": "/adminbp", "destination": "/adminbp/index.html" },
     { "source": "/api/(.*)", "destination": "/api/[...slug]" }
   ],
+  "redirects": [
+    {
+      "source": "/bai-viet",
+      "has": [{ "type": "query", "key": "slug", "value": "(?<slug>[^&]+)" }],
+      "destination": "/bai-viet/:slug",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/adminbp/(.*)",
