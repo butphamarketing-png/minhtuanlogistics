@@ -4,114 +4,123 @@
       "slug": "ve-chung-toi",
       "parent": "gioi-thieu",
       "parentLabel": "Giới thiệu",
-      "title": "Về chúng tôi",
-      "metaTitle": "Về chúng tôi | MINH TUẤN Logistics TP.HCM",
-      "metaDescription": "Giới thiệu CÔNG TY TNHH XNK TM DV MINH TUẤN — đối tác logistics, xuất nhập khẩu uy tín tại TP.HCM với hơn 10 năm kinh nghiệm.",
-      "lead": "Minh Tuấn cung cấp giải pháp xuất nhập khẩu và logistics toàn diện cho doanh nghiệp theo định hướng quốc tế, tập trung vào tốc độ xử lý, độ chính xác và khả năng đồng hành dài hạn.",
+      "primaryKeyword": "công ty logistics TP.HCM",
+      "secondaryKeywords": ["công ty xuất nhập khẩu uy tín", "Minh Tuấn Logistics", "đối tác logistics Tân Sơn Nhất"],
+      "title": "Về chúng tôi — Công ty logistics uy tín TP.HCM",
+      "metaTitle": "Công Ty Logistics TP.HCM Uy Tín | MINH TUẤN Logistics",
+      "metaDescription": "Giới thiệu công ty logistics TP.HCM Minh Tuấn — đối tác xuất nhập khẩu uy tín gần Tân Sơn Nhất & cảng Cát Lái. Hotline 0938 961 012.",
+      "lead": "CÔNG TY TNHH XNK TM DV MINH TUẤN là công ty logistics TP.HCM đồng hành cùng doanh nghiệp trong xuất nhập khẩu, vận tải và chuỗi cung ứng quốc tế.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80", "alt": "Công ty logistics TP.HCM Minh Tuấn vận hành kho và giao nhận hàng hóa" },
+        { "src": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80", "alt": "Đối tác xuất nhập khẩu uy tín tại TP.HCM - container tại cảng" },
+        { "src": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80", "alt": "Minh Tuấn Logistics gần sân bay Tân Sơn Nhất hỗ trợ thông quan nhanh" },
+        { "src": "https://images.unsplash.com/photo-1566576721346-d4a3b12ea009?auto=format&fit=crop&w=1200&q=80", "alt": "Đội ngũ công ty xuất nhập khẩu Minh Tuấn tư vấn doanh nghiệp" },
+        { "src": "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80", "alt": "Chuỗi cung ứng logistics toàn diện của công ty logistics TP.HCM" }
+      ],
       "sections": [
         {
-          "heading": "Đối tác logistics tin cậy tại TP.HCM",
+          "heading": "Công ty logistics TP.HCM đồng hành doanh nghiệp",
           "paragraphs": [
-            "CÔNG TY TNHH XNK TM DV MINH TUẤN được thành lập với sứ mệnh đồng hành cùng doanh nghiệp Việt Nam trên hành trình vươn ra thị trường toàn cầu. Chúng tôi kết hợp kinh nghiệm thực chiến trong xuất nhập khẩu, giao nhận vận tải và vận hành chuỗi cung ứng để mang lại giải pháp trọn gói, minh bạch và hiệu quả.",
-            "Trụ sở tại khu vực Tân Sơn Nhất — vị trí thuận lợi kết nối sân bay, cảng Cát Lái và mạng lưới kho bãi — giúp rút ngắn thời gian xử lý chứng từ, thông quan và giao nhận hàng hóa."
+            "CÔNG TY TNHH XNK TM DV MINH TUẤN được thành lập để trở thành công ty logistics TP.HCM đáng tin cậy cho doanh nghiệp SME và doanh nghiệp xuất nhập khẩu. Chúng tôi cung cấp giải pháp trọn gói: khai báo hải quan, ủy thác xuất nhập khẩu, vận tải biển – bộ – hàng không và kho bãi logistics.",
+            "Với vị trí gần sân bay Tân Sơn Nhất và kết nối thuận tiện tới cảng Cát Lái, Minh Tuấn Logistics giúp rút ngắn thời gian xử lý chứng từ, thông quan và giao nhận — lợi thế cạnh tranh rõ rệt cho doanh nghiệp cần tốc độ."
           ]
         },
         {
-          "heading": "Thế mạnh của Minh Tuấn",
+          "heading": "Công ty xuất nhập khẩu uy tín — thế mạnh thực chiến",
           "paragraphs": [
-            "Đội ngũ chuyên viên am hiểu quy trình hải quan, vận tải đa phương thức và yêu cầu đặc thù theo ngành hàng. Mỗi lô hàng được theo dõi sát sao từ lúc tiếp nhận đến khi giao đến tay khách hàng.",
-            "Chúng tôi ưu tiên giao tiếp rõ ràng, báo cáo tiến độ kịp thời và tư vấn phương án tối ưu chi phí — giúp doanh nghiệp chủ động kế hoạch kinh doanh."
+            "Là công ty xuất nhập khẩu uy tín, Minh Tuấn không chỉ làm trung gian mà chủ động tư vấn mã HS, Incoterms, chính sách thuế và phương án tối ưu chi phí theo từng ngành hàng.",
+            "Mỗi lô hàng có đầu mối phụ trách, báo cáo tiến độ minh bạch và phương án xử lý rủi ro kịp thời — đúng tinh thần đối tác logistics dài hạn, không phải dịch vụ một lần."
           ]
         },
         {
-          "heading": "Cam kết đồng hành",
+          "heading": "Cam kết của Minh Tuấn Logistics",
           "paragraphs": [
-            "Minh Tuấn không chỉ là đơn vị thực hiện dịch vụ, mà là đối tác đồng hành dài hạn. Từ doanh nghiệp SME mới xuất khẩu đến tập đoàn có chuỗi cung ứng phức tạp, chúng tôi linh hoạt điều chỉnh quy trình để phù hợp quy mô và mục tiêu của từng khách hàng."
+            "Chúng tôi cam kết quy trình chuyên nghiệp, chi phí rõ ràng và đúng tiến độ. Doanh nghiệp có thể bắt đầu từ gói tư vấn nhỏ đến ủy thác xuất nhập khẩu trọn gói khi mở rộng quy mô."
           ]
         }
       ],
       "highlights": [
-        "Hơn 10 năm kinh nghiệm XNK & logistics",
-        "Vị trí gần sân bay Tân Sơn Nhất & cảng Cát Lái",
-        "Quy trình minh bạch, báo cáo tiến độ rõ ràng",
-        "Đồng hành dài hạn cùng doanh nghiệp"
+        "Công ty logistics TP.HCM hơn 10 năm kinh nghiệm",
+        "Gần Tân Sơn Nhất & cảng Cát Lái",
+        "Xuất nhập khẩu – vận tải – kho bãi đồng bộ",
+        "Báo giá minh bạch trong 24 giờ làm việc"
       ]
     },
     {
       "slug": "tam-nhin",
       "parent": "gioi-thieu",
       "parentLabel": "Giới thiệu",
-      "title": "Tầm nhìn & Sứ mệnh",
-      "metaTitle": "Tầm nhìn & Sứ mệnh | MINH TUẤN Logistics",
-      "metaDescription": "Tầm nhìn và sứ mệnh của MINH TUẤN Logistics: trở thành đối tác kết nối doanh nghiệp Việt với thị trường toàn cầu.",
-      "lead": "Trở thành đối tác logistics hàng đầu, kết nối doanh nghiệp Việt với thị trường toàn cầu bằng dịch vụ chuyên nghiệp, minh bạch và hiệu quả.",
+      "primaryKeyword": "đối tác logistics hàng đầu",
+      "secondaryKeywords": ["kết nối doanh nghiệp Việt", "logistics toàn cầu", "Minh Tuấn Logistics"],
+      "title": "Tầm nhìn & Sứ mệnh — Đối tác logistics hàng đầu",
+      "metaTitle": "Tầm Nhìn & Sứ Mệnh Đối Tác Logistics | MINH TUẤN",
+      "metaDescription": "Tầm nhìn Minh Tuấn: trở thành đối tác logistics hàng đầu, kết nối doanh nghiệp Việt với thị trường toàn cầu bằng dịch vụ minh bạch, đúng tiến độ.",
+      "lead": "Minh Tuấn hướng tới vị thế đối tác logistics hàng đầu — kết nối doanh nghiệp Việt với thị trường toàn cầu bằng dịch vụ chuyên nghiệp, minh bạch và hiệu quả.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1494412519320-aa613dfb0958?auto=format&fit=crop&w=1200&q=80", "alt": "Đối tác logistics hàng đầu kết nối doanh nghiệp Việt ra toàn cầu" },
+        { "src": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80", "alt": "Logistics toàn cầu - vận tải hàng không quốc tế Minh Tuấn" },
+        { "src": "https://images.unsplash.com/photo-1605745341112-859dfc6f5301?auto=format&fit=crop&w=1200&q=80", "alt": "Tầm nhìn Minh Tuấn Logistics mở rộng mạng lưới đại lý quốc tế" },
+        { "src": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1200&q=80", "alt": "Sứ mệnh kết nối doanh nghiệp Việt với thị trường xuất khẩu" },
+        { "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Chiến lược phát triển đối tác logistics hàng đầu tại TP.HCM" }
+      ],
       "sections": [
         {
-          "heading": "Tầm nhìn",
+          "heading": "Tầm nhìn: đối tác logistics hàng đầu khu vực",
           "paragraphs": [
-            "Minh Tuấn hướng tới vị thế đối tác logistics được tin chọn hàng đầu tại TP.HCM và khu vực phía Nam — nơi doanh nghiệp tìm thấy sự an tâm khi giao phó chuỗi vận hành quốc tế.",
-            "Chúng tôi xây dựng hệ sinh thái dịch vụ liên kết chặt chẽ giữa xuất nhập khẩu, vận tải biển – bộ – hàng không, kho bãi và tư vấn vận hành, giúp khách hàng mở rộng thị trường nhanh hơn với rủi ro thấp hơn."
+            "Tầm nhìn của Minh Tuấn là trở thành đối tác logistics hàng đầu tại TP.HCM và phía Nam — nơi doanh nghiệp tìm thấy sự an tâm khi giao phó chuỗi vận hành quốc tế.",
+            "Chúng tôi xây dựng hệ sinh thái liên kết xuất nhập khẩu, vận tải đa phương thức, kho bãi và tư vấn vận hành để khách hàng mở rộng thị trường nhanh hơn với rủi ro thấp hơn."
           ]
         },
         {
-          "heading": "Sứ mệnh",
+          "heading": "Sứ mệnh kết nối doanh nghiệp Việt với logistics toàn cầu",
           "paragraphs": [
             "Sứ mệnh của chúng tôi là rút ngắn khoảng cách giữa doanh nghiệp Việt Nam và thị trường toàn cầu bằng quy trình chuyên nghiệp, minh bạch và đúng tiến độ.",
-            "Mỗi ngày, đội ngũ Minh Tuấn làm việc với tinh thần trách nhiệm cao: bảo vệ lợi ích khách hàng, tối ưu chi phí hợp lý và không ngừng nâng cao chất lượng dịch vụ."
-          ]
-        },
-        {
-          "heading": "Định hướng phát triển",
-          "paragraphs": [
-            "Chúng tôi liên tục số hóa quy trình theo dõi lô hàng, chuẩn hóa checklist hải quan và mở rộng mạng lưới đại lý quốc tế để đáp ứng nhu cầu ngày càng đa dạng của khách hàng."
+            "Mỗi ngày đội ngũ Minh Tuấn Logistics bảo vệ lợi ích khách hàng, tối ưu chi phí hợp lý và không ngừng nâng cao chất lượng dịch vụ logistics."
           ]
         }
       ],
       "highlights": [
-        "Kết nối doanh nghiệp Việt với thị trường toàn cầu",
-        "Dịch vụ chuyên nghiệp – minh bạch – hiệu quả",
-        "Không ngừng số hóa và chuẩn hóa quy trình",
-        "Lấy sự tin tưởng của khách hàng làm thước đo"
+        "Đối tác logistics hàng đầu tại TP.HCM",
+        "Kết nối doanh nghiệp Việt – thị trường toàn cầu",
+        "Dịch vụ minh bạch, đúng tiến độ",
+        "Không ngừng số hóa quy trình vận hành"
       ]
     },
     {
       "slug": "gia-tri",
       "parent": "gioi-thieu",
       "parentLabel": "Giới thiệu",
-      "title": "Giá trị cốt lõi",
-      "metaTitle": "Giá trị cốt lõi | MINH TUẤN Logistics",
-      "metaDescription": "Giá trị cốt lõi của MINH TUẤN: Uy tín — Chuyên nghiệp — Tận tâm — Đúng tiến độ trong mọi dịch vụ logistics.",
-      "lead": "Uy tín — Chuyên nghiệp — Tận tâm — Đúng tiến độ. Chúng tôi đặt lợi ích khách hàng làm trọng tâm trong mọi hoạt động.",
+      "primaryKeyword": "giá trị cốt lõi logistics",
+      "secondaryKeywords": ["uy tín logistics", "đúng tiến độ giao nhận", "dịch vụ chuyên nghiệp"],
+      "title": "Giá trị cốt lõi logistics của Minh Tuấn",
+      "metaTitle": "Giá Trị Cốt Lõi Logistics Uy Tín | MINH TUẤN",
+      "metaDescription": "Giá trị cốt lõi logistics Minh Tuấn: Uy tín — Chuyên nghiệp — Tận tâm — Đúng tiến độ. Đặt lợi ích khách hàng làm trọng tâm mọi dịch vụ.",
+      "lead": "Giá trị cốt lõi logistics của Minh Tuấn là Uy tín — Chuyên nghiệp — Tận tâm — Đúng tiến độ trong mọi hoạt động xuất nhập khẩu và vận tải.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80", "alt": "Giá trị cốt lõi logistics uy tín tại Minh Tuấn TP.HCM" },
+        { "src": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1200&q=80", "alt": "Dịch vụ chuyên nghiệp kiểm soát chất lượng lô hàng logistics" },
+        { "src": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80", "alt": "Đội ngũ tận tâm hỗ trợ khách hàng xuất nhập khẩu" },
+        { "src": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80", "alt": "Uy tín logistics - cam kết minh bạch chi phí và tiến độ" },
+        { "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80", "alt": "Đúng tiến độ giao nhận - giá trị cốt lõi Minh Tuấn Logistics" }
+      ],
       "sections": [
         {
-          "heading": "Uy tín",
+          "heading": "Uy tín logistics — cam kết đúng lời",
           "paragraphs": [
-            "Cam kết thực hiện đúng những gì đã thỏa thuận. Thông tin chi phí, tiến độ và rủi ro được trao đổi trung thực để khách hàng luôn nắm quyền chủ động."
+            "Uy tín logistics được xây bằng việc thực hiện đúng thỏa thuận: chi phí, tiến độ và rủi ro được trao đổi trung thực để khách hàng luôn nắm quyền chủ động."
           ]
         },
         {
-          "heading": "Chuyên nghiệp",
+          "heading": "Dịch vụ chuyên nghiệp & đúng tiến độ giao nhận",
           "paragraphs": [
-            "Quy trình chuẩn, đội ngũ được đào tạo bài bản và hệ thống kiểm soát chất lượng xuyên suốt từ tiếp nhận yêu cầu đến bàn giao hàng."
-          ]
-        },
-        {
-          "heading": "Tận tâm",
-          "paragraphs": [
-            "Mỗi lô hàng đều có người phụ trách theo dõi. Khi phát sinh sự cố, chúng tôi chủ động phương án xử lý và cập nhật kịp thời cho khách hàng."
-          ]
-        },
-        {
-          "heading": "Đúng tiến độ",
-          "paragraphs": [
-            "Thời gian là lợi thế cạnh tranh. Minh Tuấn ưu tiên lập kế hoạch vận hành thực tế, dự phòng rủi ro và bám sát lịch trình cam kết."
+            "Quy trình chuẩn, đội ngũ được đào tạo và hệ thống kiểm soát chất lượng xuyên suốt giúp đảm bảo đúng tiến độ giao nhận — lợi thế cạnh tranh then chốt trong logistics."
           ]
         }
       ],
       "highlights": [
         "Uy tín trong cam kết và báo cáo",
-        "Quy trình chuyên nghiệp, kiểm soát chặt",
-        "Đồng hành tận tâm từng lô hàng",
+        "Dịch vụ chuyên nghiệp, kiểm soát chặt",
+        "Tận tâm từng lô hàng",
         "Ưu tiên đúng tiến độ giao nhận"
       ]
     }
@@ -121,186 +130,336 @@
       "slug": "xuat-nhap-khau",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Xuất nhập khẩu",
-      "metaTitle": "Dịch vụ xuất nhập khẩu trọn gói TP.HCM | MINH TUẤN",
-      "metaDescription": "Ủy thác xuất nhập khẩu, khai báo hải quan, chứng từ và vận hành XNK chuyên nghiệp tại TP.HCM. Hotline 0938 961 012.",
-      "lead": "Hỗ trợ thủ tục, khai báo hải quan và vận hành xuất nhập khẩu chuyên nghiệp — từ A đến Z cho doanh nghiệp.",
+      "primaryKeyword": "dịch vụ xuất nhập khẩu TP.HCM",
+      "secondaryKeywords": ["khai báo hải quan trọn gói", "ủy thác xuất nhập khẩu", "thủ tục hải quan", "công ty xuất nhập khẩu"],
+      "title": "Dịch vụ xuất nhập khẩu TP.HCM trọn gói",
+      "metaTitle": "Dịch Vụ Xuất Nhập Khẩu TP.HCM Trọn Gói | MINH TUẤN",
+      "metaDescription": "Dịch vụ xuất nhập khẩu TP.HCM: khai báo hải quan trọn gói, ủy thác xuất nhập khẩu, thủ tục hải quan nhanh. Báo giá 24h — Hotline 0938 961 012.",
+      "lead": "Minh Tuấn cung cấp dịch vụ xuất nhập khẩu TP.HCM trọn gói: khai báo hải quan, ủy thác XNK, chứng từ và giao nhận — giúp doanh nghiệp thông quan nhanh, kiểm soát chi phí.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80", "alt": "Dịch vụ xuất nhập khẩu TP.HCM - container hàng hóa tại cảng Cát Lái" },
+        { "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Khai báo hải quan trọn gói điện tử cho doanh nghiệp xuất nhập khẩu" },
+        { "src": "https://images.unsplash.com/photo-1566576721346-d4a3b12ea009?auto=format&fit=crop&w=1200&q=80", "alt": "Ủy thác xuất nhập khẩu - tư vấn chứng từ và mã HS tại Minh Tuấn" },
+        { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80", "alt": "Thủ tục hải quan nhanh chóng cho công ty xuất nhập khẩu TP.HCM" },
+        { "src": "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80", "alt": "Quy trình dịch vụ xuất nhập khẩu TP.HCM từ A đến Z của Minh Tuấn" }
+      ],
       "sections": [
         {
-          "heading": "Giải pháp XNK trọn gói",
+          "heading": "Dịch vụ xuất nhập khẩu TP.HCM dành cho doanh nghiệp",
           "paragraphs": [
-            "Minh Tuấn hỗ trợ doanh nghiệp thực hiện xuất nhập khẩu hàng hóa với đầy đủ nghiệp vụ: chuẩn bị bộ chứng từ, khai báo hải quan điện tử, làm việc với cơ quan chức năng và phối hợp giao nhận tại cảng/sân bay.",
-            "Chúng tôi tư vấn mã HS, chính sách thuế, điều kiện Incoterms và phương án tối ưu chi phí theo từng loại hàng và tuyến thương mại."
+            "Dịch vụ xuất nhập khẩu TP.HCM của Minh Tuấn hỗ trợ doanh nghiệp toàn bộ chuỗi: chuẩn bị bộ chứng từ, khai báo hải quan điện tử, làm việc với cơ quan chức năng và phối hợp giao nhận tại cảng/sân bay.",
+            "Là công ty xuất nhập khẩu am hiểu thực tế vận hành, chúng tôi tư vấn mã HS, chính sách thuế, điều kiện Incoterms và phương án tối ưu chi phí theo từng loại hàng và tuyến thương mại."
           ]
         },
         {
-          "heading": "Phù hợp với ai?",
+          "heading": "Khai báo hải quan trọn gói & ủy thác xuất nhập khẩu",
           "paragraphs": [
-            "Doanh nghiệp SME chưa có bộ phận XNK chuyên trách, công ty muốn ủy thác một phần hoặc toàn bộ quy trình, và các đơn vị cần đẩy nhanh tiến độ thông quan mà vẫn kiểm soát rủi ro."
+            "Gói khai báo hải quan trọn gói giúp doanh nghiệp giảm sai sót chứng từ, rút ngắn thời gian thông quan và hạn chế phát sinh chi phí lưu container.",
+            "Doanh nghiệp có thể chọn ủy thác xuất nhập khẩu một phần hoặc toàn bộ quy trình — phù hợp SME chưa có bộ phận XNK chuyên trách hoặc doanh nghiệp muốn đẩy nhanh tiến độ khi mở tuyến mới."
           ]
         },
         {
-          "heading": "Quy trình làm việc",
+          "heading": "Thủ tục hải quan minh bạch, báo giá rõ ràng",
           "paragraphs": [
-            "Tiếp nhận yêu cầu → kiểm tra hồ sơ & tư vấn phương án → thực hiện khai báo/thủ tục → theo dõi thông quan → bàn giao và báo cáo hoàn tất. Mọi bước đều có đầu mối liên hệ rõ ràng."
+            "Quy trình: tiếp nhận yêu cầu → kiểm tra hồ sơ & tư vấn phương án → thực hiện thủ tục hải quan → theo dõi thông quan → bàn giao và báo cáo hoàn tất.",
+            "Liên hệ hotline 0938 961 012 để nhận tư vấn dịch vụ xuất nhập khẩu TP.HCM và báo giá trong 24 giờ làm việc."
           ]
         }
       ],
       "highlights": [
+        "Dịch vụ xuất nhập khẩu TP.HCM trọn gói",
         "Khai báo hải quan điện tử nhanh",
+        "Ủy thác xuất nhập khẩu linh hoạt",
         "Tư vấn mã HS & chính sách thuế",
-        "Ủy thác XNK linh hoạt theo nhu cầu",
-        "Báo giá rõ ràng trong 24 giờ làm việc"
+        "Báo giá rõ ràng trong 24 giờ"
+      ],
+      "faq": [
+        {
+          "q": "Dịch vụ xuất nhập khẩu TP.HCM của Minh Tuấn gồm những gì?",
+          "a": "Gồm tư vấn XNK, khai báo hải quan trọn gói, ủy thác xuất nhập khẩu, chuẩn bị chứng từ và phối hợp giao nhận tại cảng/sân bay."
+        },
+        {
+          "q": "Ủy thác xuất nhập khẩu phù hợp doanh nghiệp nào?",
+          "a": "Phù hợp SME chưa có bộ phận XNK, doanh nghiệp mới mở tuyến, hoặc đơn vị muốn giảm rủi ro thủ tục hải quan và tối ưu chi phí."
+        }
       ]
     },
     {
       "slug": "van-chuyen-duong-bien",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Vận chuyển đường biển",
-      "metaTitle": "Vận chuyển đường biển FCL/LCL | MINH TUẤN Logistics",
-      "metaDescription": "Dịch vụ vận chuyển đường biển quốc tế FCL/LCL, booking container, tối ưu chi phí và đúng tiến độ. Hotline 0938 961 012.",
-      "lead": "Vận chuyển đường biển quốc tế với giải pháp FCL/LCL, tối ưu chi phí và đúng tiến độ.",
+      "primaryKeyword": "vận chuyển đường biển",
+      "secondaryKeywords": ["vận tải biển FCL LCL", "booking container", "cước tàu biển", "sea freight TP.HCM"],
+      "title": "Vận chuyển đường biển FCL/LCL quốc tế",
+      "metaTitle": "Vận Chuyển Đường Biển FCL/LCL Giá Tốt | MINH TUẤN",
+      "metaDescription": "Vận chuyển đường biển quốc tế FCL/LCL, booking container, tối ưu cước tàu biển tại TP.HCM. Sea freight đúng tiến độ — Hotline 0938 961 012.",
+      "lead": "Dịch vụ vận chuyển đường biển của Minh Tuấn cung cấp giải pháp FCL/LCL, booking container và theo dõi hành trình — tối ưu cước tàu biển, đúng tiến độ.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80", "alt": "Vận chuyển đường biển quốc tế - tàu container tại cảng" },
+        { "src": "https://images.unsplash.com/photo-1605745341112-859dfc6f5301?auto=format&fit=crop&w=1200&q=80", "alt": "Vận tải biển FCL LCL - xếp dỡ container hàng xuất khẩu" },
+        { "src": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80", "alt": "Booking container sea freight TP.HCM tại cảng Cát Lái" },
+        { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80", "alt": "Tối ưu cước tàu biển cho doanh nghiệp xuất nhập khẩu" },
+        { "src": "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=1200&q=80", "alt": "Theo dõi hành trình vận chuyển đường biển FCL/LCL Minh Tuấn" }
+      ],
       "sections": [
         {
-          "heading": "FCL & LCL linh hoạt",
+          "heading": "Vận chuyển đường biển FCL & LCL linh hoạt",
           "paragraphs": [
-            "Chúng tôi cung cấp dịch vụ container nguyên (FCL) và hàng lẻ (LCL) trên các tuyến châu Á, châu Âu, Mỹ và nhiều thị trường khác, phù hợp cả hàng số lượng lớn lẫn lô hàng nhỏ.",
-            "Đội ngũ booking hỗ trợ chọn hãng tàu, lịch cắt máng hợp lý và theo dõi hành trình container đến khi hàng về kho/cảng đích."
+            "Vận chuyển đường biển là lựa chọn tối ưu cho hàng số lượng lớn hoặc hàng không quá gấp về thời gian. Minh Tuấn cung cấp vận tải biển FCL (nguyên container) và LCL (hàng lẻ) trên nhiều tuyến châu Á, châu Âu, Mỹ.",
+            "Đội ngũ hỗ trợ booking container, chọn hãng tàu và lịch cắt máng phù hợp — giúp doanh nghiệp chủ động kế hoạch sản xuất và giao hàng."
           ]
         },
         {
-          "heading": "Tối ưu chi phí logistics",
+          "heading": "Booking container & tối ưu cước tàu biển",
           "paragraphs": [
-            "Minh Tuấn phân tích đặc thù hàng hóa, thời gian cần giao và ngân sách để đề xuất phương án biển phù hợp — cân bằng giữa giá cước, thời gian vận chuyển và độ tin cậy lịch trình."
+            "Chúng tôi phân tích đặc thù hàng hóa, thời gian cần giao và ngân sách để đề xuất sea freight TP.HCM cân bằng giữa giá cước, thời gian vận chuyển và độ tin cậy lịch trình.",
+            "Dịch vụ kèm theo dõi hành trình container, phối hợp thông quan và giao nhận nội địa khi hàng về cảng đích."
           ]
         }
       ],
       "highlights": [
-        "Booking FCL/LCL đa tuyến",
-        "Theo dõi hành trình container",
-        "Tư vấn tối ưu chi phí cước biển",
-        "Phối hợp thông quan & giao nhận"
+        "Vận chuyển đường biển đa tuyến",
+        "FCL/LCL linh hoạt",
+        "Booking container chuyên nghiệp",
+        "Tối ưu cước tàu biển",
+        "Theo dõi hành trình real-time"
+      ],
+      "faq": [
+        {
+          "q": "Nên chọn FCL hay LCL khi vận chuyển đường biển?",
+          "a": "FCL phù hợp hàng đủ container hoặc cần kiểm soát riêng. LCL phù hợp hàng lẻ, tối ưu chi phí khi khối lượng nhỏ. Minh Tuấn tư vấn theo từng lô hàng."
+        }
       ]
     },
     {
       "slug": "van-chuyen-duong-bo",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Vận chuyển đường bộ",
-      "metaTitle": "Vận chuyển đường bộ nội địa & liên tỉnh | MINH TUẤN",
-      "metaDescription": "Vận chuyển hàng hóa đường bộ nội địa, liên tỉnh, đầu kéo container — an toàn, đúng tiến độ. Hotline 0938 961 012.",
-      "lead": "Vận chuyển hàng hóa bằng đường bộ nội địa và liên tỉnh, đảm bảo an toàn và đúng tiến độ.",
+      "primaryKeyword": "vận chuyển đường bộ",
+      "secondaryKeywords": ["vận tải nội địa", "đầu kéo container", "giao nhận liên tỉnh", "vận chuyển hàng hóa TP.HCM"],
+      "title": "Vận chuyển đường bộ nội địa & liên tỉnh",
+      "metaTitle": "Vận Chuyển Đường Bộ Nội Địa Liên Tỉnh | MINH TUẤN",
+      "metaDescription": "Vận chuyển đường bộ nội địa, liên tỉnh, đầu kéo container tại TP.HCM — an toàn, đúng tiến độ. Giao nhận tận nơi — Hotline 0938 961 012.",
+      "lead": "Dịch vụ vận chuyển đường bộ của Minh Tuấn phục vụ vận tải nội địa, giao nhận liên tỉnh và đầu kéo container — an toàn, đúng tiến độ từ cảng/sân bay đến kho.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1601584115197-04ecc1da58d9?auto=format&fit=crop&w=1200&q=80", "alt": "Vận chuyển đường bộ bằng xe tải container trên cao tốc" },
+        { "src": "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=80", "alt": "Đầu kéo container vận tải nội địa từ cảng về kho doanh nghiệp" },
+        { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80", "alt": "Giao nhận liên tỉnh an toàn - vận chuyển hàng hóa TP.HCM" },
+        { "src": "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=1200&q=80", "alt": "Kho vận và vận chuyển đường bộ logistics Minh Tuấn" },
+        { "src": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80", "alt": "Theo dõi chuyến vận tải nội địa đúng tiến độ giao hàng" }
+      ],
       "sections": [
         {
-          "heading": "Mạng lưới vận tải nội địa",
+          "heading": "Vận chuyển đường bộ nội địa đa tuyến",
           "paragraphs": [
-            "Minh Tuấn tổ chức vận chuyển đường bộ từ cảng/sân bay đến kho khách hàng và các tuyến liên tỉnh trên toàn quốc. Đội xe và đối tác vận tải được lựa chọn theo tiêu chí an toàn, đúng giờ.",
-            "Chúng tôi hỗ trợ đầu kéo container, giao hàng chặng cuối và các yêu cầu vận chuyển đặc thù theo lịch sản xuất của doanh nghiệp."
+            "Vận chuyển đường bộ kết nối cảng, sân bay và kho khách hàng trên toàn quốc. Minh Tuấn tổ chức vận tải nội địa và giao nhận liên tỉnh với đối tác xe được chọn theo tiêu chí an toàn, đúng giờ.",
+            "Doanh nghiệp cần vận chuyển hàng hóa TP.HCM đi các tỉnh hoặc đầu kéo container sau thông quan đều được hỗ trợ lịch trình linh hoạt theo kế hoạch sản xuất."
+          ]
+        },
+        {
+          "heading": "Đầu kéo container & giao nhận liên tỉnh",
+          "paragraphs": [
+            "Dịch vụ đầu kéo container giúp rút ngắn thời gian lưu bãi, giảm phát sinh phí. Giao nhận liên tỉnh được theo dõi trạng thái chuyến để khách hàng chủ động nhận hàng."
           ]
         }
       ],
       "highlights": [
-        "Nội địa & liên tỉnh",
-        "Đầu kéo container",
-        "Giao nhận đúng tiến độ",
-        "Theo dõi trạng thái chuyến hàng"
+        "Vận chuyển đường bộ toàn quốc",
+        "Đầu kéo container chuyên nghiệp",
+        "Giao nhận liên tỉnh đúng tiến độ",
+        "An toàn hàng hóa",
+        "Theo dõi trạng thái chuyến"
+      ],
+      "faq": [
+        {
+          "q": "Vận chuyển đường bộ của Minh Tuấn phủ những tuyến nào?",
+          "a": "Phục vụ TP.HCM và các tỉnh thành trên cả nước: từ cảng/sân bay về kho, liên tỉnh và đầu kéo container theo yêu cầu."
+        }
       ]
     },
     {
       "slug": "van-chuyen-hang-khong",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Vận chuyển hàng không",
-      "metaTitle": "Vận chuyển hàng không quốc tế & nội địa | MINH TUẤN",
-      "metaDescription": "Giải pháp air freight nhanh cho hàng hóa quốc tế và nội địa, gần sân bay Tân Sơn Nhất. Hotline 0938 961 012.",
-      "lead": "Giải pháp vận chuyển hàng không nhanh chóng cho hàng hóa quốc tế và nội địa.",
+      "primaryKeyword": "vận chuyển hàng không",
+      "secondaryKeywords": ["air freight TP.HCM", "vận tải hàng không quốc tế", "gửi hàng máy bay", "gần sân bay Tân Sơn Nhất"],
+      "title": "Vận chuyển hàng không quốc tế & nội địa",
+      "metaTitle": "Vận Chuyển Hàng Không Air Freight TP.HCM | MINH TUẤN",
+      "metaDescription": "Vận chuyển hàng không nhanh: air freight TP.HCM, gửi hàng máy bay quốc tế & nội địa gần Tân Sơn Nhất. Báo giá 24h — Hotline 0938 961 012.",
+      "lead": "Dịch vụ vận chuyển hàng không Minh Tuấn — air freight TP.HCM gần sân bay Tân Sơn Nhất — tối ưu cho hàng gấp, hàng mẫu và hàng giá trị cao.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80", "alt": "Vận chuyển hàng không quốc tế - máy bay chở hàng air freight" },
+        { "src": "https://images.unsplash.com/photo-1474302770737-173ee5b1a3e0?auto=format&fit=crop&w=1200&q=80", "alt": "Air freight TP.HCM gần sân bay Tân Sơn Nhất Minh Tuấn" },
+        { "src": "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80", "alt": "Gửi hàng máy bay nhanh cho hàng mẫu và hàng giá trị cao" },
+        { "src": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1200&q=80", "alt": "Vận tải hàng không quốc tế thủ tục nhanh tại TP.HCM" },
+        { "src": "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=1200&q=80", "alt": "Kho hàng không và vận chuyển hàng không Minh Tuấn Logistics" }
+      ],
       "sections": [
         {
-          "heading": "Khi nào nên chọn hàng không?",
+          "heading": "Vận chuyển hàng không — khi nào nên chọn?",
           "paragraphs": [
-            "Hàng mẫu, hàng giá trị cao, hàng cần giao gấp hoặc hàng có vòng đời ngắn thường phù hợp với vận tải hàng không. Minh Tuấn tư vấn so sánh thời gian – chi phí giữa air và sea để doanh nghiệp quyết định đúng.",
-            "Với lợi thế gần sân bay Tân Sơn Nhất, chúng tôi hỗ trợ thủ tục nhanh, phối hợp hãng bay và giao nhận tận nơi."
+            "Vận chuyển hàng không phù hợp hàng mẫu, hàng giá trị cao, hàng cần giao gấp hoặc hàng có vòng đời ngắn. Minh Tuấn tư vấn so sánh thời gian – chi phí giữa air freight và sea freight để doanh nghiệp quyết định đúng.",
+            "Lợi thế gần sân bay Tân Sơn Nhất giúp air freight TP.HCM của chúng tôi xử lý thủ tục nhanh, phối hợp hãng bay và giao nhận tận nơi."
+          ]
+        },
+        {
+          "heading": "Gửi hàng máy bay quốc tế & nội địa",
+          "paragraphs": [
+            "Dịch vụ gửi hàng máy bay gồm booking chỗ, chứng từ hàng không, theo dõi chuyến bay và giao nhận door-to-door khi cần. Phù hợp cả vận tải hàng không quốc tế và nội địa."
           ]
         }
       ],
       "highlights": [
-        "Air freight quốc tế & nội địa",
-        "Ưu tiên hàng gấp, hàng mẫu",
-        "Gần sân bay Tân Sơn Nhất",
-        "Thủ tục và giao nhận nhanh"
+        "Vận chuyển hàng không nhanh",
+        "Air freight TP.HCM gần Tân Sơn Nhất",
+        "Hàng gấp, hàng mẫu, hàng giá trị cao",
+        "Thủ tục và giao nhận nhanh",
+        "Báo giá trong 24 giờ"
+      ],
+      "faq": [
+        {
+          "q": "Air freight TP.HCM của Minh Tuấn mất bao lâu?",
+          "a": "Tùy tuyến bay và loại hàng. Hàng gấp thường được ưu tiên booking sớm; liên hệ 0938 961 012 để nhận lịch bay và báo giá cụ thể."
+        }
       ]
     },
     {
       "slug": "kho-bai-logistics",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Kho bãi & Logistics",
-      "metaTitle": "Kho bãi & Logistics TP.HCM | MINH TUẤN",
-      "metaDescription": "Dịch vụ kho bãi, lưu trữ, fulfillment và vận hành logistics toàn diện tại TP.HCM. Hotline 0938 961 012.",
-      "lead": "Quản lý kho bãi, lưu trữ và vận hành logistics toàn diện cho chuỗi cung ứng của doanh nghiệp.",
+      "primaryKeyword": "kho bãi logistics",
+      "secondaryKeywords": ["dịch vụ kho bãi TP.HCM", "lưu kho hàng hóa", "fulfillment logistics", "3PL Việt Nam"],
+      "title": "Kho bãi logistics & lưu kho TP.HCM",
+      "metaTitle": "Kho Bãi Logistics TP.HCM — Lưu Kho 3PL | MINH TUẤN",
+      "metaDescription": "Kho bãi logistics TP.HCM: lưu kho hàng hóa, fulfillment, dịch vụ 3PL linh hoạt. Quản lý xuất nhập tồn chuyên nghiệp — Hotline 0938 961 012.",
+      "lead": "Dịch vụ kho bãi logistics Minh Tuấn hỗ trợ lưu kho hàng hóa, quản lý tồn kho và fulfillment — giải pháp 3PL linh hoạt cho doanh nghiệp tại TP.HCM.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80", "alt": "Kho bãi logistics TP.HCM - nhà kho hàng hóa hiện đại" },
+        { "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80", "alt": "Lưu kho hàng hóa và quản lý tồn kho dịch vụ 3PL Việt Nam" },
+        { "src": "https://images.unsplash.com/photo-1566576721346-d4a3b12ea009?auto=format&fit=crop&w=1200&q=80", "alt": "Fulfillment logistics xuất nhập hàng theo đơn doanh nghiệp" },
+        { "src": "https://images.unsplash.com/photo-1605745341112-859dfc6f5301?auto=format&fit=crop&w=1200&q=80", "alt": "Dịch vụ kho bãi TP.HCM xếp dỡ pallet an toàn" },
+        { "src": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80", "alt": "Chuỗi kho bãi logistics kết nối cảng và phân phối nội địa" }
+      ],
       "sections": [
         {
-          "heading": "Kho vận linh hoạt",
+          "heading": "Kho bãi logistics linh hoạt cho SME & doanh nghiệp",
           "paragraphs": [
-            "Minh Tuấn hỗ trợ lưu kho ngắn hạn/dài hạn, quản lý tồn kho và phối hợp xuất nhập hàng theo yêu cầu sản xuất – phân phối của khách hàng.",
-            "Dịch vụ logistics tích hợp giúp doanh nghiệp giảm áp lực vận hành nội bộ, tập trung vào bán hàng và phát triển thị trường."
+            "Kho bãi logistics giúp doanh nghiệp giảm áp lực mặt bằng và nhân sự vận hành. Minh Tuấn cung cấp dịch vụ kho bãi TP.HCM ngắn hạn/dài hạn, lưu kho hàng hóa và quản lý xuất nhập tồn theo nhu cầu.",
+            "Giải pháp 3PL Việt Nam của chúng tôi tích hợp fulfillment logistics — xuất hàng theo đơn, phối hợp giao nhận đa kênh để doanh nghiệp tập trung bán hàng."
+          ]
+        },
+        {
+          "heading": "Lưu kho hàng hóa & fulfillment chuyên nghiệp",
+          "paragraphs": [
+            "Quy trình nhập – lưu – xuất được chuẩn hóa, giảm thất thoát và tăng tốc độ xử lý đơn. Phù hợp hàng nhập khẩu chờ phân phối hoặc hàng xuất chờ đủ container."
           ]
         }
       ],
       "highlights": [
-        "Lưu kho linh hoạt",
+        "Kho bãi logistics TP.HCM",
+        "Lưu kho ngắn/dài hạn",
+        "Fulfillment & 3PL linh hoạt",
         "Quản lý xuất nhập tồn",
-        "Phối hợp giao nhận đa kênh",
-        "Giải pháp 3PL phù hợp SME"
+        "Kết nối giao nhận đa kênh"
+      ],
+      "faq": [
+        {
+          "q": "Dịch vụ kho bãi logistics tính phí như thế nào?",
+          "a": "Phí phụ thuộc diện tích/thời gian lưu, loại hàng và yêu cầu fulfillment. Liên hệ 0938 961 012 để nhận báo giá phù hợp quy mô kho."
+        }
       ]
     },
     {
       "slug": "thuong-mai",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Thương mại",
-      "metaTitle": "Dịch vụ thương mại & kết nối giao thương | MINH TUẤN",
-      "metaDescription": "Kết nối giao thương, tìm nguồn hàng và triển khai hoạt động thương mại quốc tế cùng MINH TUẤN. Hotline 0938 961 012.",
-      "lead": "Kết nối giao thương, tìm nguồn hàng và triển khai hoạt động thương mại hiệu quả.",
+      "primaryKeyword": "dịch vụ thương mại quốc tế",
+      "secondaryKeywords": ["kết nối giao thương", "tìm nguồn hàng nhập khẩu", "thương mại xuất nhập khẩu", "đối tác thương mại"],
+      "title": "Dịch vụ thương mại quốc tế & kết nối giao thương",
+      "metaTitle": "Dịch Vụ Thương Mại Quốc Tế — Kết Nối Giao Thương | MINH TUẤN",
+      "metaDescription": "Dịch vụ thương mại quốc tế: kết nối giao thương, tìm nguồn hàng nhập khẩu, hỗ trợ thương mại xuất nhập khẩu. Hotline 0938 961 012.",
+      "lead": "Minh Tuấn cung cấp dịch vụ thương mại quốc tế: kết nối giao thương, tìm nguồn hàng nhập khẩu và đồng hành chuỗi giao nhận đi kèm hợp đồng.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80", "alt": "Dịch vụ thương mại quốc tế - đàm phán và ký kết hợp đồng" },
+        { "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Kết nối giao thương doanh nghiệp Việt với đối tác nước ngoài" },
+        { "src": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80", "alt": "Tìm nguồn hàng nhập khẩu cùng tư vấn thương mại xuất nhập khẩu" },
+        { "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80", "alt": "Đối tác thương mại quốc tế phân tích thị trường và chi phí" },
+        { "src": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80", "alt": "Chuỗi dịch vụ thương mại quốc tế gắn với logistics Minh Tuấn" }
+      ],
       "sections": [
         {
-          "heading": "Đồng hành thương mại quốc tế",
+          "heading": "Dịch vụ thương mại quốc tế đồng bộ logistics",
           "paragraphs": [
-            "Ngoài logistics, Minh Tuấn hỗ trợ doanh nghiệp trong các hoạt động thương mại: kết nối đối tác, tư vấn điều kiện mua bán và phối hợp chuỗi giao nhận đi kèm hợp đồng.",
-            "Chúng tôi giúp rút ngắn thời gian đưa hàng từ nhà cung cấp đến thị trường đích với quy trình rõ ràng, kiểm soát rủi ro."
+            "Dịch vụ thương mại quốc tế của Minh Tuấn không tách rời logistics: chúng tôi hỗ trợ kết nối giao thương, tư vấn điều kiện mua bán và phối hợp chuỗi giao nhận đi kèm hợp đồng.",
+            "Doanh nghiệp cần tìm nguồn hàng nhập khẩu hoặc mở rộng đối tác thương mại sẽ được tư vấn rủi ro, chứng từ và phương án vận chuyển phù hợp."
+          ]
+        },
+        {
+          "heading": "Kết nối giao thương & thương mại xuất nhập khẩu",
+          "paragraphs": [
+            "Chúng tôi giúp rút ngắn thời gian đưa hàng từ nhà cung cấp đến thị trường đích với quy trình rõ ràng — kết hợp thương mại xuất nhập khẩu và vận hành logistics thực tế."
           ]
         }
       ],
       "highlights": [
-        "Kết nối nguồn hàng & đối tác",
+        "Dịch vụ thương mại quốc tế",
+        "Kết nối giao thương hiệu quả",
+        "Tìm nguồn hàng nhập khẩu",
         "Tư vấn điều kiện giao dịch",
-        "Phối hợp chuỗi giao nhận",
-        "Giảm rủi ro thương mại quốc tế"
+        "Đồng bộ chuỗi logistics"
+      ],
+      "faq": [
+        {
+          "q": "Minh Tuấn hỗ trợ tìm nguồn hàng nhập khẩu như thế nào?",
+          "a": "Chúng tôi tư vấn nhu cầu, kết nối đối tác phù hợp và đồng hành thương mại xuất nhập khẩu kèm phương án vận chuyển, hải quan."
+        }
       ]
     },
     {
       "slug": "tu-van-doanh-nghiep",
       "parent": "dich-vu",
       "parentLabel": "Dịch vụ",
-      "title": "Tư vấn doanh nghiệp",
-      "metaTitle": "Tư vấn logistics & tối ưu chi phí XNK | MINH TUẤN",
-      "metaDescription": "Tư vấn chiến lược logistics, quy trình xuất nhập khẩu và tối ưu chi phí vận hành cho doanh nghiệp. Hotline 0938 961 012.",
-      "lead": "Tư vấn chiến lược, quy trình và tối ưu chi phí vận hành logistics – xuất nhập khẩu.",
+      "primaryKeyword": "tư vấn logistics doanh nghiệp",
+      "secondaryKeywords": ["tối ưu chi phí xuất nhập khẩu", "tư vấn quy trình XNK", "tư vấn chuỗi cung ứng", "cắt giảm chi phí logistics"],
+      "title": "Tư vấn logistics doanh nghiệp & tối ưu chi phí",
+      "metaTitle": "Tư Vấn Logistics Doanh Nghiệp — Tối Ưu Chi Phí XNK | MINH TUẤN",
+      "metaDescription": "Tư vấn logistics doanh nghiệp: tối ưu chi phí xuất nhập khẩu, tư vấn quy trình XNK và chuỗi cung ứng. Đồng hành mở tuyến mới — Hotline 0938 961 012.",
+      "lead": "Dịch vụ tư vấn logistics doanh nghiệp giúp chuẩn hóa quy trình XNK, cắt giảm chi phí logistics và tối ưu chuỗi cung ứng trước khi mở rộng quy mô.",
+      "images": [
+        { "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80", "alt": "Tư vấn logistics doanh nghiệp - họp chiến lược chuỗi cung ứng" },
+        { "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80", "alt": "Tối ưu chi phí xuất nhập khẩu với checklist quy trình XNK" },
+        { "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80", "alt": "Phân tích dữ liệu cắt giảm chi phí logistics cho doanh nghiệp" },
+        { "src": "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80", "alt": "Tư vấn quy trình XNK và đào tạo nhân sự xuất nhập khẩu" },
+        { "src": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80", "alt": "Tư vấn chuỗi cung ứng khi doanh nghiệp mở tuyến thương mại mới" }
+      ],
       "sections": [
         {
-          "heading": "Tư vấn thực chiến",
+          "heading": "Tư vấn logistics doanh nghiệp thực chiến",
           "paragraphs": [
-            "Dựa trên kinh nghiệm vận hành thực tế, Minh Tuấn tư vấn doanh nghiệp thiết kế quy trình XNK, lựa chọn phương thức vận tải, kiểm soát chứng từ và cắt giảm chi phí không cần thiết.",
+            "Tư vấn logistics doanh nghiệp của Minh Tuấn dựa trên kinh nghiệm vận hành thực tế: thiết kế quy trình XNK, chọn phương thức vận tải, kiểm soát chứng từ và cắt giảm chi phí logistics không cần thiết.",
             "Gói tư vấn phù hợp khi doanh nghiệp mở tuyến mới, thay đổi mô hình nhập khẩu, hoặc muốn chuẩn hóa quy trình nội bộ trước khi mở rộng quy mô."
+          ]
+        },
+        {
+          "heading": "Tối ưu chi phí xuất nhập khẩu & chuỗi cung ứng",
+          "paragraphs": [
+            "Chúng tôi rà soát điểm nghẽn: lưu container, chứng từ thiếu, chọn sai Incoterms hoặc phương thức vận tải chưa tối ưu — từ đó đề xuất tư vấn quy trình XNK và tư vấn chuỗi cung ứng khả thi.",
+            "Kết quả hướng tới tối ưu chi phí xuất nhập khẩu bền vững, không chỉ giảm giá cước ngắn hạn."
           ]
         }
       ],
       "highlights": [
-        "Tư vấn quy trình XNK",
-        "Tối ưu chi phí logistics",
-        "Chuẩn hóa chứng từ & checklist",
+        "Tư vấn logistics doanh nghiệp",
+        "Tối ưu chi phí xuất nhập khẩu",
+        "Chuẩn hóa quy trình XNK",
+        "Tư vấn chuỗi cung ứng",
         "Đồng hành khi mở tuyến mới"
+      ],
+      "faq": [
+        {
+          "q": "Tư vấn logistics doanh nghiệp có kèm triển khai không?",
+          "a": "Có. Minh Tuấn có thể tư vấn và triển khai luôn dịch vụ XNK, vận tải, kho bãi theo phương án đã thống nhất."
+        }
       ]
     }
   ]
