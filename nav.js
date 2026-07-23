@@ -10,9 +10,9 @@
       labelKey: "nav.about",
       href: "/gioi-thieu",
       children: [
-        { labelKey: "nav.about_us", href: "/gioi-thieu/ve-chung-toi" },
-        { labelKey: "nav.vision", href: "/gioi-thieu/tam-nhin" },
-        { labelKey: "nav.values", href: "/gioi-thieu/gia-tri" },
+        { labelKey: "nav.about_us", href: "/gioi-thieu/cong-ty-logistics-tp-hcm" },
+        { labelKey: "nav.vision", href: "/gioi-thieu/doi-tac-logistics-hang-dau" },
+        { labelKey: "nav.values", href: "/gioi-thieu/gia-tri-cot-loi-logistics" },
       ],
     },
     {

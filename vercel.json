@@ -11,7 +11,10 @@
       "has": [{ "type": "query", "key": "slug", "value": "(?<slug>[^&]+)" }],
       "destination": "/bai-viet/:slug",
       "permanent": true
-    }
+    },
+    { "source": "/gioi-thieu/ve-chung-toi", "destination": "/gioi-thieu/cong-ty-logistics-tp-hcm", "permanent": true },
+    { "source": "/gioi-thieu/tam-nhin", "destination": "/gioi-thieu/doi-tac-logistics-hang-dau", "permanent": true },
+    { "source": "/gioi-thieu/gia-tri", "destination": "/gioi-thieu/gia-tri-cot-loi-logistics", "permanent": true }
   ],
   "headers": [
     {
