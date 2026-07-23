@@ -4949,3 +4949,16 @@ body.booking-open {
   padding-top: 14px;
 }
 
+
+.article-toc {
+  margin: 20px 0 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(0, 61, 165, 0.04);
+}
+.article-toc strong { display: block; margin-bottom: 8px; color: var(--primary); }
+.article-toc ol { margin: 0; padding-left: 1.2em; }
+.article-toc li { margin: 4px 0; }
+.article-toc a { color: var(--text); text-decoration: none; }
+.article-toc a:hover { color: var(--primary); }
