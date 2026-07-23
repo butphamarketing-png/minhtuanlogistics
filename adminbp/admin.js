@@ -454,22 +454,35 @@
       </div>
       <div class="table-wrap panel" style="padding:0">
         <table>
-          <thead><tr><th>Tiêu đề</th><th>Danh mục</th><th>Ngày</th><th>TT</th><th></th></tr></thead>
+          <thead><tr><th>Tiêu đề</th><th>Danh mục</th><th>Ngày</th><th>SEO</th><th>TT</th><th></th></tr></thead>
           <tbody>
             ${posts
-              .map(
-                (p) => `
+              .map((p) => {
+                const score =
+                  window.SEOChecklist && p.keyword
+                    ? window.SEOChecklist.analyze(p, { existingPosts: posts, currentId: p.id }).score
+                    : "—";
+                const scoreClass =
+                  typeof score === "number"
+                    ? score >= 80
+                      ? "badge-ok"
+                      : score >= 50
+                        ? "badge-warn"
+                        : "badge-off"
+                    : "badge-off";
+                return `
               <tr>
                 <td>${esc(p.title)}</td>
                 <td>${esc(p.categoryLabel || p.category)}</td>
                 <td>${esc(p.dateLabel || p.date)}</td>
+                <td><span class="badge ${scoreClass}">SEO ${score}</span></td>
                 <td><span class="badge ${p.published !== false ? "badge-ok" : "badge-off"}">${p.published !== false ? "Xuất bản" : "Ẩn"}</span></td>
                 <td class="row-actions">
                   <button type="button" class="btn btn-ghost btn-sm edit-post" data-id="${p.id}">Sửa</button>
                   <button type="button" class="btn btn-danger btn-sm del-post" data-id="${p.id}">Xóa</button>
                 </td>
-              </tr>`
-              )
+              </tr>`;
+              })
               .join("")}
           </tbody>
         </table>
@@ -490,58 +503,219 @@
   }
 
   function renderNewsForm(p) {
+    const imgs = Array.isArray(p.images) && p.images.length
+      ? p.images
+      : [
+          { src: p.photo || "", alt: p.imageAlt || "" },
+          { src: "", alt: "" },
+          { src: "", alt: "" },
+          { src: "", alt: "" },
+          { src: "", alt: "" },
+        ];
+    while (imgs.length < 5) imgs.push({ src: "", alt: "" });
+    const headings = (p.headings || (p.sections || []).map((s) => s.heading || (s.type === "h2" ? s.text : "")).filter(Boolean)).join("\n");
+    const bodyText = (p.body || []).join("\n");
+
     return `
-      <form id="newsForm" class="panel">
-        <h3>${p.id ? "Sửa bài viết" : "Thêm bài viết"}</h3>
+      <form id="newsForm" class="panel news-seo-form">
+        <h3>${p.id ? "Sửa bài viết" : "Thêm bài viết"} · Chuẩn SEO Rank Math</h3>
+        <p class="seo-hint">Xuất bản chỉ được phép khi <strong>SEO cơ bản + tiêu chí bắt buộc</strong> đạt (từ khóa, meta, URL, ≥1200 từ khuyến nghị / ≥600 tối thiểu, ≥5 ảnh alt từ khóa, H2, link nội bộ…).</p>
+
+        <div id="seoScorePanel" class="seo-score-panel" aria-live="polite"></div>
+
         <div class="form-grid">
-          <label style="grid-column:1/-1">Tiêu đề<input name="title" value="${esc(p.title)}" required /></label>
-          <label>Từ khóa<input name="keyword" value="${esc(p.keyword)}" /></label>
-          <label>Slug<input name="slug" value="${esc(p.slug)}" /></label>
+          <label style="grid-column:1/-1">Từ khóa chính (Focus Keyword)<input name="keyword" id="seoKeyword" value="${esc(p.keyword)}" required placeholder="vd: dịch vụ xuất nhập khẩu TP.HCM" /></label>
+          <label style="grid-column:1/-1">Tiêu đề SEO (bắt đầu bằng từ khóa + nên có số)<input name="metaTitle" id="seoMetaTitle" value="${esc(p.metaTitle || p.title)}" required placeholder="vd: Dịch Vụ Xuất Nhập Khẩu TP.HCM 2026 | MINH TUẤN" /></label>
+          <label style="grid-column:1/-1">Tiêu đề bài (H1)<input name="title" id="seoTitle" value="${esc(p.title)}" required /></label>
+          <label>Slug / URL<input name="slug" id="seoSlug" value="${esc(p.slug)}" required placeholder="dich-vu-xuat-nhap-khau-tphcm" /></label>
           <label>Danh mục<input name="category" value="${esc(p.category)}" placeholder="sea, air, road..." /></label>
           <label>Nhãn DM<input name="categoryLabel" value="${esc(p.categoryLabel)}" /></label>
           <label>Ngày<input name="date" type="date" value="${esc(p.date)}" /></label>
-          <label>Ảnh cover<input name="cover" value="${esc(p.cover)}" /></label>
-          <label>Ảnh nội dung<input name="photo" value="${esc(p.photo)}" /></label>
-          <label style="grid-column:1/-1">Mô tả ngắn<textarea name="excerpt">${esc(p.excerpt)}</textarea></label>
-          <label style="grid-column:1/-1">Nội dung (mỗi đoạn 1 dòng)<textarea name="body" rows="6">${esc((p.body || []).join("\n"))}</textarea></label>
-          <label><input type="checkbox" name="published" ${p.published !== false ? "checked" : ""} /> Xuất bản</label>
+          <label style="grid-column:1/-1">Mô tả Meta SEO (120–160 ký tự, có từ khóa)<textarea name="metaDescription" id="seoMetaDesc" rows="2" required>${esc(p.metaDescription || "")}</textarea></label>
+          <label style="grid-column:1/-1">Mô tả ngắn / mở bài (có từ khóa trong 10% đầu)<textarea name="excerpt" id="seoExcerpt" rows="2">${esc(p.excerpt || "")}</textarea></label>
+          <label style="grid-column:1/-1">Tiêu đề phụ H2 (mỗi dòng 1 H2 — ít nhất 1 dòng chứa từ khóa)<textarea name="headings" id="seoHeadings" rows="4" placeholder="Dịch vụ xuất nhập khẩu TP.HCM dành cho SME&#10;Quy trình khai báo hải quan trọn gói&#10;Báo giá và cam kết đúng tiến độ">${esc(headings)}</textarea></label>
+          <label style="grid-column:1/-1">Nội dung (mỗi đoạn 1 dòng · chèn link: [text](https://...) hoặc [text](/dich-vu/xuat-nhap-khau))<textarea name="body" id="seoBody" rows="12">${esc(bodyText)}</textarea></label>
         </div>
+
+        <h4 class="seo-section-title">5 hình ảnh (bắt buộc) — alt chứa từ khóa chính</h4>
+        <div class="seo-images-grid" id="seoImages">
+          ${imgs
+            .slice(0, 5)
+            .map(
+              (img, i) => `
+            <div class="seo-image-row">
+              <label>Ảnh ${i + 1} URL<input name="imgSrc${i}" value="${esc(img.src || "")}" placeholder="https://..." /></label>
+              <label>Alt ${i + 1}<input name="imgAlt${i}" value="${esc(img.alt || "")}" placeholder="Alt có từ khóa chính" /></label>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        <div class="form-grid" style="margin-top:12px">
+          <label style="grid-column:1/-1">Link ngoài gợi ý (tùy chọn, mỗi dòng 1 URL dofollow)<textarea name="externalLinks" rows="2" placeholder="https://dichvucong.gov.vn/">${esc((p.externalLinks || []).join("\n"))}</textarea></label>
+          <label style="grid-column:1/-1">Link nội bộ gợi ý (mỗi dòng 1 path)<textarea name="internalLinks" rows="2" placeholder="/dich-vu/xuat-nhap-khau&#10;/lien-he">${esc((p.internalLinks || []).join("\n"))}</textarea></label>
+          <label><input type="checkbox" name="published" id="seoPublished" ${p.published !== false ? "checked" : ""} /> Xuất bản (chỉ khi checklist SEO đạt)</label>
+        </div>
+
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Lưu</button>
+          <button type="submit" class="btn btn-primary" id="seoSaveBtn">Lưu bài viết</button>
           <button type="button" class="btn btn-ghost" id="backNews">← Quay lại</button>
         </div>
+        <p id="seoPublishBlock" class="seo-publish-block" hidden></p>
       </form>`;
   }
 
-  function bindNewsForm(post, _posts) {
-    $("#backNews").addEventListener("click", () => renderNews());
-    $("#newsForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const body = {
-        title: fd.get("title"),
-        keyword: fd.get("keyword"),
-        slug: fd.get("slug"),
-        category: fd.get("category"),
-        categoryLabel: fd.get("categoryLabel"),
-        date: fd.get("date"),
-        cover: fd.get("cover"),
-        photo: fd.get("photo"),
-        excerpt: fd.get("excerpt"),
-        body: String(fd.get("body") || "")
-          .split("\n")
-          .map((l) => l.trim())
-          .filter(Boolean),
-        published: fd.get("published") === "on",
-        dateLabel: fd.get("date") ? new Date(fd.get("date")).toLocaleDateString("vi-VN") : "",
-      };
-      if (post?.id) {
-        await api(`/news/${post.id}`, { method: "PUT", body: JSON.stringify(body) });
+  function collectNewsForm(fd) {
+    const images = [];
+    for (let i = 0; i < 5; i++) {
+      const src = String(fd.get(`imgSrc${i}`) || "").trim();
+      const alt = String(fd.get(`imgAlt${i}`) || "").trim();
+      if (src) images.push({ src, alt });
+    }
+    const headings = String(fd.get("headings") || "")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const body = String(fd.get("body") || "")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const externalLinks = String(fd.get("externalLinks") || "")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const internalLinks = String(fd.get("internalLinks") || "")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const sections = headings.map((heading, i) => ({
+      type: "h2",
+      heading,
+      text: heading,
+      paragraphs: body.slice(
+        Math.floor((i * body.length) / Math.max(headings.length, 1)),
+        Math.floor(((i + 1) * body.length) / Math.max(headings.length, 1))
+      ),
+    }));
+    const metaTitle = String(fd.get("metaTitle") || "").trim();
+    const title = String(fd.get("title") || metaTitle).trim();
+    const keyword = String(fd.get("keyword") || "").trim();
+    const allText = [fd.get("excerpt"), ...headings, ...body].join(" ");
+    const wordCount =
+      window.SEOChecklist?.wordCount?.(allText) ||
+      (allText.match(/[\p{L}\p{N}’'-]+/gu) || []).length;
+
+    return {
+      title,
+      metaTitle,
+      keyword,
+      slug: String(fd.get("slug") || "").trim(),
+      category: fd.get("category"),
+      categoryLabel: fd.get("categoryLabel"),
+      date: fd.get("date"),
+      photo: images[0]?.src || "",
+      cover: images[0]?.src || "",
+      imageAlt: images[0]?.alt || keyword,
+      images,
+      excerpt: String(fd.get("excerpt") || "").trim(),
+      metaDescription: String(fd.get("metaDescription") || "").trim(),
+      headings,
+      sections,
+      body,
+      externalLinks,
+      internalLinks,
+      published: fd.get("published") === "on",
+      dateLabel: fd.get("date") ? new Date(fd.get("date")).toLocaleDateString("vi-VN") : "",
+      wordCount,
+    };
+  }
+
+  function renderSeoPanel(result) {
+    const panel = $("#seoScorePanel");
+    if (!panel || !result) return;
+    const scoreClass = result.score >= 80 ? "is-good" : result.score >= 50 ? "is-ok" : "is-bad";
+    const groupsHtml = Object.values(result.groups)
+      .map((g) => {
+        const items = g.items
+          .map(
+            (it) =>
+              `<li class="${it.ok ? "seo-ok" : "seo-fail"}">${it.ok ? "✓" : "✗"} ${esc(it.message)}</li>`
+          )
+          .join("");
+        return `<details class="seo-group" ${g.allGood ? "" : "open"}>
+          <summary><span class="seo-group-label">${esc(g.label)}</span>
+          <span class="badge ${g.allGood ? "badge-ok" : "badge-off"}">${esc(g.summary)}</span></summary>
+          <ul>${items}</ul>
+        </details>`;
+      })
+      .join("");
+
+    panel.innerHTML = `
+      <div class="seo-score-head ${scoreClass}">
+        <div class="seo-score-circle">${result.score}<small>/100</small></div>
+        <div>
+          <strong>Phân tích SEO</strong>
+          <p>${result.canPublish ? "Đủ điều kiện xuất bản." : "Chưa đủ tiêu chí bắt buộc — không thể xuất bản."}</p>
+          <p class="seo-stats">Từ: ${result.stats.words} · Mật độ: ${result.stats.density}% · Ảnh: ${result.stats.images} · KW hits: ${result.stats.kwHits}</p>
+        </div>
+      </div>
+      ${groupsHtml}`;
+
+    const block = $("#seoPublishBlock");
+    const pub = $("#seoPublished");
+    if (block && pub) {
+      if (pub.checked && !result.canPublish) {
+        block.hidden = false;
+        block.textContent =
+          "Không thể xuất bản: hãy sửa các mục ✗ (bắt buộc) trong checklist SEO.";
       } else {
-        await api("/news", { method: "POST", body: JSON.stringify(body) });
+        block.hidden = true;
       }
-      showToast("Đã lưu bài viết");
-      renderNews();
+    }
+  }
+
+  function bindNewsForm(post, allPosts) {
+    $("#backNews").addEventListener("click", () => renderNews());
+    const form = $("#newsForm");
+
+    const refreshSeo = () => {
+      if (!window.SEOChecklist) return;
+      const fd = new FormData(form);
+      const draft = collectNewsForm(fd);
+      const result = window.SEOChecklist.analyze(draft, {
+        existingPosts: allPosts || [],
+        currentId: post?.id,
+      });
+      renderSeoPanel(result);
+      return result;
+    };
+
+    form.addEventListener("input", () => refreshSeo());
+    form.addEventListener("change", () => refreshSeo());
+    refreshSeo();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const body = collectNewsForm(fd);
+      const result = refreshSeo();
+
+      if (body.published && result && !result.canPublish) {
+        showToast("Chưa đạt SEO bắt buộc — không xuất bản được");
+        return;
+      }
+
+      try {
+        if (post?.id) {
+          await api(`/news/${post.id}`, { method: "PUT", body: JSON.stringify(body) });
+        } else {
+          await api("/news", { method: "POST", body: JSON.stringify(body) });
+        }
+        showToast(body.published ? "Đã xuất bản (SEO đạt)" : "Đã lưu nháp");
+        renderNews();
+      } catch (err) {
+        showToast(err.message || "Lỗi lưu bài");
+      }
     });
   }
 

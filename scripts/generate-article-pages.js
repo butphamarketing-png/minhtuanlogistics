@@ -23,13 +23,61 @@ const esc = (s) =>
 
 const posts = JSON.parse(fs.readFileSync(path.join(root, "data", "news-posts.json"), "utf8"));
 
-const sectionHtml = (sections, body) => {
-  if (sections?.length) {
-    return sections
-      .map((s) => (s.type === "h2" ? `<h2>${esc(s.text)}</h2>` : `<p>${esc(s.text)}</p>`))
-      .join("\n          ");
+const sectionHtml = (post) => {
+  const sections = post.sections || [];
+  const images = Array.isArray(post.images) ? post.images.filter((i) => i && (i.src || i.url)) : [];
+  const parts = [];
+
+  if (sections.length) {
+    sections.forEach((s, i) => {
+      if (s.type === "h2" || s.heading) {
+        const heading = s.heading || s.text;
+        const id = `muc-${i + 1}`;
+        parts.push(`<h2 id="${id}">${esc(heading)}</h2>`);
+      }
+      if (s.paragraphs?.length) {
+        s.paragraphs.forEach((p) => parts.push(`<p>${esc(p)}</p>`));
+      } else if (s.type === "p" && s.text) {
+        parts.push(`<p>${esc(s.text)}</p>`);
+      } else if (s.text && s.type !== "h2" && !s.heading) {
+        parts.push(`<p>${esc(s.text)}</p>`);
+      }
+      const img = images[i + 1];
+      if (img) {
+        parts.push(
+          `<figure class="seo-figure"><img src="${esc(img.src || img.url)}" alt="${esc(img.alt || post.keyword || "")}" width="1200" height="675" loading="lazy" /></figure>`
+        );
+      }
+    });
+  } else {
+    (post.body || []).forEach((p) => parts.push(`<p>${esc(p)}</p>`));
   }
-  return (body || []).map((p) => `<p>${esc(p)}</p>`).join("\n          ");
+
+  // ensure remaining images after content
+  for (let i = sections.length + 1; i < images.length; i++) {
+    const img = images[i];
+    parts.push(
+      `<figure class="seo-figure"><img src="${esc(img.src || img.url)}" alt="${esc(img.alt || post.keyword || "")}" width="1200" height="675" loading="lazy" /></figure>`
+    );
+  }
+
+  return parts.join("\n          ");
+};
+
+const tocHtml = (post) => {
+  const headings = (post.sections || [])
+    .map((s, i) => ({ text: s.heading || (s.type === "h2" ? s.text : ""), i }))
+    .filter((h) => h.text);
+  if (headings.length < 2) return "";
+  return `
+            <nav class="article-toc" aria-label="Mục lục">
+              <strong>Mục lục</strong>
+              <ol>
+                ${headings
+                  .map((h) => `<li><a href="#muc-${h.i + 1}">${esc(h.text)}</a></li>`)
+                  .join("\n                ")}
+              </ol>
+            </nav>`;
 };
 
 const relatedHtml = (post, all) => {
@@ -53,10 +101,13 @@ const relatedHtml = (post, all) => {
 
 const render = (post, all) => {
   const url = `${SITE_URL}/bai-viet/${post.slug}`;
-  const title = `${post.title} | MINH TUẤN Logistics`;
+  const title = post.metaTitle || `${post.title} | MINH TUẤN Logistics`;
   const description = (post.metaDescription || post.excerpt || "").slice(0, 160);
-  const image = post.photo || `${SITE_URL}/logo.png`;
-  const content = sectionHtml(post.sections, post.body);
+  const images = Array.isArray(post.images) ? post.images : [];
+  const image = images[0]?.src || post.photo || `${SITE_URL}/logo.png`;
+  const imageAlt = images[0]?.alt || post.imageAlt || post.keyword || "";
+  const content = sectionHtml(post);
+  const keywords = [post.keyword, ...(post.secondaryKeywords || [])].filter(Boolean).join(", ");
 
   return `<!doctype html>
 <html lang="vi">
@@ -65,7 +116,8 @@ const render = (post, all) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}" />
-    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="${esc(keywords)}" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="${esc(url)}" />
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(description)}" />
@@ -89,7 +141,7 @@ ${JSON.stringify({
   "@type": "Article",
   headline: post.title,
   description,
-  image: [image],
+  image: images.length ? images.map((i) => i.src || i.url).filter(Boolean) : [image],
   datePublished: post.date,
   dateModified: post.date,
   author: { "@type": "Organization", name: "CÔNG TY TNHH XNK TM DV MINH TUẤN" },
@@ -111,7 +163,7 @@ ${JSON.stringify({
         <span class="topbar-chip">Hotline: 0938 961 012</span>
       </div></div></div></div>
       <nav class="navbar"><div class="container nav-inner">
-        <a href="/" class="logo"><img class="logo-image" src="/logo.png" alt="Logo" /><span class="logo-text"><strong>MINH TUẤN</strong><small>Logistics</small></span></a>
+        <a href="/" class="logo"><img class="logo-image" src="/logo.png" alt="Logo Minh Tuấn Logistics" /><span class="logo-text"><strong>MINH TUẤN</strong><small>Logistics</small></span></a>
         <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainMenu"><span></span><span></span><span></span></button>
         <ul class="menu" id="mainMenu" data-nav-build></ul>
         <a class="btn btn-hotline nav-cta" href="tel:0938961012">0938 961 012</a>
@@ -128,7 +180,7 @@ ${JSON.stringify({
               <span>${esc(post.keyword)}</span>
             </nav>
             <div class="article-hero">
-              <img src="${esc(image)}" alt="${esc(post.imageAlt || post.keyword)}" itemprop="image" width="1200" height="675" />
+              <img src="${esc(image)}" alt="${esc(imageAlt)}" itemprop="image" width="1200" height="675" />
             </div>
             <div class="article-meta">
               <span class="news-card-tag">${esc(post.categoryLabel)}</span>
@@ -137,12 +189,14 @@ ${JSON.stringify({
             </div>
             <h1 itemprop="headline">${esc(post.title)}</h1>
             <p class="article-lead" itemprop="description">${esc(post.excerpt)}</p>
+            ${tocHtml(post)}
             <div class="article-content" itemprop="articleBody">
           ${content}
             </div>
             <div class="article-cta">
               <a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
               <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
+              <a class="btn btn-ghost" href="/dich-vu">Xem dịch vụ logistics</a>
             </div>
           </article>${relatedHtml(post, all)}
         </div>

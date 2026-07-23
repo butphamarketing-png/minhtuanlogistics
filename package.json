@@ -8,6 +8,7 @@
     "keywords": "node scripts/generate-keywords.js",
     "news": "node scripts/generate-news-posts.js",
     "validate-news": "node scripts/validate-news.js",
+    "validate-seo": "node -e \"const C=require('./lib/seo-checklist'); const p=require('./data/news-posts.json'); let ok=0,bad=0; p.slice(0,5).forEach(x=>{const r=C.analyze(x,{existingPosts:p,currentId:x.id}); console.log(x.slug,r.score,r.canPublish);});\"",
     "articles": "node scripts/generate-article-pages.js",
     "subpages": "node scripts/generate-subpages.js",
     "sitemap": "node scripts/generate-sitemap.js",
