@@ -7,9 +7,32 @@
     zh: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="12" fill="#DE2910"/><polygon fill="#FFDE00" points="6.5,6 7.3,8.6 10,8.6 7.8,10.2 8.6,12.8 6.5,11.2 4.4,12.8 5.2,10.2 3,8.6 5.7,8.6"/><polygon fill="#FFDE00" points="11.5,4.5 11.8,5.5 12.9,5.5 12,6.1 12.3,7.1 11.5,6.5 10.7,7.1 11,6.1 10.1,5.5 11.2,5.5"/><polygon fill="#FFDE00" points="13.5,6.5 13.8,7.5 14.9,7.5 14,8.1 14.3,9.1 13.5,8.5 12.7,9.1 13,8.1 12.1,7.5 13.2,7.5"/><polygon fill="#FFDE00" points="13,9.5 13.3,10.5 14.4,10.5 13.5,11.1 13.8,12.1 13,11.5 12.2,12.1 12.5,11.1 11.6,10.5 12.7,10.5"/><polygon fill="#FFDE00" points="10.5,9 10.8,10 11.9,10 11,10.6 11.3,11.6 10.5,11 9.7,11.6 10,10.6 9.1,10 10.2,10"/></svg>',
   };
 
+  const getQueryLocale = () => {
+    try {
+      const lang = new URLSearchParams(window.location.search).get("lang");
+      return SUPPORTED.includes(lang) ? lang : null;
+    } catch {
+      return null;
+    }
+  };
+
   const getStoredLocale = () => {
+    const fromQuery = getQueryLocale();
+    if (fromQuery) return fromQuery;
     const saved = localStorage.getItem(STORAGE_KEY);
     return SUPPORTED.includes(saved) ? saved : "vi";
+  };
+
+  const syncLangToUrl = (locale) => {
+    try {
+      const url = new URL(window.location.href);
+      if (locale === "vi") url.searchParams.delete("lang");
+      else url.searchParams.set("lang", locale);
+      const next = url.pathname + url.search + url.hash;
+      window.history.replaceState({}, "", next);
+    } catch {
+      /* ignore */
+    }
   };
 
   let currentLocale = getStoredLocale();
@@ -156,15 +179,25 @@
     });
   };
 
-  const setLocale = (locale) => {
-    if (!SUPPORTED.includes(locale) || locale === currentLocale) return;
+  const setLocale = (locale, { syncUrl = true } = {}) => {
+    if (!SUPPORTED.includes(locale)) return;
+    if (locale === currentLocale) {
+      if (syncUrl) syncLangToUrl(locale);
+      return;
+    }
     currentLocale = locale;
     localStorage.setItem(STORAGE_KEY, locale);
+    if (syncUrl) syncLangToUrl(locale);
     applyTranslations();
     window.dispatchEvent(new CustomEvent("localechange", { detail: { locale } }));
   };
 
   const init = () => {
+    const fromQuery = getQueryLocale();
+    if (fromQuery) {
+      currentLocale = fromQuery;
+      localStorage.setItem(STORAGE_KEY, fromQuery);
+    }
     buildSwitcher();
     applyTranslations();
   };

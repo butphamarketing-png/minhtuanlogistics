@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T18:06:06.203Z",
+  "generatedAt": "2026-07-24T08:27:45.486Z",
   "news": {
     "total": 1000,
     "pass": 1000,
@@ -7,66 +7,50 @@
     "avg": 95
   },
   "services": {
-    "total": 7,
-    "pass": 7,
+    "total": 5,
+    "pass": 5,
     "fail": 0,
-    "avg": 95,
+    "avg": 100,
     "details": [
       {
         "id": "/dich-vu/xuat-nhap-khau",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1540,
+        "words": 1466,
         "images": 5,
-        "density": 3.12
+        "density": 1.77
       },
       {
         "id": "/dich-vu/van-chuyen-duong-bien",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1498,
+        "words": 1488,
         "images": 5,
-        "density": 3.47
+        "density": 1.61
       },
       {
         "id": "/dich-vu/van-chuyen-duong-bo",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1516,
+        "words": 1506,
         "images": 5,
-        "density": 3.56
+        "density": 1.59
       },
       {
         "id": "/dich-vu/van-chuyen-hang-khong",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1516,
+        "words": 1506,
         "images": 5,
-        "density": 3.56
+        "density": 1.73
       },
       {
         "id": "/dich-vu/kho-bai-logistics",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1484,
+        "words": 1508,
         "images": 5,
-        "density": 3.77
-      },
-      {
-        "id": "/dich-vu/thuong-mai",
-        "score": 95,
-        "canPublish": true,
-        "words": 1482,
-        "images": 5,
-        "density": 3.37
-      },
-      {
-        "id": "/dich-vu/tu-van-doanh-nghiep",
-        "score": 95,
-        "canPublish": true,
-        "words": 1548,
-        "images": 5,
-        "density": 3.36
+        "density": 1.59
       }
     ]
   },
@@ -74,27 +58,27 @@
     "total": 3,
     "pass": 3,
     "fail": 0,
-    "avg": 95,
+    "avg": 100,
     "details": [
       {
         "id": "/gioi-thieu/cong-ty-logistics-tp-hcm",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1534,
+        "words": 1498,
         "images": 5
       },
       {
         "id": "/gioi-thieu/doi-tac-logistics-hang-dau",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1504,
+        "words": 1464,
         "images": 5
       },
       {
         "id": "/gioi-thieu/gia-tri-cot-loi-logistics",
-        "score": 95,
+        "score": 100,
         "canPublish": true,
-        "words": 1506,
+        "words": 1466,
         "images": 5
       }
     ]

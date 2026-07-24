@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { esc, linkify } = require("../lib/markdown-links");
+const { absUrl, socialMeta, orgSchema, jsonLd, DEFAULT_OG } = require("../lib/seo-head");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "bai-viet");
@@ -102,10 +103,23 @@ const render = (post, all) => {
   const title = post.metaTitle || `${post.title} | MINH TUẤN Logistics`;
   const description = (post.metaDescription || post.excerpt || "").slice(0, 160);
   const images = Array.isArray(post.images) ? post.images : [];
-  const image = images[0]?.src || post.photo || `${SITE_URL}/logo.png`;
+  const image = images[0]?.src || post.photo || DEFAULT_OG;
   const imageAlt = images[0]?.alt || post.imageAlt || post.keyword || "";
   const content = sectionHtml(post);
   const keywords = [post.keyword, ...(post.secondaryKeywords || [])].filter(Boolean).join(", ");
+  const absImage = absUrl(SITE_URL, image);
+
+  const headSocial = socialMeta({
+    siteUrl: SITE_URL,
+    title: esc(title),
+    description: esc(description),
+    url: esc(url),
+    image,
+    type: "article",
+    multilingual: false,
+    extra: `    <meta property="article:published_time" content="${esc(post.date)}" />
+    <meta property="article:section" content="${esc(post.categoryLabel)}" />`,
+  });
 
   return `<!doctype html>
 <html lang="vi">
@@ -115,43 +129,44 @@ const render = (post, all) => {
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}" />
     <meta name="keywords" content="${esc(keywords)}" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="${esc(url)}" />
-    <meta property="og:title" content="${esc(title)}" />
-    <meta property="og:description" content="${esc(description)}" />
-    <meta property="og:url" content="${esc(url)}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="${esc(image)}" />
-    <meta property="og:site_name" content="MINH TUẤN Logistics" />
-    <meta property="article:published_time" content="${esc(post.date)}" />
-    <meta property="article:section" content="${esc(post.categoryLabel)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${esc(title)}" />
-    <meta name="twitter:description" content="${esc(description)}" />
-    <meta name="twitter:image" content="${esc(image)}" />
+${headSocial}
     <link rel="icon" href="/logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
-    <script type="application/ld+json">
-${JSON.stringify({
+${jsonLd("schema-org", orgSchema(SITE_URL))}
+${jsonLd(
+  "schema-article",
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description,
+    image: images.length ? images.map((i) => i.src || i.url).filter(Boolean) : [absImage],
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: "CÔNG TY TNHH XNK TM DV MINH TUẤN" },
+    publisher: {
+      "@type": "Organization",
+      name: "CÔNG TY TNHH XNK TM DV MINH TUẤN",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    keywords: post.keyword,
+    inLanguage: "vi",
+  }
+)}
+${jsonLd("schema-breadcrumb", {
   "@context": "https://schema.org",
-  "@type": "Article",
-  headline: post.title,
-  description,
-  image: images.length ? images.map((i) => i.src || i.url).filter(Boolean) : [image],
-  datePublished: post.date,
-  dateModified: post.date,
-  author: { "@type": "Organization", name: "CÔNG TY TNHH XNK TM DV MINH TUẤN" },
-  publisher: {
-    "@type": "Organization",
-    name: "CÔNG TY TNHH XNK TM DV MINH TUẤN",
-    logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
-  },
-  mainEntityOfPage: { "@type": "WebPage", "@id": url },
-  keywords: post.keyword,
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Trang chủ", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Tin tức", item: `${SITE_URL}/tin-tuc` },
+    { "@type": "ListItem", position: 3, name: post.keyword, item: url },
+  ],
 })}
-    </script>
   </head>
   <body data-page="article">
     <div class="site-header" id="siteHeader">

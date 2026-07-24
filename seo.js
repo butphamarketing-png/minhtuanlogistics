@@ -1,7 +1,13 @@
 (() => {
   const DEFAULT_SITE_URL = "https://minhtuanlogistics.com";
   const BRAND = "MINH TUẤN Logistics";
-  const DEFAULT_OG_IMAGE = "/logo.png";
+  const DEFAULT_OG_IMAGE = "/hero-slide-1.png";
+  const HREFLANG_MAP = [
+    { hreflang: "vi", lang: "vi" },
+    { hreflang: "en", lang: "en" },
+    { hreflang: "zh-CN", lang: "zh" },
+    { hreflang: "x-default", lang: null },
+  ];
 
   const PAGE_CONFIG = {
     home: { path: "/", titleKey: "meta.home.title", descKey: "meta.home.description", type: "website" },
@@ -15,6 +21,7 @@
   };
 
   const LOCALE_OG = { vi: "vi_VN", en: "en_US", zh: "zh_CN" };
+  const LOCALE_OG_ALTS = ["en_US", "zh_CN"];
 
   const getSiteUrl = () => {
     const raw = window.SITE_SETTINGS?.siteUrl || window.SITE_SETTINGS?.website || DEFAULT_SITE_URL;
@@ -51,14 +58,50 @@
 
   const upsertLink = (rel, href, extra = {}) => {
     if (!href) return;
-    let el = document.querySelector(`link[rel="${rel}"]`);
+    const hreflang = extra.hreflang;
+    let el = hreflang
+      ? document.querySelector(`link[rel="${rel}"][hreflang="${hreflang}"]`)
+      : document.querySelector(`link[rel="${rel}"]:not([hreflang])`);
     if (!el) {
       el = document.createElement("link");
       el.setAttribute("rel", rel);
       document.head.appendChild(el);
     }
     el.setAttribute("href", href);
-    Object.entries(extra).forEach(([k, v]) => el.setAttribute(k, v));
+    Object.entries(extra).forEach(([k, v]) => {
+      if (v == null) el.removeAttribute(k);
+      else el.setAttribute(k, v);
+    });
+  };
+
+  const stripLangParam = (url) => {
+    try {
+      const u = new URL(url, getSiteUrl());
+      u.searchParams.delete("lang");
+      const q = u.searchParams.toString();
+      return u.origin + u.pathname + (q ? `?${q}` : "") + u.hash;
+    } catch {
+      return String(url).replace(/([?&])lang=[^&]*&?/, "$1").replace(/[?&]$/, "");
+    }
+  };
+
+  const withLangParam = (url, lang) => {
+    const clean = stripLangParam(url);
+    if (!lang || lang === "vi") return clean;
+    return `${clean}${clean.includes("?") ? "&" : "?"}lang=${lang}`;
+  };
+
+  const applyHreflang = (canonicalUrl, multilingual = true) => {
+    const clean = stripLangParam(canonicalUrl);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+    if (!multilingual) {
+      upsertLink("alternate", clean, { hreflang: "vi" });
+      upsertLink("alternate", clean, { hreflang: "x-default" });
+      return;
+    }
+    HREFLANG_MAP.forEach(({ hreflang, lang }) => {
+      upsertLink("alternate", withLangParam(clean, lang), { hreflang });
+    });
   };
 
   const upsertJsonLd = (id, data) => {
@@ -187,20 +230,30 @@
     })),
   });
 
-  const applySocialMeta = ({ title, description, url, image, type = "website" }) => {
+  const applySocialMeta = ({ title, description, url, image, type = "website", multilingual = true }) => {
     const locale = getLocale();
     const ogLocale = LOCALE_OG[locale] || "vi_VN";
     const img = absUrl(image || getSettings().seo?.ogImage || DEFAULT_OG_IMAGE);
+    const canonical = stripLangParam(url);
 
     upsertMeta("name", "description", description);
     upsertMeta("name", "robots", "index, follow, max-image-preview:large");
     upsertMeta("property", "og:title", title);
     upsertMeta("property", "og:description", description);
-    upsertMeta("property", "og:url", url);
+    upsertMeta("property", "og:url", canonical);
     upsertMeta("property", "og:type", type);
     upsertMeta("property", "og:site_name", BRAND);
     upsertMeta("property", "og:locale", ogLocale);
+    document.querySelectorAll('meta[property="og:locale:alternate"]').forEach((el) => el.remove());
+    LOCALE_OG_ALTS.filter((l) => l !== ogLocale).forEach((alt) => {
+      const el = document.createElement("meta");
+      el.setAttribute("property", "og:locale:alternate");
+      el.setAttribute("content", alt);
+      document.head.appendChild(el);
+    });
     upsertMeta("property", "og:image", img);
+    upsertMeta("property", "og:image:width", "1200");
+    upsertMeta("property", "og:image:height", "630");
     upsertMeta("property", "og:image:alt", title);
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertMeta("name", "twitter:title", title);
@@ -215,7 +268,8 @@
     const keywords = getSettings().seo?.keywords;
     if (keywords) upsertMeta("name", "keywords", keywords);
 
-    upsertLink("canonical", url);
+    upsertLink("canonical", canonical);
+    applyHreflang(canonical, multilingual);
   };
 
   const applyPage = (overrides = {}) => {
@@ -250,8 +304,9 @@
       title,
       description,
       url,
-      image: overrides.image,
+      image: overrides.image || getSettings().seo?.ogImage || DEFAULT_OG_IMAGE,
       type: overrides.type || cfg.type,
+      multilingual: overrides.multilingual !== false,
     });
 
     upsertJsonLd("schema-org", buildOrgSchema());
@@ -366,7 +421,14 @@
     const image = post.cover?.startsWith("data:") ? absUrl(DEFAULT_OG_IMAGE) : post.cover;
 
     document.title = title;
-    applySocialMeta({ title, description, url, image, type: "article" });
+    applySocialMeta({
+      title,
+      description,
+      url,
+      image: image || DEFAULT_OG_IMAGE,
+      type: "article",
+      multilingual: false,
+    });
 
     upsertMeta("property", "article:published_time", post.date);
     upsertMeta("property", "article:section", post.categoryLabel);

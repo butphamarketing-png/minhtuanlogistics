@@ -230,28 +230,28 @@ const expandSubpage = (page, kind) => {
     {
       heading: `${kw} dành cho doanh nghiệp tại TP.HCM`,
       paragraphs: [
-        `${kw} phù hợp SME và doanh nghiệp có sản lượng ổn định cần đơn vị đồng hành dài hạn. Minh Tuấn hỗ trợ từ tư vấn phương án đến vận hành thực tế.`,
-        `Khi triển khai ${kw}, chúng tôi ưu tiên minh bạch chi phí, báo cáo tiến độ và phối hợp chặt với kho/cảng/sân bay.`,
+        `Dịch vụ này phù hợp SME và doanh nghiệp có sản lượng ổn định cần đơn vị đồng hành dài hạn. Minh Tuấn hỗ trợ từ tư vấn phương án đến vận hành thực tế.`,
+        `Khi triển khai, chúng tôi ưu tiên minh bạch chi phí, báo cáo tiến độ và phối hợp chặt với kho/cảng/sân bay.`,
       ],
     },
     {
-      heading: `Quy trình ${kw} chuẩn năm ${YEAR}`,
+      heading: `Quy trình chuẩn năm ${YEAR}`,
       paragraphs: [
-        `Quy trình ${kw} gồm: tiếp nhận yêu cầu → khảo sát hồ sơ → đề xuất phương án → triển khai → nghiệm thu và tối ưu lại.`,
-        `Doanh nghiệp nhận đầu mối phụ trách rõ ràng cho từng lô ${kw}, kèm checklist chứng từ và mốc thời gian cam kết.`,
+        `Quy trình gồm: tiếp nhận yêu cầu → khảo sát hồ sơ → đề xuất phương án → triển khai → nghiệm thu và tối ưu lại.`,
+        `Doanh nghiệp nhận đầu mối phụ trách rõ ràng cho từng lô hàng, kèm checklist chứng từ và mốc thời gian cam kết.`,
       ],
     },
     {
-      heading: `Chi phí ${kw} và cách tối ưu`,
+      heading: `Chi phí và cách tối ưu`,
       paragraphs: [
-        `Chi phí ${kw} phụ thuộc loại hàng, tuyến, thời gian và yêu cầu đặc thù. Minh Tuấn tư vấn phương án cân bằng giá — tiến độ — rủi ro.`,
-        `Tối ưu ${kw} bằng cách đặt lịch sớm, chuẩn hóa chứng từ và chọn đúng Incoterms ngay từ hợp đồng mua bán.`,
+        `Chi phí phụ thuộc loại hàng, tuyến, thời gian và yêu cầu đặc thù. Minh Tuấn tư vấn phương án cân bằng giá — tiến độ — rủi ro.`,
+        `Tối ưu bằng cách đặt lịch sớm, chuẩn hóa chứng từ và chọn đúng Incoterms ngay từ hợp đồng mua bán.`,
       ],
     },
     {
-      heading: `Cam kết đồng hành ${kw}`,
+      heading: `Cam kết đồng hành`,
       paragraphs: [
-        `Minh Tuấn cam kết thực hiện ${kw} đúng thỏa thuận, cập nhật rủi ro sớm và hỗ trợ xử lý phát sinh trong quá trình vận hành.`,
+        `Minh Tuấn cam kết thực hiện đúng thỏa thuận, cập nhật rủi ro sớm và hỗ trợ xử lý phát sinh trong quá trình vận hành.`,
         `Liên hệ hotline 0938 961 012 để nhận tư vấn ${kw} và báo giá trong 24 giờ làm việc. Xem thêm [dịch vụ](/dich-vu) hoặc [liên hệ](/lien-he). Tham khảo [Hải quan Việt Nam](https://www.customs.gov.vn/).`,
       ],
     },

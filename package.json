@@ -12,7 +12,9 @@
     "articles": "node scripts/generate-article-pages.js",
     "subpages": "node scripts/generate-subpages.js",
     "sitemap": "node scripts/generate-sitemap.js",
-    "build": "node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js"
+    "seo:density": "node scripts/normalize-keyword-density.js",
+    "seo:audit": "node scripts/audit-seo.js",
+    "build": "node scripts/normalize-keyword-density.js && node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js"
   },
   "engines": {
     "node": ">=18"

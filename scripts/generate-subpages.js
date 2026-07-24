@@ -1,6 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 const { esc, linkify } = require("../lib/markdown-links");
+const {
+  absUrl,
+  socialMeta,
+  orgSchema,
+  localBusinessSchema,
+  jsonLd,
+  DEFAULT_OG,
+} = require("../lib/seo-head");
 
 const root = path.resolve(__dirname, "..");
 
@@ -32,7 +40,7 @@ const figureHtml = (img, idx) => {
   if (!img?.src) return "";
   return `
             <figure class="seo-figure">
-              <img src="${esc(img.src)}" alt="${esc(img.alt)}" width="1200" height="675" loading="${idx === 0 ? "eager" : "lazy"}" />
+              <img src="${esc(img.src)}" alt="${esc(img.alt)}" width="1200" height="675" loading="${idx === 0 ? "eager" : "lazy"}" decoding="async"${idx === 0 ? ' fetchpriority="high"' : ""} />
               ${img.caption ? `<figcaption>${esc(img.caption)}</figcaption>` : ""}
             </figure>`;
 };
@@ -89,6 +97,10 @@ const buildSchemas = (page, url, description) => {
   const primary = page.primaryKeyword || page.title;
   const secondary = page.secondaryKeywords || [];
   const images = (page.images || []).map((i) => i.src).filter(Boolean);
+  const ogFallback = absUrl(SITE_URL, DEFAULT_OG);
+
+  schemas.push(orgSchema(SITE_URL));
+  schemas.push(localBusinessSchema(SITE_URL));
 
   schemas.push({
     "@context": "https://schema.org",
@@ -97,7 +109,7 @@ const buildSchemas = (page, url, description) => {
     description,
     url,
     keywords: [primary, ...secondary].join(", "),
-    image: images,
+    image: images.length ? images : [ogFallback],
     provider: {
       "@type": "Organization",
       name: "CÔNG TY TNHH XNK TM DV MINH TUẤN",
@@ -140,13 +152,7 @@ const buildSchemas = (page, url, description) => {
     });
   }
 
-  return schemas
-    .map(
-      (s, i) => `    <script type="application/ld+json" id="schema-${i}">
-${JSON.stringify(s)}
-    </script>`
-    )
-    .join("\n");
+  return schemas.map((s, i) => jsonLd(`schema-${i}`, s)).join("\n");
 };
 
 const render = (page, siblings) => {
@@ -156,7 +162,7 @@ const render = (page, siblings) => {
   const primary = page.primaryKeyword || "";
   const secondary = page.secondaryKeywords || [];
   const keywordsMeta = [primary, ...secondary].filter(Boolean).join(", ");
-  const ogImage = page.images?.[0]?.src || `${SITE_URL}/logo.png`;
+  const ogImage = page.images?.[0]?.src || DEFAULT_OG;
   const bodyHtml = buildBodyHtml(page);
   const highlightsHtml = (page.highlights || [])
     .map((h) => `<li>${esc(h)}</li>`)
@@ -164,12 +170,22 @@ const render = (page, siblings) => {
   const faqHtml = (page.faq || [])
     .map(
       (f) => `
-            <details class="faq-item">
-              <summary>${esc(f.q)}</summary>
-              <p>${esc(f.a)}</p>
+            <details class="faq-item" data-faq-item>
+              <summary data-faq-q>${esc(f.q)}</summary>
+              <p data-faq-a>${esc(f.a)}</p>
             </details>`
     )
     .join("");
+
+  const headSocial = socialMeta({
+    siteUrl: SITE_URL,
+    title: esc(title),
+    description: esc(description),
+    url: esc(url),
+    image: ogImage,
+    type: "website",
+    multilingual: false,
+  });
 
   return `<!doctype html>
 <html lang="vi">
@@ -179,21 +195,11 @@ const render = (page, siblings) => {
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}" />
     <meta name="keywords" content="${esc(keywordsMeta)}" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="${esc(url)}" />
-    <meta property="og:title" content="${esc(title)}" />
-    <meta property="og:description" content="${esc(description)}" />
-    <meta property="og:url" content="${esc(url)}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="${esc(ogImage)}" />
-    <meta property="og:locale" content="vi_VN" />
-    <meta property="og:site_name" content="MINH TUẤN Logistics" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${esc(title)}" />
-    <meta name="twitter:description" content="${esc(description)}" />
-    <meta name="twitter:image" content="${esc(ogImage)}" />
+${headSocial}
     <link rel="icon" href="/logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
 ${buildSchemas(page, url, description)}
