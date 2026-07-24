@@ -24,8 +24,6 @@
         { labelKey: "services.domestic", href: "/dich-vu/van-chuyen-duong-bo" },
         { labelKey: "services.air", href: "/dich-vu/van-chuyen-hang-khong" },
         { labelKey: "services.warehouse", href: "/dich-vu/kho-bai-logistics" },
-        { labelKey: "services.trade", href: "/dich-vu/thuong-mai" },
-        { labelKey: "services.consulting", href: "/dich-vu/tu-van-doanh-nghiep" },
       ],
     },
     {

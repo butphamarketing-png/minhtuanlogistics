@@ -14,7 +14,9 @@
     },
     { "source": "/gioi-thieu/ve-chung-toi", "destination": "/gioi-thieu/cong-ty-logistics-tp-hcm", "permanent": true },
     { "source": "/gioi-thieu/tam-nhin", "destination": "/gioi-thieu/doi-tac-logistics-hang-dau", "permanent": true },
-    { "source": "/gioi-thieu/gia-tri", "destination": "/gioi-thieu/gia-tri-cot-loi-logistics", "permanent": true }
+    { "source": "/gioi-thieu/gia-tri", "destination": "/gioi-thieu/gia-tri-cot-loi-logistics", "permanent": true },
+    { "source": "/dich-vu/thuong-mai", "destination": "/dich-vu", "permanent": true },
+    { "source": "/dich-vu/tu-van-doanh-nghiep", "destination": "/dich-vu", "permanent": true }
   ],
   "headers": [
     {
