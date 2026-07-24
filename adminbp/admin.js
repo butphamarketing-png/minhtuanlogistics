@@ -104,8 +104,11 @@
     dashboard: "Tổng quan website",
     settings: "Thông tin & Footer",
     homepage: "Trang chủ",
-    pages: "Trang con",
+    about: "Giới thiệu",
+    services: "Dịch vụ",
+    pages: "Trang con (hero)",
     news: "Tin tức",
+    seoPages: "SEO trang",
     gallery: "Thư viện ảnh",
     translations: "Đa ngôn ngữ",
     submissions: "Yêu cầu khách hàng",
@@ -116,11 +119,22 @@
     $("#viewTitle").textContent = titles[view] || view;
     content.innerHTML = '<p class="empty">Đang tải...</p>';
     try {
+      const site = window.AdminSiteModules?.bindSiteModules?.({
+        api,
+        esc,
+        showToast,
+        content,
+        $,
+        openMediaPicker,
+      });
       if (view === "dashboard") await renderDashboard();
       else if (view === "settings") await renderSettings();
       else if (view === "homepage") await renderHomepage();
+      else if (view === "about") await site.renderSubpages("about");
+      else if (view === "services") await site.renderSubpages("services");
       else if (view === "pages") await renderPages();
       else if (view === "news") await renderNews();
+      else if (view === "seoPages") await site.renderSeoPages();
       else if (view === "gallery") await renderGallery();
       else if (view === "translations") await renderTranslations();
       else if (view === "submissions") await renderSubmissions();
@@ -136,20 +150,22 @@
       <div class="stats-grid">
         <div class="stat-card"><strong>${d.news}</strong><span>Bài viết tin tức</span></div>
         <div class="stat-card"><strong>${d.published}</strong><span>Đang xuất bản</span></div>
+        <div class="stat-card"><strong>${d.about || 0}</strong><span>Giới thiệu</span></div>
+        <div class="stat-card"><strong>${d.services || 0}</strong><span>Dịch vụ</span></div>
         <div class="stat-card"><strong>${d.submissions}</strong><span>Yêu cầu khách hàng</span></div>
         <div class="stat-card"><strong>${d.media}</strong><span>File media</span></div>
       </div>
       <div class="panel">
         <h3>Quản lý toàn bộ website</h3>
         <div class="form-grid" style="margin-top:12px">
-          <button type="button" class="btn btn-ghost go-view" data-view="settings">⚙️ Hotline, email, footer, SEO</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="homepage">🏠 Slideshow, dịch vụ, quy trình, đánh giá</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="pages">📄 Giới thiệu, dự án, liên hệ...</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="news">📰 Tin tức & SEO bài viết</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="gallery">🖼️ Thư viện ảnh & video</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="translations">🌐 Nội dung VI / EN / 中文</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="submissions">📬 Form liên hệ & đặt lịch</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="settings">⚙️ Hotline, Zalo, footer</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="homepage">🏠 Trang chủ</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="about">🏢 Giới thiệu</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="services">🚚 Dịch vụ</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="news">📰 Tin tức SEO</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="seoPages">🔎 SEO trang tĩnh</button>
           <button type="button" class="btn btn-ghost go-view" data-view="media">🖼️ Kho hình ảnh</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="submissions">📬 Form liên hệ</button>
         </div>
       </div>`;
     content.querySelectorAll(".go-view").forEach((btn) => {
@@ -434,7 +450,7 @@
     });
   }
 
-  async function renderNews(editId) {
+  async function renderNews(editId, pageNum = 1, query = "") {
     const posts = await api("/news");
     if (editId === "new") {
       content.innerHTML = renderNewsForm({});
@@ -448,15 +464,31 @@
       return;
     }
 
+    const q = String(query || "").trim().toLowerCase();
+    const filtered = q
+      ? posts.filter(
+          (p) =>
+            String(p.title || "").toLowerCase().includes(q) ||
+            String(p.slug || "").toLowerCase().includes(q) ||
+            String(p.keyword || "").toLowerCase().includes(q)
+        )
+      : posts;
+    const perPage = 20;
+    const pages = Math.max(1, Math.ceil(filtered.length / perPage));
+    const page = Math.min(Math.max(1, pageNum), pages);
+    const slice = filtered.slice((page - 1) * perPage, page * perPage);
+
     content.innerHTML = `
-      <div class="form-actions" style="margin-bottom:16px">
+      <div class="form-actions" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button type="button" class="btn btn-primary" id="newPostBtn">+ Thêm bài viết</button>
+        <input id="newsSearch" type="search" placeholder="Tìm tiêu đề / slug / từ khóa…" value="${esc(query)}" style="max-width:280px" />
+        <span class="seo-hint" style="margin:0">${filtered.length} / ${posts.length} bài</span>
       </div>
       <div class="table-wrap panel" style="padding:0">
         <table>
           <thead><tr><th>Tiêu đề</th><th>Danh mục</th><th>Ngày</th><th>SEO</th><th>TT</th><th></th></tr></thead>
           <tbody>
-            ${posts
+            ${slice
               .map((p) => {
                 const score =
                   window.SEOChecklist && p.keyword
@@ -478,6 +510,7 @@
                 <td><span class="badge ${scoreClass}">SEO ${score}</span></td>
                 <td><span class="badge ${p.published !== false ? "badge-ok" : "badge-off"}">${p.published !== false ? "Xuất bản" : "Ẩn"}</span></td>
                 <td class="row-actions">
+                  <a class="btn btn-ghost btn-sm" href="/bai-viet/${esc(p.slug)}" target="_blank" rel="noopener">Xem</a>
                   <button type="button" class="btn btn-ghost btn-sm edit-post" data-id="${p.id}">Sửa</button>
                   <button type="button" class="btn btn-danger btn-sm del-post" data-id="${p.id}">Xóa</button>
                 </td>
@@ -486,9 +519,25 @@
               .join("")}
           </tbody>
         </table>
-      </div>`;
+      </div>
+      <nav class="news-pagination" style="margin-top:16px">
+        ${Array.from({ length: Math.min(pages, 12) }, (_, i) => {
+          const p = page <= 6 ? i + 1 : page - 5 + i;
+          if (p < 1 || p > pages) return "";
+          return `<button type="button" class="news-page ${p === page ? "is-active" : ""}" data-page="${p}">${p}</button>`;
+        }).join("")}
+      </nav>`;
 
     $("#newPostBtn").addEventListener("click", () => renderNews("new"));
+    const search = $("#newsSearch");
+    let t;
+    search?.addEventListener("input", () => {
+      clearTimeout(t);
+      t = setTimeout(() => renderNews(null, 1, search.value), 280);
+    });
+    content.querySelectorAll(".news-page").forEach((b) =>
+      b.addEventListener("click", () => renderNews(null, Number(b.dataset.page), search?.value || ""))
+    );
     content.querySelectorAll(".edit-post").forEach((b) =>
       b.addEventListener("click", () => renderNews(b.dataset.id))
     );
@@ -497,7 +546,7 @@
         if (!confirm("Xóa bài viết này?")) return;
         await api(`/news/${b.dataset.id}`, { method: "DELETE" });
         showToast("Đã xóa");
-        renderNews();
+        renderNews(null, page, search?.value || "");
       })
     );
   }

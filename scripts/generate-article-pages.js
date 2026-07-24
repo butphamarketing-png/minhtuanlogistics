@@ -216,18 +216,41 @@ ${JSON.stringify({
 `;
 };
 
-if (fs.existsSync(outDir)) {
-  for (const f of fs.readdirSync(outDir)) {
-    if (f.endsWith(".html")) fs.unlinkSync(path.join(outDir, f));
+const writeArticle = (post, all = posts) => {
+  if (!post?.slug) return null;
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+  const fp = path.join(outDir, `${post.slug}.html`);
+  fs.writeFileSync(fp, render(post, all), "utf8");
+  return fp;
+};
+
+const onlySlug = process.argv[2];
+if (require.main === module) {
+  if (onlySlug) {
+    const post = posts.find((p) => p.slug === onlySlug);
+    if (!post) {
+      console.error("Slug not found:", onlySlug);
+      process.exit(1);
+    }
+    writeArticle(post, posts);
+    console.log(`Updated article: ${onlySlug}`);
+  } else {
+    if (fs.existsSync(outDir)) {
+      for (const f of fs.readdirSync(outDir)) {
+        if (f.endsWith(".html")) fs.unlinkSync(path.join(outDir, f));
+      }
+    } else {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+
+    for (const post of posts) {
+      if (!post.slug) continue;
+      writeArticle(post, posts);
+    }
+
+    console.log(`Generated ${posts.length} article pages in bai-viet/`);
   }
-} else {
-  fs.mkdirSync(outDir, { recursive: true });
+  console.log(`Site URL: ${SITE_URL}`);
 }
 
-for (const post of posts) {
-  if (!post.slug) continue;
-  fs.writeFileSync(path.join(outDir, `${post.slug}.html`), render(post, posts), "utf8");
-}
-
-console.log(`Generated ${posts.length} article pages in bai-viet/`);
-console.log(`Site URL: ${SITE_URL}`);
+module.exports = { render, writeArticle, posts, SITE_URL, outDir };

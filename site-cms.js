@@ -204,6 +204,8 @@
   };
 
   const loadNews = async (posts) => {
+    // Static corpus from news-data.js is source of truth for 1000 SEO posts.
+    if (window.NEWS_POSTS?.length) return false;
     const cmsNews = posts || (await fetch("/api/public/news").then((r) => (r.ok ? r.json() : null)).catch(() => null));
     if (cmsNews && cmsNews.length) {
       window.NEWS_POSTS = cmsNews;
@@ -212,6 +214,39 @@
       return true;
     }
     return false;
+  };
+
+  const applySeoPages = (seoPages) => {
+    if (!seoPages) return;
+    const path = (window.location.pathname || "/").replace(/\/$/, "") || "/";
+    let key = "home";
+    if (path === "/" || path === "/index") key = "home";
+    else if (path.startsWith("/gioi-thieu")) key = "gioi-thieu";
+    else if (path.startsWith("/dich-vu")) key = "dich-vu";
+    else if (path.startsWith("/du-an")) key = "du-an";
+    else if (path.startsWith("/tin-tuc")) key = "tin-tuc";
+    else if (path.startsWith("/hinh-anh")) key = "hinh-anh";
+    else if (path.startsWith("/lien-he")) key = "lien-he";
+    const page = seoPages[key];
+    if (!page) return;
+    if (page.title) document.title = page.title;
+    const setMeta = (name, content, prop) => {
+      if (!content) return;
+      let el = prop
+        ? document.querySelector(`meta[property="${prop}"]`)
+        : document.querySelector(`meta[name="${name}"]`);
+      if (!el) {
+        el = document.createElement("meta");
+        if (prop) el.setAttribute("property", prop);
+        else el.setAttribute("name", name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    setMeta("description", page.description);
+    setMeta("keywords", page.keywords);
+    setMeta(null, page.title, "og:title");
+    setMeta(null, page.description, "og:description");
   };
 
   window.SITE_CMS = {
@@ -227,12 +262,14 @@
         applyHomepage(data.homepage);
         applyGallery(data.gallery);
         applyPages(data.pages);
+        applySeoPages(data.seoPages);
         await loadNews(data.news);
       } else {
         applySettings(await fetch("/api/public/settings").then((r) => (r.ok ? r.json() : null)).catch(() => null));
         applyHomepage(await fetch("/api/public/homepage").then((r) => (r.ok ? r.json() : null)).catch(() => null));
         applyGallery(await fetch("/api/public/gallery").then((r) => (r.ok ? r.json() : null)).catch(() => null));
         applyPages(await fetch("/api/public/pages").then((r) => (r.ok ? r.json() : null)).catch(() => null));
+        applySeoPages(await fetch("/api/public/seo-pages").then((r) => (r.ok ? r.json() : null)).catch(() => null));
         await loadNews();
       }
 
