@@ -4783,9 +4783,11 @@ body.booking-open {
   color: var(--text);
 }
 
-/* Link nội bộ trong bài: xanh → đỏ khi hover (kiểu SEO content) */
+/* Link nội bộ / ngoài trong nội dung: xanh → đỏ khi hover */
 .article-content a.int-link,
 .article-content a.ext-link,
+.article-detail a.int-link,
+.article-detail a.ext-link,
 .article-related a {
   color: #1565c0;
   text-decoration: underline;
@@ -4796,6 +4798,8 @@ body.booking-open {
 
 .article-content a.int-link:hover,
 .article-content a.ext-link:hover,
+.article-detail a.int-link:hover,
+.article-detail a.ext-link:hover,
 .article-related a:hover {
   color: #d32f2f;
 }

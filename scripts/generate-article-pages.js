@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { esc, linkify } = require("../lib/markdown-links");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "bai-viet");
@@ -13,23 +14,6 @@ const SITE_URL = (() => {
     return "https://minhtuanlogistics.com";
   }
 })();
-
-const esc = (s) =>
-  String(s ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-/** Convert markdown [label](url) into clickable HTML links after escaping. */
-const linkify = (text) =>
-  esc(text).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, (_, label, href) => {
-    const safeHref = String(href).replace(/"/g, "");
-    const external = /^https?:\/\//i.test(safeHref);
-    const cls = external ? "ext-link" : "int-link";
-    const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
-    return `<a class="${cls}" href="${safeHref}"${extra}>${label}</a>`;
-  });
 
 const posts = JSON.parse(fs.readFileSync(path.join(root, "data", "news-posts.json"), "utf8"));
 

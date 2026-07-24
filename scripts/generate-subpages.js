@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { esc, linkify } = require("../lib/markdown-links");
 
 const root = path.resolve(__dirname, "..");
 
@@ -16,13 +17,6 @@ const getSiteUrl = () => {
 
 const SITE_URL = getSiteUrl();
 const data = JSON.parse(fs.readFileSync(path.join(root, "data", "subpages.json"), "utf8"));
-
-const esc = (s) =>
-  String(s ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 
 const clearHtmlDir = (dir) => {
   if (!fs.existsSync(dir)) {
@@ -76,7 +70,7 @@ const buildBodyHtml = (page) => {
   sections.forEach((s, i) => {
     parts.push(`
             <h2>${esc(s.heading)}</h2>
-            ${(s.paragraphs || []).map((p) => `<p>${esc(p)}</p>`).join("\n            ")}`);
+            ${(s.paragraphs || []).map((p) => `<p>${linkify(p)}</p>`).join("\n            ")}`);
     // Place remaining images after each section (images 2–5)
     const img = images[i + 1];
     if (img) parts.push(figureHtml(img, i + 1));

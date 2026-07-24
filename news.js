@@ -6,6 +6,15 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
 
+  const linkify = (text) =>
+    esc(text).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, (_, label, href) => {
+      const safeHref = String(href).replace(/"/g, "");
+      const external = /^https?:\/\//i.test(safeHref);
+      const cls = external ? "ext-link" : "int-link";
+      const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+      return `<a class="${cls}" href="${safeHref}"${extra}>${label}</a>`;
+    });
+
   const PER_PAGE = 24;
 
   const cardHtml = (p) => `
@@ -28,7 +37,10 @@
     (sections || [])
       .map((s) => {
         if (s.type === "h2") return `<h2>${esc(s.text)}</h2>`;
-        return `<p>${esc(s.text)}</p>`;
+        if (s.paragraphs?.length) {
+          return s.paragraphs.map((p) => `<p>${linkify(p)}</p>`).join("");
+        }
+        return `<p>${linkify(s.text || "")}</p>`;
       })
       .join("");
 
