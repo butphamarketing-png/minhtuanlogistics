@@ -4783,6 +4783,23 @@ body.booking-open {
   color: var(--text);
 }
 
+/* Link nội bộ trong bài: xanh → đỏ khi hover (kiểu SEO content) */
+.article-content a.int-link,
+.article-content a.ext-link,
+.article-related a {
+  color: #1565c0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.article-content a.int-link:hover,
+.article-content a.ext-link:hover,
+.article-related a:hover {
+  color: #d32f2f;
+}
+
 .news-pagination {
   display: flex;
   flex-wrap: wrap;

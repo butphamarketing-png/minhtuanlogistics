@@ -21,6 +21,16 @@ const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+/** Convert markdown [label](url) into clickable HTML links after escaping. */
+const linkify = (text) =>
+  esc(text).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, (_, label, href) => {
+    const safeHref = String(href).replace(/"/g, "");
+    const external = /^https?:\/\//i.test(safeHref);
+    const cls = external ? "ext-link" : "int-link";
+    const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    return `<a class="${cls}" href="${safeHref}"${extra}>${label}</a>`;
+  });
+
 const posts = JSON.parse(fs.readFileSync(path.join(root, "data", "news-posts.json"), "utf8"));
 
 const sectionHtml = (post) => {
@@ -36,11 +46,11 @@ const sectionHtml = (post) => {
         parts.push(`<h2 id="${id}">${esc(heading)}</h2>`);
       }
       if (s.paragraphs?.length) {
-        s.paragraphs.forEach((p) => parts.push(`<p>${esc(p)}</p>`));
+        s.paragraphs.forEach((p) => parts.push(`<p>${linkify(p)}</p>`));
       } else if (s.type === "p" && s.text) {
-        parts.push(`<p>${esc(s.text)}</p>`);
+        parts.push(`<p>${linkify(s.text)}</p>`);
       } else if (s.text && s.type !== "h2" && !s.heading) {
-        parts.push(`<p>${esc(s.text)}</p>`);
+        parts.push(`<p>${linkify(s.text)}</p>`);
       }
       const img = images[i + 1];
       if (img) {
@@ -50,7 +60,7 @@ const sectionHtml = (post) => {
       }
     });
   } else {
-    (post.body || []).forEach((p) => parts.push(`<p>${esc(p)}</p>`));
+    (post.body || []).forEach((p) => parts.push(`<p>${linkify(p)}</p>`));
   }
 
   // ensure remaining images after content
@@ -195,6 +205,7 @@ ${JSON.stringify({
             </div>
             <div class="article-cta">
               <a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
+              <a class="btn btn-ghost" href="https://zalo.me/0938961012" target="_blank" rel="noopener">Chat Zalo 0938 961 012</a>
               <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
               <a class="btn btn-ghost" href="/dich-vu">Xem dịch vụ logistics</a>
             </div>
