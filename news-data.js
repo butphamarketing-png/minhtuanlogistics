@@ -44,10 +44,19 @@
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   };
 
+  const pickCover = (p, i) => {
+    const fromImages = Array.isArray(p.images)
+      ? p.images.map((img) => img && (img.src || img.url)).find(Boolean)
+      : "";
+    const src = fromImages || p.photo || p.cover || "";
+    if (src && !String(src).startsWith("data:image/svg")) return src;
+    return coverSvg(p.keyword, CAT_INDEX[p.category] ?? 6, i);
+  };
+
   const enrich = (posts) =>
     posts.map((p, i) => ({
       ...p,
-      cover: coverSvg(p.keyword, CAT_INDEX[p.category] ?? 6, i),
+      cover: pickCover(p, i),
     }));
 
   const boot = (raw) => {
