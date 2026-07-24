@@ -109,7 +109,7 @@
     gallery: "Thư viện ảnh",
     translations: "Đa ngôn ngữ",
     submissions: "Yêu cầu khách hàng",
-    media: "Thư viện Media",
+    media: "Kho hình ảnh",
   };
 
   async function renderView(view) {
@@ -149,7 +149,7 @@
           <button type="button" class="btn btn-ghost go-view" data-view="gallery">🖼️ Thư viện ảnh & video</button>
           <button type="button" class="btn btn-ghost go-view" data-view="translations">🌐 Nội dung VI / EN / 中文</button>
           <button type="button" class="btn btn-ghost go-view" data-view="submissions">📬 Form liên hệ & đặt lịch</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="media">📁 Upload logo, banner...</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="media">🖼️ Kho hình ảnh</button>
         </div>
       </div>`;
     content.querySelectorAll(".go-view").forEach((btn) => {
@@ -544,7 +544,12 @@
             .map(
               (img, i) => `
             <div class="seo-image-row">
-              <label>Ảnh ${i + 1} URL<input name="imgSrc${i}" value="${esc(img.src || "")}" placeholder="https://..." /></label>
+              <label>Ảnh ${i + 1} URL
+                <div class="media-url-row">
+                  <input name="imgSrc${i}" id="imgSrc${i}" value="${esc(img.src || "")}" placeholder="https://... hoặc /uploads/..." />
+                  <button type="button" class="btn btn-ghost btn-sm pick-from-media" data-target="imgSrc${i}">Chọn từ kho</button>
+                </div>
+              </label>
               <label>Alt ${i + 1}<input name="imgAlt${i}" value="${esc(img.alt || "")}" placeholder="Alt có từ khóa chính" /></label>
             </div>`
             )
@@ -677,6 +682,25 @@
   function bindNewsForm(post, allPosts) {
     $("#backNews").addEventListener("click", () => renderNews());
     const form = $("#newsForm");
+
+    form.querySelectorAll(".pick-from-media").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await openMediaPicker({
+            onSelect: (url) => {
+              const input = form.querySelector(`[name="${btn.dataset.target}"]`);
+              if (input) {
+                input.value = url;
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+              showToast("Đã chọn ảnh từ kho");
+            },
+          });
+        } catch (err) {
+          showToast(err.message);
+        }
+      });
+    });
 
     const refreshSeo = () => {
       if (!window.SEOChecklist) return;
@@ -851,41 +875,208 @@
     );
   }
 
+  const formatBytes = (n) => {
+    const num = Number(n) || 0;
+    if (num < 1024) return `${num} B`;
+    if (num < 1024 * 1024) return `${(num / 1024).toFixed(1)} KB`;
+    return `${(num / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const readFileAsDataUrl = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("Không đọc được file"));
+      reader.readAsDataURL(file);
+    });
+
+  const uploadImageFiles = async (files, { onProgress } = {}) => {
+    const list = Array.from(files || []).filter((f) => f && f.type.startsWith("image/"));
+    if (!list.length) throw new Error("Chưa chọn ảnh hợp lệ");
+    let ok = 0;
+    const errors = [];
+    for (let i = 0; i < list.length; i++) {
+      const file = list[i];
+      onProgress?.({ index: i + 1, total: list.length, name: file.name });
+      try {
+        if (file.size > 5 * 1024 * 1024) throw new Error("File quá lớn (max 5MB)");
+        const data = await readFileAsDataUrl(file);
+        await api("/upload", {
+          method: "POST",
+          body: JSON.stringify({ filename: file.name, data }),
+        });
+        ok += 1;
+      } catch (err) {
+        errors.push(`${file.name}: ${err.message}`);
+      }
+    }
+    return { ok, total: list.length, errors };
+  };
+
+  async function openMediaPicker({ onSelect } = {}) {
+    const list = await api("/media");
+    const existing = document.getElementById("mediaPickerModal");
+    if (existing) existing.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "mediaPickerModal";
+    modal.className = "media-modal";
+    modal.innerHTML = `
+      <div class="media-modal-backdrop" data-close></div>
+      <div class="media-modal-panel" role="dialog" aria-modal="true" aria-label="Chọn ảnh từ kho">
+        <header class="media-modal-head">
+          <strong>Chọn ảnh từ kho</strong>
+          <button type="button" class="btn btn-ghost" data-close>Đóng</button>
+        </header>
+        <div class="media-modal-body">
+          ${
+            list.length
+              ? `<div class="media-grid media-grid--picker">
+                  ${list
+                    .map(
+                      (m) => `
+                    <button type="button" class="media-pick-item" data-url="${esc(m.url)}" title="${esc(m.name || m.url)}">
+                      <img src="${esc(m.url)}" alt="" loading="lazy" />
+                      <span>${esc(m.name || m.url)}</span>
+                    </button>`
+                    )
+                    .join("")}
+                </div>`
+              : '<p class="empty">Kho trống — hãy upload ảnh ở mục Kho hình ảnh trước.</p>'
+          }
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    const close = () => modal.remove();
+    modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
+    modal.querySelectorAll(".media-pick-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        onSelect?.(btn.dataset.url);
+        close();
+      });
+    });
+  }
+
   async function renderMedia() {
     const list = await api("/media");
     content.innerHTML = `
-      <div class="panel">
-        <label>Upload ảnh<input type="file" id="uploadFile" accept="image/*" /></label>
+      <div class="panel media-library">
+        <div class="media-library-head">
+          <div>
+            <h3>Kho hình ảnh</h3>
+            <p class="seo-hint">Tải nhiều ảnh từ máy tính hoặc điện thoại. Copy URL để dùng làm thumbnail / ảnh bài viết. Khác với “Thư viện ảnh” (trang /hinh-anh trên website).</p>
+          </div>
+          <span class="media-count">${list.length} ảnh</span>
+        </div>
+
+        <div class="media-dropzone" id="mediaDropzone" tabindex="0">
+          <input type="file" id="uploadFiles" accept="image/*" multiple hidden />
+          <div class="media-dropzone-inner">
+            <strong>Kéo thả ảnh vào đây</strong>
+            <span>hoặc</span>
+            <button type="button" class="btn btn-primary" id="pickFilesBtn">Chọn ảnh từ máy / điện thoại</button>
+            <small>PNG, JPG, WEBP, GIF · tối đa 5MB / ảnh · chọn nhiều file cùng lúc</small>
+          </div>
+        </div>
+        <p class="media-progress" id="mediaProgress" hidden></p>
       </div>
-      <div class="media-grid">
+
+      <div class="media-grid" id="mediaGrid">
         ${
           list.length
             ? list
                 .map(
                   (m) => `
-            <div class="media-item">
-              <img src="${esc(m.url)}" alt="" />
-              <small>${esc(m.url)}</small>
-            </div>`
+            <article class="media-item" data-id="${esc(m.id || m.name)}">
+              <img src="${esc(m.url)}" alt="${esc(m.alt || m.name || "")}" loading="lazy" />
+              <div class="media-item-meta">
+                <strong title="${esc(m.name || "")}">${esc(m.name || "Ảnh")}</strong>
+                <small>${formatBytes(m.size)} · ${esc((m.uploadedAt || "").slice(0, 10))}</small>
+                <code title="${esc(m.url)}">${esc(m.url)}</code>
+              </div>
+              <div class="media-item-actions">
+                <button type="button" class="btn btn-ghost media-copy" data-url="${esc(m.url)}">Copy URL</button>
+                <button type="button" class="btn btn-danger media-delete" data-id="${esc(m.id || m.name)}">Xóa</button>
+              </div>
+            </article>`
                 )
                 .join("")
-            : '<p class="empty">Chưa có file — upload ảnh ở trên</p>'
+            : '<p class="empty">Chưa có ảnh trong kho — kéo thả hoặc chọn ảnh ở phía trên.</p>'
         }
       </div>`;
 
-    $("#uploadFile").addEventListener("change", async (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = async () => {
-        await api("/upload", {
-          method: "POST",
-          body: JSON.stringify({ filename: file.name, data: reader.result }),
+    const input = $("#uploadFiles");
+    const dropzone = $("#mediaDropzone");
+    const progress = $("#mediaProgress");
+    const pickBtn = $("#pickFilesBtn");
+
+    const runUpload = async (fileList) => {
+      if (!fileList?.length) return;
+      progress.hidden = false;
+      progress.textContent = "Đang tải lên…";
+      try {
+        const result = await uploadImageFiles(fileList, {
+          onProgress: ({ index, total, name }) => {
+            progress.textContent = `Đang tải ${index}/${total}: ${name}`;
+          },
         });
-        showToast("Upload thành công");
+        if (result.errors.length) {
+          showToast(`Tải ${result.ok}/${result.total} ảnh. Lỗi: ${result.errors[0]}`);
+        } else {
+          showToast(`Đã tải ${result.ok} ảnh vào kho`);
+        }
         renderMedia();
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        progress.hidden = true;
+        showToast(err.message);
+      }
+    };
+
+    pickBtn?.addEventListener("click", () => input?.click());
+    input?.addEventListener("change", async (e) => {
+      await runUpload(e.target.files);
+      e.target.value = "";
+    });
+
+    ["dragenter", "dragover"].forEach((ev) => {
+      dropzone?.addEventListener(ev, (e) => {
+        e.preventDefault();
+        dropzone.classList.add("is-dragover");
+      });
+    });
+    ["dragleave", "drop"].forEach((ev) => {
+      dropzone?.addEventListener(ev, (e) => {
+        e.preventDefault();
+        dropzone.classList.remove("is-dragover");
+      });
+    });
+    dropzone?.addEventListener("drop", async (e) => {
+      await runUpload(e.dataTransfer?.files);
+    });
+
+    content.querySelectorAll(".media-copy").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.url || "");
+          showToast("Đã copy URL");
+        } catch {
+          showToast(btn.dataset.url || "");
+        }
+      });
+    });
+
+    content.querySelectorAll(".media-delete").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Xóa ảnh này khỏi kho?")) return;
+        try {
+          await api(`/media/${encodeURIComponent(btn.dataset.id)}`, { method: "DELETE" });
+          showToast("Đã xóa ảnh");
+          renderMedia();
+        } catch (err) {
+          showToast(err.message);
+        }
+      });
     });
   }
 

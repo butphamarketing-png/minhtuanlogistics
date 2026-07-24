@@ -678,15 +678,17 @@ th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: upp
 
 .media-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
 }
 
 .media-item {
   background: var(--surface2);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
 
 .media-item img {
@@ -694,6 +696,7 @@ th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: upp
   aspect-ratio: 1;
   object-fit: cover;
   display: block;
+  background: #0a1628;
 }
 
 .media-item small {
@@ -702,6 +705,192 @@ th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: upp
   font-size: 11px;
   color: var(--muted);
   word-break: break-all;
+}
+
+.media-library-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.media-library-head h3 {
+  margin: 0 0 6px;
+}
+
+.media-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 61, 165, 0.12);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.media-dropzone {
+  border: 2px dashed rgba(0, 61, 165, 0.35);
+  border-radius: 14px;
+  background: rgba(0, 61, 165, 0.04);
+  padding: 28px 16px;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+
+.media-dropzone.is-dragover {
+  border-color: var(--primary);
+  background: rgba(0, 61, 165, 0.1);
+}
+
+.media-dropzone-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.media-dropzone-inner small {
+  color: var(--muted);
+}
+
+.media-progress {
+  margin: 12px 0 0;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.media-item-meta {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 72px;
+}
+
+.media-item-meta strong {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-item-meta small {
+  padding: 0;
+  color: var(--muted);
+}
+
+.media-item-meta code {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-item-actions {
+  display: flex;
+  gap: 6px;
+  padding: 0 10px 10px;
+  flex-wrap: wrap;
+}
+
+.media-item-actions .btn {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+.media-url-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.media-url-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.media-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.media-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 15, 35, 0.65);
+}
+
+.media-modal-panel {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: min(80vh, 720px);
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.media-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+
+.media-modal-body {
+  padding: 16px;
+}
+
+.media-pick-item {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface2);
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.media-pick-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.media-pick-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.media-pick-item span {
+  display: block;
+  padding: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 900px) {
