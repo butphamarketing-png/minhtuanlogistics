@@ -750,8 +750,14 @@
       openBookingModal();
     };
 
-    const delay = document.getElementById("pageLoader") ? 1200 : 600;
-    window.setTimeout(showBooking, delay);
+    const forceBooking = new URLSearchParams(window.location.search).has("booking");
+    if (forceBooking) {
+      sessionStorage.removeItem(BOOKING_KEY);
+      openBookingModal();
+    } else {
+      const delay = document.getElementById("pageLoader") ? 1200 : 600;
+      window.setTimeout(showBooking, delay);
+    }
 
     const dateInput = bookingForm?.elements.date;
     if (dateInput) {
