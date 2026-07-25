@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /adminbp/
 Disallow: /api/
+Disallow: /data/
 
 Sitemap: https://minhtuanlogistics.com/sitemap.xml

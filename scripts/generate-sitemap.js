@@ -79,6 +79,7 @@ const robots = `User-agent: *
 Allow: /
 Disallow: /adminbp/
 Disallow: /api/
+Disallow: /data/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `;

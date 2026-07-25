@@ -85,10 +85,14 @@
     document.dispatchEvent(new CustomEvent("newsready", { detail: { count: posts.length } }));
   };
 
-  fetch("/data/news-posts.json")
+  fetch("/data/news-index.json")
     .then((r) => {
-      if (!r.ok) throw new Error("news-posts.json not found — run: npm run news");
-      return r.json();
+      if (r.ok) return r.json();
+      // Fallback for older deploys / local without index
+      return fetch("/data/news-posts.json").then((r2) => {
+        if (!r2.ok) throw new Error("news index/posts not found — run: npm run build");
+        return r2.json();
+      });
     })
     .then(boot)
     .catch((err) => {

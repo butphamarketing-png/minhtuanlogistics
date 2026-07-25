@@ -8,6 +8,7 @@ const {
   localBusinessSchema,
   jsonLd,
   DEFAULT_OG,
+  faviconLinks,
 } = require("../lib/seo-head");
 
 const root = path.resolve(__dirname, "..");
@@ -196,8 +197,7 @@ const render = (page, siblings) => {
     <meta name="description" content="${esc(description)}" />
     <meta name="keywords" content="${esc(keywordsMeta)}" />
 ${headSocial}
-    <link rel="icon" href="/logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+${faviconLinks()}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { esc, linkify } = require("../lib/markdown-links");
-const { absUrl, socialMeta, orgSchema, jsonLd, DEFAULT_OG } = require("../lib/seo-head");
+const { absUrl, socialMeta, orgSchema, jsonLd, DEFAULT_OG, faviconLinks } = require("../lib/seo-head");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "bai-viet");
@@ -130,8 +130,7 @@ const render = (post, all) => {
     <meta name="description" content="${esc(description)}" />
     <meta name="keywords" content="${esc(keywords)}" />
 ${headSocial}
-    <link rel="icon" href="/logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+${faviconLinks()}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
