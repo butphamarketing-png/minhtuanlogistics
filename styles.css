@@ -3142,25 +3142,25 @@ h2 {
 }
 
 .footer-col-contact {
-  text-align: center;
-  justify-self: center;
+  text-align: left;
+  justify-self: start;
 }
 
 .footer-col-contact h4 {
-  text-align: center;
+  text-align: left;
 }
 
 .footer-col-services {
-  text-align: right;
-  justify-self: end;
+  text-align: left;
+  justify-self: start;
 }
 
 .footer-col-services h4 {
-  text-align: right;
+  text-align: left;
 }
 
 .footer-col-services ul {
-  text-align: right;
+  text-align: left;
 }
 
 .footer-brand {
@@ -3238,18 +3238,18 @@ h2 {
 }
 
 .footer-contact {
-  text-align: center;
+  text-align: left;
 }
 
 .footer-contact li {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
   flex-wrap: nowrap;
   white-space: nowrap;
-  text-align: center;
+  text-align: left;
 }
 
 .footer-contact li + li {
