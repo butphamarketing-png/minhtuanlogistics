@@ -408,8 +408,14 @@ const posts = keywords.map((item, i) => {
   const excerptPat = pick(EXCERPT_PATTERNS, i, "excerpt");
   const excerpt = excerptPat(keyword, catLabel, ctx);
   const metaDescription = `${cap(keyword)} — ${pick(["Quy trình chuẩn", "Báo giá 24h", "MINH TUẤN TP.HCM", "Tư vấn miễn phí", "10+ năm kinh nghiệm"], i, "meta")}. Hotline 0938 961 012.`.slice(0, 160);
-  const d = new Date(2023, 0, 2 + Math.floor(i * 0.65));
-  const iso = d.toISOString().slice(0, 10);
+  // Spread publish dates across 2026 (Jan → late Jul) so SERP dates match content year
+  const n = keywords.length;
+  const start = Date.UTC(2026, 0, 1);
+  const end = Date.UTC(2026, 6, 24);
+  const t = start + Math.round((i / Math.max(n - 1, 1)) * (end - start));
+  const d = new Date(t);
+  const pad = (x) => String(x).padStart(2, "0");
+  const iso = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
   const body = sections.filter((s) => s.type === "p").map((s) => s.text);
   const structureKey = sections.filter((s) => s.type === "h2").map((s) => s.text.slice(0, 20)).join("|");
 
