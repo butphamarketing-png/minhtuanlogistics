@@ -15,6 +15,9 @@
     "sitemap": "node scripts/generate-sitemap.js",
     "seo:density": "node scripts/normalize-keyword-density.js",
     "seo:audit": "node scripts/audit-seo.js",
+    "seo:money": "node scripts/upgrade-money-pages.js",
+    "seo:pillars": "node scripts/upgrade-pillar-posts.js",
+    "seo:clean-urls": "node scripts/fix-clean-urls.js",
     "build": "node scripts/normalize-keyword-density.js && node scripts/generate-news-index.js && node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js",
     "vercel-build": "npm run build"
   },

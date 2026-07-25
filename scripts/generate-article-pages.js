@@ -118,6 +118,7 @@ const render = (post, all) => {
     type: "article",
     multilingual: false,
     extra: `    <meta property="article:published_time" content="${esc(post.date)}" />
+    <meta property="article:modified_time" content="${esc(post.dateModified || post.date)}" />
     <meta property="article:section" content="${esc(post.categoryLabel)}" />`,
   });
 
@@ -145,7 +146,7 @@ ${jsonLd(
     description,
     image: images.length ? images.map((i) => i.src || i.url).filter(Boolean) : [absImage],
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.dateModified || post.date,
     author: { "@type": "Organization", name: "CÔNG TY TNHH XNK TM DV MINH TUẤN" },
     publisher: {
       "@type": "Organization",

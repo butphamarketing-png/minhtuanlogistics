@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T08:35:03.115Z",
+  "generatedAt": "2026-07-25T11:18:13.044Z",
   "news": {
     "total": 1000,
     "pass": 1000,
@@ -10,27 +10,27 @@
     "total": 5,
     "pass": 5,
     "fail": 0,
-    "avg": 100,
+    "avg": 96,
     "details": [
       {
         "id": "/dich-vu/xuat-nhap-khau",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
-        "words": 1466,
+        "words": 1482,
         "images": 5,
-        "density": 1.77
+        "density": 1.62
       },
       {
         "id": "/dich-vu/van-chuyen-duong-bien",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
-        "words": 1488,
+        "words": 1492,
         "images": 5,
         "density": 1.61
       },
       {
         "id": "/dich-vu/van-chuyen-duong-bo",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
         "words": 1506,
         "images": 5,
@@ -38,19 +38,19 @@
       },
       {
         "id": "/dich-vu/van-chuyen-hang-khong",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
-        "words": 1506,
+        "words": 1504,
         "images": 5,
         "density": 1.73
       },
       {
         "id": "/dich-vu/kho-bai-logistics",
-        "score": 100,
+        "score": 94,
         "canPublish": true,
-        "words": 1508,
+        "words": 1510,
         "images": 5,
-        "density": 1.59
+        "density": 1.46
       }
     ]
   },
@@ -58,25 +58,25 @@
     "total": 3,
     "pass": 3,
     "fail": 0,
-    "avg": 100,
+    "avg": 97,
     "details": [
       {
         "id": "/gioi-thieu/cong-ty-logistics-tp-hcm",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
-        "words": 1498,
+        "words": 1496,
         "images": 5
       },
       {
         "id": "/gioi-thieu/doi-tac-logistics-hang-dau",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
         "words": 1464,
         "images": 5
       },
       {
         "id": "/gioi-thieu/gia-tri-cot-loi-logistics",
-        "score": 100,
+        "score": 97,
         "canPublish": true,
         "words": 1466,
         "images": 5

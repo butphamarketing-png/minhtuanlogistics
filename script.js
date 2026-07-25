@@ -106,7 +106,7 @@
       document.body.appendChild(wrap);
     }
 
-    const chatHref = document.getElementById("contact") ? "#contact" : "lien-he.html";
+    const chatHref = document.getElementById("contact") ? "#contact" : "/lien-he";
 
     wrap.innerHTML = `
       <span class="float-sparkle float-sparkle--1" aria-hidden="true"></span>

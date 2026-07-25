@@ -50,7 +50,7 @@
       const q = new URLSearchParams(params);
       if (p > 1) q.set("page", String(p));
       else q.delete("page");
-      const href = `tin-tuc.html${q.toString() ? `?${q}` : ""}`;
+      const href = `/tin-tuc${q.toString() ? `?${q}` : ""}`;
       return active
         ? `<span class="news-page is-active" aria-current="page">${label}</span>`
         : `<a class="news-page" href="${href}">${label}</a>`;
@@ -119,7 +119,7 @@
         <div class="article-missing">
           <h1>Không tìm thấy bài viết</h1>
           <p>Bài viết không tồn tại hoặc đường dẫn không đúng.</p>
-          <a class="btn btn-cta" href="tin-tuc.html">← Về trang tin tức</a>
+          <a class="btn btn-cta" href="/tin-tuc">← Về trang tin tức</a>
         </div>`;
         return;
       }
@@ -135,8 +135,8 @@
       articleRoot.innerHTML = `
       <article class="article-detail" itemscope itemtype="https://schema.org/Article">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html">Trang chủ</a><span aria-hidden="true">/</span>
-          <a href="tin-tuc.html">Tin tức</a><span aria-hidden="true">/</span>
+          <a href="/">Trang chủ</a><span aria-hidden="true">/</span>
+          <a href="/tin-tuc">Tin tức</a><span aria-hidden="true">/</span>
           <span>${esc(post.keyword)}</span>
         </nav>
         <div class="article-hero">
@@ -157,7 +157,7 @@
         </div>
         <div class="article-cta">
           <a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
-          <a class="btn btn-ghost" href="lien-he.html">Gửi yêu cần tư vấn</a>
+          <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
         </div>
       </article>
       ${

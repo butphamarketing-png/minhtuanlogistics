@@ -1,11 +1,11 @@
 window.I18N_TRANSLATIONS = {
   "vi": {
-    "meta.home.title": "Logistics Xuất Nhập Khẩu TP.HCM | MINH TUẤN - Uy Tín 10+ Năm",
-    "meta.home.description": "Công ty logistics uy tín TP.HCM - Dịch vụ xuất nhập khẩu, khai báo hải quan trọn gói, vận chuyển FCL/LCL đường biển, hàng không. Hotline 0938 961 012.",
-    "meta.about.title": "Giới Thiệu Công Ty Logistics Uy Tín TP.HCM | MINH TUẤN",
-    "meta.about.description": "MINH TUẤN Logistics - 10+ năm kinh nghiệm xuất nhập khẩu, giao nhận vận tải quốc tế tại TP.HCM. Gần sân bay Tân Sơn Nhất, cảng Cát Lái.",
-    "meta.services.title": "Dịch Vụ Logistics & Khai Báo Hải Quan TP.HCM | MINH TUẤN",
-    "meta.services.description": "Dịch vụ khai báo hải quan trọn gói, ủy thác xuất nhập khẩu, vận chuyển FCL/LCL đường biển, hàng không, kho bãi logistics TP.HCM.",
+    "meta.home.title": "Logistics TP.HCM | Xuất nhập khẩu & hải quan Minh Tuấn",
+    "meta.home.description": "Công ty logistics TP.HCM: xuất nhập khẩu, khai báo hải quan, FCL/LCL, hàng không. Báo giá 24h — hotline 0938 961 012.",
+    "meta.about.title": "Công ty logistics uy tín TP.HCM | Minh Tuấn",
+    "meta.about.description": "Minh Tuấn Logistics — 10+ năm XNK tại TP.HCM, gần Tân Sơn Nhất & Cát Lái. Đồng hành SME và doanh nghiệp xuất nhập khẩu.",
+    "meta.services.title": "Dịch vụ logistics & hải quan TP.HCM | Minh Tuấn",
+    "meta.services.description": "Ủy thác XNK, khai báo hải quan, vận chuyển biển/bộ/hàng không, kho bãi TP.HCM. Báo giá rõ trong 24 giờ.",
     "meta.projects.title": "Dự Án Logistics Tiêu Biểu | MINH TUẤN TP.HCM",
     "meta.projects.description": "Dự án logistics và xuất nhập khẩu tiêu biểu của MINH TUẤN - đối tác tin cậy trên tuyến quốc tế Trung Quốc, Mỹ, EU, ASEAN.",
     "meta.news.title": "Tin Tức & Kiến Thức Logistics | MINH TUẤN",
