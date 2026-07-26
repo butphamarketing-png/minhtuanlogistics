@@ -1,0 +1,20 @@
+{
+  "queue": "keywords-1000",
+  "source": "data/keywords-1000.json",
+  "total": 1000,
+  "done": 1,
+  "nextIndex": 1,
+  "completed": [
+    {
+      "index": 0,
+      "keyword": "vận chuyển hàng hóa",
+      "slug": "van-chuyen-hang-hoa",
+      "id": 1,
+      "wordCount": 5570,
+      "score": 100,
+      "at": "2026-07-26T04:46:05.512Z"
+    }
+  ],
+  "current": "xuat-nhap-khau",
+  "notes": "Nâng cấp từng bài một từ keywords-1000; ~5000 từ; 1 thumb + 5 ảnh; SEO Rank Math; link nội bộ + Zalo + ngoài"
+}

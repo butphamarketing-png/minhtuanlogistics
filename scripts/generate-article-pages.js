@@ -56,9 +56,12 @@ const sectionHtml = (post) => {
     );
   }
 
-  parts.push(
-    `<p>Cần hỗ trợ nhanh? Hãy <a class="ext-link" href="https://zalo.me/0938961012" target="_blank" rel="noopener">liên hệ Zalo Minh Tuấn Logistics</a> để được tư vấn báo giá.</p>`
-  );
+  const htmlSoFar = parts.join("\n");
+  if (!/zalo\.me\/0938961012/i.test(htmlSoFar)) {
+    parts.push(
+      `<p>Cần hỗ trợ nhanh? Hãy <a class="ext-link" href="https://zalo.me/0938961012" target="_blank" rel="noopener">liên hệ Zalo Minh Tuấn Logistics</a> để được tư vấn báo giá.</p>`
+    );
+  }
 
   return parts.join("\n          ");
 };

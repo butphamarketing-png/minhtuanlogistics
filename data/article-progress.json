@@ -1,0 +1,515 @@
+{
+  "queue": "chuyen-tuyen-order",
+  "source": "data/keywords-chuyen-tuyen-order.json",
+  "total": 56,
+  "done": 56,
+  "nextIndex": 56,
+  "completed": [
+    {
+      "index": 0,
+      "keyword": "vận chuyển chuyên tuyến Trung Quốc",
+      "slug": "van-chuyen-chuyen-tuyen-trung-quoc",
+      "id": 1001,
+      "wordCount": 5055,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.581Z"
+    },
+    {
+      "index": 1,
+      "keyword": "chuyên tuyến Trung Quốc",
+      "slug": "chuyen-tuyen-trung-quoc",
+      "id": 1002,
+      "wordCount": 5538,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.582Z"
+    },
+    {
+      "index": 2,
+      "keyword": "ship hàng Trung Quốc",
+      "slug": "ship-hang-trung-quoc",
+      "id": 1003,
+      "wordCount": 5560,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.582Z"
+    },
+    {
+      "index": 3,
+      "keyword": "vận chuyển Trung Quốc",
+      "slug": "van-chuyen-trung-quoc",
+      "id": 1004,
+      "wordCount": 5538,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 4,
+      "keyword": "gửi hàng đi Trung Quốc",
+      "slug": "gui-hang-di-trung-quoc",
+      "id": 1005,
+      "wordCount": 5433,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 5,
+      "keyword": "nhập hàng Trung Quốc",
+      "slug": "nhap-hang-trung-quoc",
+      "id": 1006,
+      "wordCount": 5569,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 6,
+      "keyword": "logistics Trung Quốc",
+      "slug": "logistics-trung-quoc",
+      "id": 1007,
+      "wordCount": 5680,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 7,
+      "keyword": "vận chuyển TQ đường bộ",
+      "slug": "van-chuyen-tq-duong-bo",
+      "id": 1008,
+      "wordCount": 5442,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 8,
+      "keyword": "vận chuyển TQ đường biển",
+      "slug": "van-chuyen-tq-duong-bien",
+      "id": 1009,
+      "wordCount": 5450,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 9,
+      "keyword": "vận chuyển TQ hàng không",
+      "slug": "van-chuyen-tq-hang-khong",
+      "id": 1010,
+      "wordCount": 5422,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 10,
+      "keyword": "chuyên tuyến TQ Hà Nội",
+      "slug": "chuyen-tuyen-tq-ha-noi",
+      "id": 1011,
+      "wordCount": 5401,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.583Z"
+    },
+    {
+      "index": 11,
+      "keyword": "chuyên tuyến TQ TP.HCM",
+      "slug": "chuyen-tuyen-tq-tp-hcm",
+      "id": 1012,
+      "wordCount": 5453,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 12,
+      "keyword": "chuyên tuyến TQ Hải Phòng",
+      "slug": "chuyen-tuyen-tq-hai-phong",
+      "id": 1013,
+      "wordCount": 5457,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 13,
+      "keyword": "thông quan hàng Trung Quốc",
+      "slug": "thong-quan-hang-trung-quoc",
+      "id": 1014,
+      "wordCount": 5413,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 14,
+      "keyword": "cước phí Trung Quốc",
+      "slug": "cuoc-phi-trung-quoc",
+      "id": 1015,
+      "wordCount": 5510,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 15,
+      "keyword": "order hàng Trung Quốc",
+      "slug": "order-hang-trung-quoc",
+      "id": 1016,
+      "wordCount": 5553,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 16,
+      "keyword": "order hàng TQ",
+      "slug": "order-hang-tq",
+      "id": 1017,
+      "wordCount": 5682,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 17,
+      "keyword": "order Taobao",
+      "slug": "order-taobao",
+      "id": 1018,
+      "wordCount": 5814,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 18,
+      "keyword": "order 1688",
+      "slug": "order-1688",
+      "id": 1019,
+      "wordCount": 5811,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 19,
+      "keyword": "mua hộ hàng Trung Quốc",
+      "slug": "mua-ho-hang-trung-quoc",
+      "id": 1020,
+      "wordCount": 5405,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 20,
+      "keyword": "nhập hộ hàng TQ",
+      "slug": "nhap-ho-hang-tq",
+      "id": 1021,
+      "wordCount": 5546,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 21,
+      "keyword": "ship Taobao về Việt Nam",
+      "slug": "ship-taobao-ve-viet-nam",
+      "id": 1022,
+      "wordCount": 5376,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 22,
+      "keyword": "order hàng Quảng Châu",
+      "slug": "order-hang-quang-chau",
+      "id": 1023,
+      "wordCount": 5546,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 23,
+      "keyword": "order hàng Nghĩa Ô",
+      "slug": "order-hang-nghia-o",
+      "id": 1024,
+      "wordCount": 5542,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 24,
+      "keyword": "tìm nguồn hàng Trung Quốc",
+      "slug": "tim-nguon-hang-trung-quoc",
+      "id": 1025,
+      "wordCount": 5401,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 25,
+      "keyword": "order hàng Hàn Quốc",
+      "slug": "order-hang-han-quoc",
+      "id": 1026,
+      "wordCount": 5539,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 26,
+      "keyword": "vận chuyển Hàn Quốc",
+      "slug": "van-chuyen-han-quoc",
+      "id": 1027,
+      "wordCount": 5564,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 27,
+      "keyword": "gửi hàng đi Hàn Quốc",
+      "slug": "gui-hang-di-han-quoc",
+      "id": 1028,
+      "wordCount": 5427,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.584Z"
+    },
+    {
+      "index": 28,
+      "keyword": "nhập hàng từ Hàn Quốc",
+      "slug": "nhap-hang-tu-han-quoc",
+      "id": 1029,
+      "wordCount": 5428,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 29,
+      "keyword": "ship hàng Hàn Quốc",
+      "slug": "ship-hang-han-quoc",
+      "id": 1030,
+      "wordCount": 5559,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 30,
+      "keyword": "logistics Hàn Quốc",
+      "slug": "logistics-han-quoc",
+      "id": 1031,
+      "wordCount": 5656,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 31,
+      "keyword": "chuyên tuyến Hàn Quốc",
+      "slug": "chuyen-tuyen-han-quoc",
+      "id": 1032,
+      "wordCount": 5565,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 32,
+      "keyword": "order hàng Nhật Bản",
+      "slug": "order-hang-nhat-ban",
+      "id": 1033,
+      "wordCount": 5549,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 33,
+      "keyword": "vận chuyển Nhật Bản",
+      "slug": "van-chuyen-nhat-ban",
+      "id": 1034,
+      "wordCount": 5559,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 34,
+      "keyword": "gửi hàng đi Nhật Bản",
+      "slug": "gui-hang-di-nhat-ban",
+      "id": 1035,
+      "wordCount": 5431,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 35,
+      "keyword": "nhập hàng từ Nhật Bản",
+      "slug": "nhap-hang-tu-nhat-ban",
+      "id": 1036,
+      "wordCount": 5431,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 36,
+      "keyword": "ship hàng Nhật Bản",
+      "slug": "ship-hang-nhat-ban",
+      "id": 1037,
+      "wordCount": 5567,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 37,
+      "keyword": "logistics Nhật Bản",
+      "slug": "logistics-nhat-ban",
+      "id": 1038,
+      "wordCount": 5711,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 38,
+      "keyword": "chuyên tuyến Nhật Bản",
+      "slug": "chuyen-tuyen-nhat-ban",
+      "id": 1039,
+      "wordCount": 5564,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 39,
+      "keyword": "order hàng Mỹ",
+      "slug": "order-hang-my",
+      "id": 1040,
+      "wordCount": 5683,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 40,
+      "keyword": "vận chuyển Mỹ",
+      "slug": "van-chuyen-my",
+      "id": 1041,
+      "wordCount": 5682,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 41,
+      "keyword": "gửi hàng đi Mỹ",
+      "slug": "gui-hang-di-my",
+      "id": 1042,
+      "wordCount": 5561,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 42,
+      "keyword": "nhập hàng từ Mỹ",
+      "slug": "nhap-hang-tu-my",
+      "id": 1043,
+      "wordCount": 5562,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 43,
+      "keyword": "ship hàng Mỹ",
+      "slug": "ship-hang-my",
+      "id": 1044,
+      "wordCount": 5711,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 44,
+      "keyword": "logistics Mỹ",
+      "slug": "logistics-my",
+      "id": 1045,
+      "wordCount": 5776,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 45,
+      "keyword": "chuyên tuyến Mỹ",
+      "slug": "chuyen-tuyen-my",
+      "id": 1046,
+      "wordCount": 5680,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 46,
+      "keyword": "vận chuyển FCL Mỹ",
+      "slug": "van-chuyen-fcl-my",
+      "id": 1047,
+      "wordCount": 5528,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 47,
+      "keyword": "vận chuyển LCL Mỹ",
+      "slug": "van-chuyen-lcl-my",
+      "id": 1048,
+      "wordCount": 5534,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 48,
+      "keyword": "order hàng quốc tế",
+      "slug": "order-hang-quoc-te",
+      "id": 1049,
+      "wordCount": 5550,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 49,
+      "keyword": "order TQ Hàn Nhật Mỹ",
+      "slug": "order-tq-han-nhat-my",
+      "id": 1050,
+      "wordCount": 5410,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 50,
+      "keyword": "nhập hàng 4 thị trường",
+      "slug": "nhap-hang-4-thi-truong",
+      "id": 1051,
+      "wordCount": 5427,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.585Z"
+    },
+    {
+      "index": 51,
+      "keyword": "mua hộ hàng quốc tế",
+      "slug": "mua-ho-hang-quoc-te",
+      "id": 1052,
+      "wordCount": 5399,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.586Z"
+    },
+    {
+      "index": 52,
+      "keyword": "báo giá ship Trung Quốc",
+      "slug": "bao-gia-ship-trung-quoc",
+      "id": 1053,
+      "wordCount": 5420,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.586Z"
+    },
+    {
+      "index": 53,
+      "keyword": "báo giá order hàng TQ",
+      "slug": "bao-gia-order-hang-tq",
+      "id": 1054,
+      "wordCount": 5399,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.586Z"
+    },
+    {
+      "index": 54,
+      "keyword": "thời gian ship Trung Quốc",
+      "slug": "thoi-gian-ship-trung-quoc",
+      "id": 1055,
+      "wordCount": 5456,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.586Z"
+    },
+    {
+      "index": 55,
+      "keyword": "kiểm hàng order TQ",
+      "slug": "kiem-hang-order-tq",
+      "id": 1056,
+      "wordCount": 5544,
+      "score": 100,
+      "at": "2026-07-26T04:06:46.586Z"
+    }
+  ],
+  "current": "kiem-hang-order-tq",
+  "notes": "Viết chuyên tuyến/order trước; ~5000 từ; 1 thumb + 5 ảnh; link nội bộ + 1 Zalo + link ngoài"
+}
