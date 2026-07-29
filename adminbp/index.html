@@ -110,34 +110,43 @@
     </div>
 
     <div id="adminApp" class="admin-app" hidden>
-      <aside class="sidebar">
+      <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+      <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
           <img src="/logo.png" alt="" />
           <strong>CMS Website</strong>
         </div>
         <nav class="sidebar-nav" id="sidebarNav">
-          <button type="button" data-view="dashboard" class="is-active">📊 Tổng quan</button>
-          <button type="button" data-view="settings">⚙️ Thông tin & Footer</button>
-          <button type="button" data-view="homepage">🏠 Trang chủ</button>
-          <button type="button" data-view="about">🏢 Giới thiệu</button>
-          <button type="button" data-view="services">🚚 Dịch vụ</button>
-          <button type="button" data-view="pages">📄 Trang con (hero)</button>
-          <button type="button" data-view="news">📰 Tin tức</button>
-          <button type="button" data-view="seoPages">🔎 SEO trang</button>
-          <button type="button" data-view="gallery">🖼️ Thư viện ảnh</button>
-          <button type="button" data-view="media">🖼️ Kho hình ảnh</button>
-          <button type="button" data-view="translations">🌐 Đa ngôn ngữ</button>
-          <button type="button" data-view="submissions">📬 Yêu cầu KH</button>
+          <button type="button" data-view="dashboard" class="is-active">Tổng quan</button>
+          <button type="button" data-view="settings">Thông tin & Footer</button>
+          <button type="button" data-view="homepage">Trang chủ</button>
+          <button type="button" data-view="about">Giới thiệu</button>
+          <button type="button" data-view="services">Dịch vụ</button>
+          <button type="button" data-view="pages">Trang con (hero)</button>
+          <button type="button" data-view="news">Tin tức</button>
+          <button type="button" data-view="seoPages">SEO trang</button>
+          <button type="button" data-view="gallery">Thư viện ảnh</button>
+          <button type="button" data-view="media">Kho hình ảnh</button>
+          <button type="button" data-view="translations">Đa ngôn ngữ</button>
+          <button type="button" data-view="submissions">Yêu cầu KH</button>
         </nav>
         <nav class="sidebar-tabs" aria-label="Thao tác nhanh">
           <a class="sidebar-tab" href="/" target="_blank" rel="noopener">↗ Xem website</a>
-          <button type="button" class="sidebar-tab sidebar-tab--logout" id="logoutBtn">🚪 Đăng xuất</button>
+          <button type="button" class="sidebar-tab sidebar-tab--logout" id="logoutBtn">Đăng xuất</button>
         </nav>
       </aside>
 
       <main class="main">
         <header class="topbar">
-          <h2 id="viewTitle">Tổng quan</h2>
+          <div class="topbar-left">
+            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Mở menu" aria-controls="sidebar" aria-expanded="false">
+              <span></span><span></span><span></span>
+            </button>
+            <div class="topbar-titles">
+              <h2 id="viewTitle">Tổng quan</h2>
+              <nav class="view-breadcrumb" id="viewBreadcrumb" aria-label="Breadcrumb" hidden></nav>
+            </div>
+          </div>
           <div class="topbar-right">
             <a class="topbar-tab" href="/" target="_blank" rel="noopener">↗ Xem website</a>
             <button type="button" class="topbar-tab topbar-tab--logout" id="logoutBtnTop">Đăng xuất</button>

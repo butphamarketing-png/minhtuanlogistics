@@ -4,7 +4,17 @@
  */
 (() => {
   const bindSiteModules = (ctx) => {
-    const { api, esc, showToast, content, $, openMediaPicker, formatBytes } = ctx;
+    const {
+      api,
+      esc,
+      showToast,
+      content,
+      $,
+      openMediaPicker,
+      renderToolbar,
+      setBreadcrumb,
+      navigateTo,
+    } = ctx;
 
     const sectionToText = (sections) =>
       (sections || [])
@@ -35,8 +45,14 @@
     async function renderSubpages(kind, editSlug) {
       const label = kind === "about" ? "Giới thiệu" : "Dịch vụ";
       const list = await api(`/subpages/${kind}`);
+      const viewKey = kind === "about" ? "about" : "services";
 
       if (editSlug === "new" || editSlug) {
+        setBreadcrumb?.([
+          { view: "dashboard", label: "Tổng quan" },
+          { view: viewKey, label },
+          editSlug === "new" ? "Thêm trang" : "Sửa trang",
+        ]);
         const page =
           editSlug === "new"
             ? {
@@ -55,12 +71,16 @@
 
         content.innerHTML = `
           <form id="subpageForm" class="panel news-seo-form">
-            <div class="editor-toolbar">
+            ${
+              renderToolbar
+                ? renderToolbar({ exitId: "backSubpages", stay: true })
+                : `<div class="editor-toolbar">
               <button type="submit" class="btn btn-save">Lưu</button>
               <button type="submit" class="btn btn-save" name="stay" value="1" id="subSaveStay">Lưu tại trang</button>
               <button type="reset" class="btn btn-reset">Làm lại</button>
               <button type="button" class="btn btn-exit" id="backSubpages">Thoát</button>
-            </div>
+            </div>`
+            }
             <h3>${editSlug === "new" ? "Thêm" : "Sửa"} trang ${label}</h3>
             <div class="form-grid">
               <label>Slug / URL<input name="slug" value="${esc(page.slug)}" ${editSlug === "new" ? "" : "readonly"} required /></label>
@@ -112,7 +132,7 @@
 
         $("#subpageForm").addEventListener("submit", async (e) => {
           e.preventDefault();
-          const stay = e.submitter?.id === "subSaveStay" || e.submitter?.name === "stay";
+          const stay = e.submitter?.id === "subSaveStay" || e.submitter?.id === "saveStayBtn" || e.submitter?.name === "stay";
           const fd = new FormData(e.target);
           const images = [];
           for (let i = 0; i < 5; i++) {
@@ -153,6 +173,7 @@
         return;
       }
 
+      setBreadcrumb?.([{ view: "dashboard", label: "Tổng quan" }, label]);
       content.innerHTML = `
         <div class="form-actions" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
           <button type="button" class="btn btn-primary" id="newSubpage">+ Thêm trang ${label}</button>
@@ -210,8 +231,14 @@
     async function renderSeoPages() {
       const pages = await api("/seo-pages");
       const keys = Object.keys(pages);
+      setBreadcrumb?.([{ view: "dashboard", label: "Tổng quan" }, "SEO trang"]);
       content.innerHTML = `
         <form id="seoPagesForm" class="panel">
+          ${
+            renderToolbar
+              ? renderToolbar({ exitId: "seoPagesExit" })
+              : ""
+          }
           <h3>SEO trang tĩnh</h3>
           <p class="seo-hint">Title / description / keywords cho các trang chính (trang chủ, giới thiệu, dịch vụ…).</p>
           ${keys
@@ -228,8 +255,15 @@
               </fieldset>`;
             })
             .join("")}
-          <div class="form-actions"><button type="submit" class="btn btn-primary">Lưu SEO trang</button></div>
+          <div class="editor-toolbar editor-toolbar--bottom">
+            <button type="submit" class="btn btn-save">Lưu</button>
+            <button type="button" class="btn btn-exit" id="seoPagesExitBottom">Thoát</button>
+          </div>
         </form>`;
+
+      const goDash = () => (navigateTo ? navigateTo("dashboard") : null);
+      $("#seoPagesExit")?.addEventListener("click", goDash);
+      $("#seoPagesExitBottom")?.addEventListener("click", goDash);
 
       $("#seoPagesForm").addEventListener("submit", async (e) => {
         e.preventDefault();

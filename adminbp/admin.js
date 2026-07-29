@@ -95,12 +95,103 @@
   $("#logoutBtn")?.addEventListener("click", doLogout);
   $("#logoutBtnTop")?.addEventListener("click", doLogout);
 
+  const newsListState = { page: 1, q: "", filter: "all", sort: "date-desc" };
+  const submissionsFilter = { unreadOnly: false };
+
+  const closeSidebar = () => {
+    adminApp?.classList.remove("sidebar-open");
+    $("#sidebarToggle")?.setAttribute("aria-expanded", "false");
+  };
+
+  const openSidebar = () => {
+    adminApp?.classList.add("sidebar-open");
+    $("#sidebarToggle")?.setAttribute("aria-expanded", "true");
+  };
+
+  $("#sidebarToggle")?.addEventListener("click", () => {
+    if (adminApp?.classList.contains("sidebar-open")) closeSidebar();
+    else openSidebar();
+  });
+  $("#sidebarBackdrop")?.addEventListener("click", closeSidebar);
+
+  const setBreadcrumb = (crumbs) => {
+    const el = $("#viewBreadcrumb");
+    if (!el) return;
+    if (!crumbs?.length) {
+      el.hidden = true;
+      el.innerHTML = "";
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML = crumbs
+      .map((c, i) => {
+        const label = typeof c === "string" ? c : c.label;
+        const view = typeof c === "object" ? c.view : null;
+        const isLast = i === crumbs.length - 1;
+        if (isLast || !view) {
+          return `<span class="crumb${isLast ? " crumb--current" : ""}">${esc(label)}</span>`;
+        }
+        return `<button type="button" class="crumb crumb--link" data-bc-view="${esc(view)}">${esc(label)}</button><span class="crumb-sep" aria-hidden="true">/</span>`;
+      })
+      .join("");
+    el.querySelectorAll("[data-bc-view]").forEach((btn) => {
+      btn.addEventListener("click", () => navigateTo(btn.dataset.bcView));
+    });
+  };
+
+  const navigateTo = (view) => {
+    currentView = view;
+    $("#sidebarNav").querySelectorAll("button").forEach((b) => b.classList.toggle("is-active", b.dataset.view === view));
+    closeSidebar();
+    renderView(view);
+  };
+
+  const renderToolbar = ({ exitId, stay = false, stayId = "saveStayBtn", reset = true, submitLabel = "Lưu", extras = "" } = {}) => `
+    <div class="editor-toolbar">
+      <button type="submit" class="btn btn-save">${esc(submitLabel)}</button>
+      ${stay ? `<button type="submit" class="btn btn-save" name="stay" value="1" id="${esc(stayId)}">Lưu tại trang</button>` : ""}
+      ${reset ? `<button type="reset" class="btn btn-reset">Làm lại</button>` : ""}
+      ${exitId ? `<button type="button" class="btn btn-exit" id="${esc(exitId)}">Thoát</button>` : ""}
+      ${extras}
+    </div>`;
+
+  const bindToolbarExit = (exitId, handler) => {
+    $(`#${exitId}`)?.addEventListener("click", handler);
+    $(`#${exitId}Bottom`)?.addEventListener("click", handler);
+  };
+
+  const bindMediaPickers = (root = content) => {
+    root.querySelectorAll(".pick-from-media").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await openMediaPicker({
+            onSelect: (url) => {
+              const row = btn.closest(".media-url-row");
+              const input =
+                row?.querySelector("input") ||
+                root.querySelector(`[name="${btn.dataset.target}"]`) ||
+                root.querySelector(`#${btn.dataset.target}`);
+              if (input) {
+                input.value = url;
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+              }
+              showToast("Đã chọn ảnh từ kho");
+            },
+          });
+        } catch (err) {
+          showToast(err.message);
+        }
+      });
+    });
+  };
+
+  const mediaPickerBtn = (target) =>
+    `<button type="button" class="btn btn-ghost btn-sm pick-from-media" data-target="${esc(target)}">Chọn từ kho</button>`;
+
   $("#sidebarNav").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-view]");
     if (!btn) return;
-    currentView = btn.dataset.view;
-    $("#sidebarNav").querySelectorAll("button").forEach((b) => b.classList.toggle("is-active", b === btn));
-    renderView(currentView);
+    navigateTo(btn.dataset.view);
   });
 
   const titles = {
@@ -120,6 +211,8 @@
 
   async function renderView(view) {
     $("#viewTitle").textContent = titles[view] || view;
+    if (view === "dashboard") setBreadcrumb([]);
+    else setBreadcrumb([{ view: "dashboard", label: "Tổng quan" }, titles[view] || view]);
     content.innerHTML = '<p class="empty">Đang tải...</p>';
     try {
       const site = window.AdminSiteModules?.bindSiteModules?.({
@@ -129,6 +222,9 @@
         content,
         $,
         openMediaPicker,
+        renderToolbar,
+        setBreadcrumb,
+        navigateTo,
       });
       if (view === "dashboard") await renderDashboard();
       else if (view === "settings") await renderSettings();
@@ -208,11 +304,7 @@
         </div>
       </div>`;
     content.querySelectorAll(".go-view").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        currentView = btn.dataset.view;
-        $("#sidebarNav").querySelectorAll("button").forEach((b) => b.classList.toggle("is-active", b.dataset.view === currentView));
-        renderView(currentView);
-      });
+      btn.addEventListener("click", () => navigateTo(btn.dataset.view));
     });
     content.querySelector("#dashLogout")?.addEventListener("click", doLogout);
   }
@@ -221,6 +313,7 @@
     const s = await api("/settings");
     content.innerHTML = `
       <form id="settingsForm" class="panel">
+        ${renderToolbar({ exitId: "settingsExit" })}
         <h3>Thông tin liên hệ</h3>
         <div class="form-grid">
           <label>Tên công ty<input name="company" value="${esc(s.company)}" /></label>
@@ -245,16 +338,32 @@
           <label>Tiêu đề<input name="seo.homeTitle" value="${esc(s.seo?.homeTitle)}" /></label>
           <label style="grid-column:1/-1">Mô tả<textarea name="seo.homeDescription">${esc(s.seo?.homeDescription)}</textarea></label>
           <label style="grid-column:1/-1">Từ khóa<textarea name="seo.keywords" placeholder="logistics, xuất nhập khẩu, ...">${esc(s.seo?.keywords)}</textarea></label>
-          <label>Ảnh OG (Open Graph)<input name="seo.ogImage" value="${esc(s.seo?.ogImage)}" placeholder="/logo.png" /></label>
+          <label style="grid-column:1/-1">Ảnh OG (Open Graph)
+            <div class="media-url-row">
+              <input name="seo.ogImage" value="${esc(s.seo?.ogImage)}" placeholder="/logo.png" />
+              ${mediaPickerBtn("seo.ogImage")}
+            </div>
+          </label>
         </div>
         <h3 style="margin-top:20px">Footer & Logo</h3>
         <div class="form-grid">
-          <label>Logo URL<input name="logo" value="${esc(s.logo)}" placeholder="/logo.png" /></label>
+          <label style="grid-column:1/-1">Logo URL
+            <div class="media-url-row">
+              <input name="logo" value="${esc(s.logo)}" placeholder="/logo.png" />
+              ${mediaPickerBtn("logo")}
+            </div>
+          </label>
           <label style="grid-column:1/-1">Mô tả footer<textarea name="footer.desc">${esc(s.footer?.desc)}</textarea></label>
           <label style="grid-column:1/-1">Copyright<textarea name="footer.copyright">${esc(s.footer?.copyright)}</textarea></label>
         </div>
-        <div class="form-actions"><button type="submit" class="btn btn-primary">Lưu cài đặt</button></div>
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu</button>
+          <button type="button" class="btn btn-exit" id="settingsExitBottom">Thoát</button>
+        </div>
       </form>`;
+
+    bindToolbarExit("settingsExit", () => navigateTo("dashboard"));
+    bindMediaPickers();
 
     $("#settingsForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -279,7 +388,12 @@
         <div class="panel" data-slide="${i}">
           <h3>Slide ${i + 1}</h3>
           <div class="form-grid">
-            <label>URL ảnh<input class="slide-src" value="${esc(sl.src)}" /></label>
+            <label style="grid-column:1/-1">URL ảnh
+              <div class="media-url-row">
+                <input class="slide-src" value="${esc(sl.src)}" />
+                ${mediaPickerBtn("slide-src")}
+              </div>
+            </label>
             <label>Mô tả alt<input class="slide-alt" value="${esc(sl.alt)}" /></label>
           </div>
         </div>`
@@ -299,6 +413,7 @@
 
     content.innerHTML = `
       <form id="homepageForm">
+        ${renderToolbar({ exitId: "homepageExit" })}
         <div class="panel">
           <h3>Hero — Tiêu đề chính</h3>
           <div class="form-grid">
@@ -321,8 +436,13 @@
         <h3 style="margin:20px 0 12px">Đánh giá khách hàng</h3>
         <div id="testimonialsList"></div>
         <button type="button" class="btn btn-ghost btn-sm" id="addTestimonial">+ Thêm đánh giá</button>
-        <div class="form-actions"><button type="submit" class="btn btn-primary">Lưu trang chủ</button></div>
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu</button>
+          <button type="button" class="btn btn-exit" id="homepageExitBottom">Thoát</button>
+        </div>
       </form>`;
+
+    bindToolbarExit("homepageExit", () => navigateTo("dashboard"));
 
     const renderServices = () => {
       $("#servicesList").innerHTML = (h.services || [])
@@ -332,7 +452,12 @@
             <div class="form-grid">
               <label>Tên dịch vụ<input class="svc-title" value="${esc(svc.title)}" /></label>
               <label>Link<input class="svc-link" value="${esc(svc.link)}" /></label>
-              <label style="grid-column:1/-1">URL ảnh<input class="svc-image" value="${esc(svc.image)}" /></label>
+              <label style="grid-column:1/-1">URL ảnh
+                <div class="media-url-row">
+                  <input class="svc-image" value="${esc(svc.image)}" />
+                  ${mediaPickerBtn("svc-image")}
+                </div>
+              </label>
               <label style="grid-column:1/-1">Alt ảnh<input class="svc-alt" value="${esc(svc.alt)}" /></label>
             </div>
           </div>`
@@ -377,7 +502,12 @@
               <label>Tên<input class="t-name" value="${esc(t.name)}" /></label>
               <label>Chức vụ<input class="t-role" value="${esc(t.role)}" /></label>
               <label style="grid-column:1/-1">Nội dung<textarea class="t-text">${esc(t.text)}</textarea></label>
-              <label style="grid-column:1/-1">Avatar URL<input class="t-avatar" value="${esc(t.avatar)}" /></label>
+              <label style="grid-column:1/-1">Avatar URL
+                <div class="media-url-row">
+                  <input class="t-avatar" value="${esc(t.avatar)}" />
+                  ${mediaPickerBtn("t-avatar")}
+                </div>
+              </label>
             </div>
             <button type="button" class="btn btn-danger btn-sm remove-t">Xóa</button>
           </div>`
@@ -392,9 +522,13 @@
     };
     renderTestimonials();
 
+    const rebindHomeMedia = () => bindMediaPickers();
+    rebindHomeMedia();
+
     $("#addTestimonial").addEventListener("click", () => {
       h.testimonials.push({ name: "", role: "", text: "", avatar: "" });
       renderTestimonials();
+      rebindHomeMedia();
     });
 
     $("#homepageForm").addEventListener("submit", async (e) => {
@@ -444,6 +578,7 @@
     const pageKeys = Object.keys(pages);
     content.innerHTML = `
       <form id="pagesForm">
+        ${renderToolbar({ exitId: "pagesExit" })}
         <p style="color:var(--muted);margin:0 0 16px">Chỉnh tiêu đề, mô tả hero các trang con. Nội dung chi tiết chỉnh thêm tại <strong>Đa ngôn ngữ</strong>.</p>
         ${pageKeys
           .map(
@@ -453,7 +588,12 @@
             <div class="form-grid">
               <label>Tiêu đề<input class="pg-title" value="${esc(pages[key].title)}" /></label>
               <label style="grid-column:1/-1">Mô tả<textarea class="pg-desc">${esc(pages[key].desc)}</textarea></label>
-              ${pages[key].image !== undefined ? `<label style="grid-column:1/-1">Ảnh (about)<input class="pg-image" value="${esc(pages[key].image)}" /></label>` : ""}
+              ${pages[key].image !== undefined ? `<label style="grid-column:1/-1">Ảnh (about)
+                <div class="media-url-row">
+                  <input class="pg-image" value="${esc(pages[key].image)}" />
+                  ${mediaPickerBtn("pg-image")}
+                </div>
+              </label>` : ""}
               ${pages[key].featured !== undefined ? `<label style="grid-column:1/-1">Dự án tiêu biểu<textarea class="pg-featured">${esc(pages[key].featured)}</textarea></label>` : ""}
               ${pages[key].partners !== undefined ? `<label style="grid-column:1/-1">Đối tác<textarea class="pg-partners">${esc(pages[key].partners)}</textarea></label>` : ""}
               ${pages[key].videoTitle !== undefined ? `<label>Video title<input class="pg-vtitle" value="${esc(pages[key].videoTitle)}" /></label>` : ""}
@@ -462,8 +602,14 @@
           </div>`
           )
           .join("")}
-        <div class="form-actions"><button type="submit" class="btn btn-primary">Lưu trang con</button></div>
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu</button>
+          <button type="button" class="btn btn-exit" id="pagesExitBottom">Thoát</button>
+        </div>
       </form>`;
+
+    bindToolbarExit("pagesExit", () => navigateTo("dashboard"));
+    bindMediaPickers();
 
     $("#pagesForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -490,73 +636,122 @@
     });
   }
 
-  async function renderNews(editId, pageNum = 1, query = "") {
+  async function renderNews(editId, pageNum, query) {
+    if (pageNum != null) newsListState.page = pageNum;
+    if (query != null) newsListState.q = query;
+
     const posts = await api("/news");
     if (editId === "new") {
+      setBreadcrumb([
+        { view: "dashboard", label: "Tổng quan" },
+        { view: "news", label: "Tin tức" },
+        "Thêm bài",
+      ]);
       content.innerHTML = renderNewsForm({});
       bindNewsForm(null, posts);
       return;
     }
     if (editId) {
       const post = posts.find((p) => String(p.id) === editId || p.slug === editId);
+      setBreadcrumb([
+        { view: "dashboard", label: "Tổng quan" },
+        { view: "news", label: "Tin tức" },
+        post?.title ? String(post.title).slice(0, 48) : "Sửa bài",
+      ]);
       content.innerHTML = renderNewsForm(post || {});
       bindNewsForm(post, posts);
       return;
     }
 
-    const q = String(query || "").trim().toLowerCase();
-    const filtered = q
+    setBreadcrumb([{ view: "dashboard", label: "Tổng quan" }, "Tin tức"]);
+
+    const q = String(newsListState.q || "").trim().toLowerCase();
+    let filtered = q
       ? posts.filter(
           (p) =>
             String(p.title || "").toLowerCase().includes(q) ||
             String(p.slug || "").toLowerCase().includes(q) ||
             String(p.keyword || "").toLowerCase().includes(q)
         )
-      : posts;
-    const perPage = 20;
+      : [...posts];
+
+    if (newsListState.filter === "published") filtered = filtered.filter((p) => p.published !== false);
+    if (newsListState.filter === "draft") filtered = filtered.filter((p) => p.published === false);
+
+    filtered.sort((a, b) => {
+      if (newsListState.sort === "title") {
+        return String(a.title || "").localeCompare(String(b.title || ""), "vi");
+      }
+      const da = new Date(a.date || 0).getTime();
+      const db = new Date(b.date || 0).getTime();
+      return newsListState.sort === "date-asc" ? da - db : db - da;
+    });
+
+    const perPage = 30;
     const pages = Math.max(1, Math.ceil(filtered.length / perPage));
-    const page = Math.min(Math.max(1, pageNum), pages);
+    const page = Math.min(Math.max(1, newsListState.page), pages);
+    newsListState.page = page;
     const slice = filtered.slice((page - 1) * perPage, page * perPage);
 
     content.innerHTML = `
-      <div class="form-actions" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <div class="list-toolbar">
         <button type="button" class="btn btn-primary" id="newPostBtn">+ Thêm bài viết</button>
-        <input id="newsSearch" type="search" placeholder="Tìm tiêu đề / slug / từ khóa…" value="${esc(query)}" style="max-width:280px" />
-        <span class="seo-hint" style="margin:0">${filtered.length} / ${posts.length} bài</span>
+        <input id="newsSearch" type="search" placeholder="Tìm tiêu đề / slug / từ khóa…" value="${esc(newsListState.q)}" />
+        <select id="newsFilter" class="list-select" aria-label="Lọc trạng thái">
+          <option value="all"${newsListState.filter === "all" ? " selected" : ""}>Tất cả</option>
+          <option value="published"${newsListState.filter === "published" ? " selected" : ""}>Đã xuất bản</option>
+          <option value="draft"${newsListState.filter === "draft" ? " selected" : ""}>Nháp</option>
+        </select>
+        <select id="newsSort" class="list-select" aria-label="Sắp xếp">
+          <option value="date-desc"${newsListState.sort === "date-desc" ? " selected" : ""}>Ngày mới nhất</option>
+          <option value="date-asc"${newsListState.sort === "date-asc" ? " selected" : ""}>Ngày cũ nhất</option>
+          <option value="title"${newsListState.sort === "title" ? " selected" : ""}>Tiêu đề A–Z</option>
+        </select>
+        <span class="seo-hint list-toolbar-meta">${filtered.length} / ${posts.length} bài</span>
+      </div>
+      <div class="bulk-bar" id="newsBulkBar" hidden>
+        <span id="newsBulkCount">0 đã chọn</span>
+        <button type="button" class="btn btn-danger btn-sm" id="newsBulkDelete">Xóa đã chọn</button>
       </div>
       <div class="table-wrap panel" style="padding:0">
-        <table>
-          <thead><tr><th>Tiêu đề</th><th>Danh mục</th><th>Ngày</th><th>SEO</th><th>TT</th><th></th></tr></thead>
+        <table class="data-table">
+          <thead><tr>
+            <th class="col-check"><input type="checkbox" id="newsSelectAll" aria-label="Chọn tất cả" /></th>
+            <th>Tiêu đề</th><th>Danh mục</th><th>Ngày</th><th>SEO</th><th>TT</th><th></th>
+          </tr></thead>
           <tbody>
-            ${slice
-              .map((p) => {
-                const score =
-                  window.SEOChecklist && p.keyword
-                    ? window.SEOChecklist.analyze(p, { existingPosts: posts, currentId: p.id }).score
-                    : "—";
-                const scoreClass =
-                  typeof score === "number"
-                    ? score >= 80
-                      ? "badge-ok"
-                      : score >= 50
-                        ? "badge-warn"
-                        : "badge-off"
-                    : "badge-off";
-                return `
+            ${slice.length
+              ? slice
+                  .map((p) => {
+                    const score =
+                      window.SEOChecklist && p.keyword
+                        ? window.SEOChecklist.analyze(p, { existingPosts: posts, currentId: p.id }).score
+                        : "—";
+                    const scoreClass =
+                      typeof score === "number"
+                        ? score >= 80
+                          ? "badge-ok"
+                          : score >= 50
+                            ? "badge-warn"
+                            : "badge-off"
+                        : "badge-off";
+                    return `
               <tr>
+                <td class="col-check"><input type="checkbox" class="news-check" data-id="${p.id}" aria-label="Chọn bài" /></td>
                 <td>${esc(p.title)}</td>
                 <td>${esc(p.categoryLabel || p.category)}</td>
                 <td>${esc(p.dateLabel || p.date)}</td>
                 <td><span class="badge ${scoreClass}">SEO ${score}</span></td>
-                <td><span class="badge ${p.published !== false ? "badge-ok" : "badge-off"}">${p.published !== false ? "Xuất bản" : "Ẩn"}</span></td>
+                <td><span class="badge ${p.published !== false ? "badge-ok" : "badge-off"}">${p.published !== false ? "Xuất bản" : "Nháp"}</span></td>
                 <td class="row-actions">
                   <a class="btn btn-ghost btn-sm" href="/bai-viet/${esc(p.slug)}" target="_blank" rel="noopener">Xem</a>
                   <button type="button" class="btn btn-ghost btn-sm edit-post" data-id="${p.id}">Sửa</button>
                   <button type="button" class="btn btn-danger btn-sm del-post" data-id="${p.id}">Xóa</button>
                 </td>
               </tr>`;
-              })
-              .join("")}
+                  })
+                  .join("")
+              : `<tr><td colspan="7" class="empty">Không có bài phù hợp</td></tr>`}
           </tbody>
         </table>
       </div>
@@ -568,6 +763,15 @@
         }).join("")}
       </nav>`;
 
+    const refreshBulkBar = () => {
+      const checks = [...content.querySelectorAll(".news-check:checked")];
+      const bar = $("#newsBulkBar");
+      const count = $("#newsBulkCount");
+      if (!bar) return;
+      bar.hidden = !checks.length;
+      if (count) count.textContent = `${checks.length} đã chọn`;
+    };
+
     $("#newPostBtn").addEventListener("click", () => renderNews("new"));
     const search = $("#newsSearch");
     let t;
@@ -575,20 +779,53 @@
       clearTimeout(t);
       t = setTimeout(() => renderNews(null, 1, search.value), 280);
     });
+    $("#newsFilter")?.addEventListener("change", (e) => {
+      newsListState.filter = e.target.value;
+      renderNews(null, 1);
+    });
+    $("#newsSort")?.addEventListener("change", (e) => {
+      newsListState.sort = e.target.value;
+      renderNews(null, 1);
+    });
     content.querySelectorAll(".news-page").forEach((b) =>
-      b.addEventListener("click", () => renderNews(null, Number(b.dataset.page), search?.value || ""))
+      b.addEventListener("click", () => renderNews(null, Number(b.dataset.page)))
     );
     content.querySelectorAll(".edit-post").forEach((b) =>
       b.addEventListener("click", () => renderNews(b.dataset.id))
     );
     content.querySelectorAll(".del-post").forEach((b) =>
       b.addEventListener("click", async () => {
-        if (!confirm("Xóa bài viết này?")) return;
+        if (!confirm("Xóa bài viết này? Hành động không hoàn tác.")) return;
         await api(`/news/${b.dataset.id}`, { method: "DELETE" });
         showToast("Đã xóa");
-        renderNews(null, page, search?.value || "");
+        renderNews();
       })
     );
+    $("#newsSelectAll")?.addEventListener("change", (e) => {
+      content.querySelectorAll(".news-check").forEach((c) => {
+        c.checked = e.target.checked;
+      });
+      refreshBulkBar();
+    });
+    content.querySelectorAll(".news-check").forEach((c) => c.addEventListener("change", refreshBulkBar));
+    $("#newsBulkDelete")?.addEventListener("click", async () => {
+      const ids = [...content.querySelectorAll(".news-check:checked")].map((c) => c.dataset.id);
+      if (!ids.length) return;
+      if (!confirm(`Xóa ${ids.length} bài đã chọn? Hành động không hoàn tác.`)) return;
+      let done = 0;
+      for (const id of ids) {
+        try {
+          await api(`/news/${id}`, { method: "DELETE" });
+          done += 1;
+          showToast(`Đã xóa ${done}/${ids.length}…`);
+        } catch (err) {
+          showToast(err.message);
+          break;
+        }
+      }
+      showToast(`Đã xóa ${done} bài`);
+      renderNews();
+    });
   }
 
   function renderNewsForm(p) {
@@ -786,7 +1023,8 @@
         try {
           await openMediaPicker({
             onSelect: (url) => {
-              const input = form.querySelector(`[name="${btn.dataset.target}"]`);
+              const row = btn.closest(".media-url-row");
+              const input = row?.querySelector("input") || form.querySelector(`[name="${btn.dataset.target}"]`);
               if (input) {
                 input.value = url;
                 input.dispatchEvent(new Event("input", { bubbles: true }));
@@ -855,11 +1093,15 @@
     const g = await api("/gallery");
     content.innerHTML = `
       <form id="galleryForm" class="panel">
+        ${renderToolbar({ exitId: "galleryExit" })}
         <h3>Thư viện ảnh</h3>
         <div id="galleryImages"></div>
         <button type="button" class="btn btn-ghost btn-sm" id="addImage">+ Thêm ảnh</button>
         <label style="margin-top:16px;display:block">Video URL (YouTube embed)<input name="videoUrl" value="${esc(g.videoUrl)}" /></label>
-        <div class="form-actions"><button type="submit" class="btn btn-primary">Lưu gallery</button></div>
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu</button>
+          <button type="button" class="btn btn-exit" id="galleryExitBottom">Thoát</button>
+        </div>
       </form>`;
 
     const renderImages = () => {
@@ -867,7 +1109,12 @@
         .map(
           (img, i) => `
           <div class="form-grid panel" data-img="${i}">
-            <label>URL<input class="img-src" value="${esc(img.src)}" /></label>
+            <label style="grid-column:1/-1">URL
+              <div class="media-url-row">
+                <input class="img-src" value="${esc(img.src)}" />
+                ${mediaPickerBtn("img-src")}
+              </div>
+            </label>
             <label>Alt<input class="img-alt" value="${esc(img.alt)}" /></label>
             <button type="button" class="btn btn-danger btn-sm remove-img">Xóa</button>
           </div>`
@@ -879,8 +1126,10 @@
           renderImages();
         });
       });
+      bindMediaPickers($("#galleryImages"));
     };
     renderImages();
+    bindToolbarExit("galleryExit", () => navigateTo("dashboard"));
     $("#addImage").addEventListener("click", () => {
       g.images.push({ src: "", alt: "" });
       renderImages();
@@ -903,14 +1152,20 @@
     const keys = [...new Set(locales.flatMap((l) => Object.keys(t[l] || {})))].sort();
 
     content.innerHTML = `
-      <div class="panel">
+      <form id="translationsForm" class="panel">
+        ${renderToolbar({ exitId: "transExit", reset: false, submitLabel: "Lưu bản dịch" })}
         <div class="form-grid" style="margin-bottom:16px">
           <label>Locale<select id="transLocale">${locales.map((l) => `<option value="${l}">${l.toUpperCase()}</option>`).join("")}</select></label>
           <label>Tìm key<input id="transSearch" placeholder="hero.title, nav.home..." /></label>
         </div>
         <div id="transList"></div>
-        <div class="form-actions"><button type="button" class="btn btn-primary" id="saveTrans">Lưu bản dịch</button></div>
-      </div>`;
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu bản dịch</button>
+          <button type="button" class="btn btn-exit" id="transExitBottom">Thoát</button>
+        </div>
+      </form>`;
+
+    bindToolbarExit("transExit", () => navigateTo("dashboard"));
 
     const renderList = () => {
       const loc = $("#transLocale").value;
@@ -935,7 +1190,8 @@
     $("#transLocale").addEventListener("change", renderList);
     $("#transSearch").addEventListener("input", renderList);
 
-    $("#saveTrans").addEventListener("click", async () => {
+    $("#translationsForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
       const loc = $("#transLocale").value;
       $("#transList").querySelectorAll("[data-key]").forEach((inp) => {
         if (!t[loc]) t[loc] = {};
@@ -948,34 +1204,72 @@
 
   async function renderSubmissions() {
     const list = await api("/submissions");
+    const filtered = submissionsFilter.unreadOnly ? list.filter((s) => !s.read) : list;
+
     content.innerHTML = `
+      <div class="list-toolbar">
+        <select id="subFilter" class="list-select" aria-label="Lọc thư">
+          <option value="all"${!submissionsFilter.unreadOnly ? " selected" : ""}>Tất cả (${list.length})</option>
+          <option value="unread"${submissionsFilter.unreadOnly ? " selected" : ""}>Chưa đọc (${list.filter((s) => !s.read).length})</option>
+        </select>
+      </div>
       <div class="table-wrap panel" style="padding:0">
-        <table>
-          <thead><tr><th>Thời gian</th><th>Loại</th><th>KH</th><th>SĐT</th><th>Nội dung</th><th></th></tr></thead>
+        <table class="data-table">
+          <thead><tr><th>Thời gian</th><th>Loại</th><th>KH</th><th>SĐT</th><th>Nội dung</th><th>TT</th><th></th></tr></thead>
           <tbody>
             ${
-              list.length
-                ? list
+              filtered.length
+                ? filtered
                     .map(
                       (s) => `
-              <tr>
+              <tr class="submission-row${s.read ? "" : " submission-row--unread"}" data-id="${s.id}">
                 <td>${esc(new Date(s.createdAt).toLocaleString("vi-VN"))}</td>
                 <td>${esc(s.type)}</td>
                 <td>${esc(s.name)}</td>
                 <td>${esc(s.phone)}</td>
                 <td>${esc(s.message || s.email)}</td>
-                <td><button type="button" class="btn btn-danger btn-sm del-sub" data-id="${s.id}">Xóa</button></td>
+                <td><span class="badge ${s.read ? "badge-off" : "badge-ok"}">${s.read ? "Đã đọc" : "Mới"}</span></td>
+                <td class="row-actions">
+                  ${s.read ? "" : `<button type="button" class="btn btn-ghost btn-sm mark-read" data-id="${s.id}">Đánh dấu đã đọc</button>`}
+                  <button type="button" class="btn btn-danger btn-sm del-sub" data-id="${s.id}">Xóa</button>
+                </td>
               </tr>`
                     )
                     .join("")
-                : '<tr><td colspan="6" class="empty">Chưa có yêu cầu</td></tr>'
+                : '<tr><td colspan="7" class="empty">Chưa có yêu cầu</td></tr>'
             }
           </tbody>
         </table>
       </div>`;
 
+    $("#subFilter")?.addEventListener("change", (e) => {
+      submissionsFilter.unreadOnly = e.target.value === "unread";
+      renderSubmissions();
+    });
+
+    content.querySelectorAll(".submission-row--unread").forEach((row) => {
+      row.addEventListener("click", async (e) => {
+        if (e.target.closest("button, a")) return;
+        const id = row.dataset.id;
+        await api(`/submissions/${id}`, { method: "PUT", body: JSON.stringify({ read: true }) });
+        showToast("Đã đánh dấu đã đọc");
+        renderSubmissions();
+      });
+    });
+
+    content.querySelectorAll(".mark-read").forEach((b) =>
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        await api(`/submissions/${b.dataset.id}`, { method: "PUT", body: JSON.stringify({ read: true }) });
+        showToast("Đã đánh dấu đã đọc");
+        renderSubmissions();
+      })
+    );
+
     content.querySelectorAll(".del-sub").forEach((b) =>
-      b.addEventListener("click", async () => {
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (!confirm("Xóa yêu cầu này? Hành động không hoàn tác.")) return;
         await api(`/submissions/${b.dataset.id}`, { method: "DELETE" });
         showToast("Đã xóa");
         renderSubmissions();
