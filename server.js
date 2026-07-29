@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+require("./lib/env").loadEnv();
 const { handleApi } = require("./lib/api-handler");
 
 const root = path.resolve(__dirname);

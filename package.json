@@ -18,8 +18,13 @@
     "seo:money": "node scripts/upgrade-money-pages.js",
     "seo:pillars": "node scripts/upgrade-pillar-posts.js",
     "seo:clean-urls": "node scripts/fix-clean-urls.js",
+    "storage:status": "node -e \"require('./lib/env').loadEnv(); const r=require('./lib/r2'); const s=require('./lib/supabase'); s.health().then(h=>console.log(JSON.stringify({r2:r.isConfigured(),supabase:h},null,2)));\"",
     "build": "node scripts/normalize-keyword-density.js && node scripts/generate-news-index.js && node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js",
     "vercel-build": "npm run build"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.800.0",
+    "@supabase/supabase-js": "^2.49.0"
   },
   "engines": {
     "node": ">=18"
