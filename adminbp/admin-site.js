@@ -55,6 +55,12 @@
 
         content.innerHTML = `
           <form id="subpageForm" class="panel news-seo-form">
+            <div class="editor-toolbar">
+              <button type="submit" class="btn btn-save">Lưu</button>
+              <button type="submit" class="btn btn-save" name="stay" value="1" id="subSaveStay">Lưu tại trang</button>
+              <button type="reset" class="btn btn-reset">Làm lại</button>
+              <button type="button" class="btn btn-exit" id="backSubpages">Thoát</button>
+            </div>
             <h3>${editSlug === "new" ? "Thêm" : "Sửa"} trang ${label}</h3>
             <div class="form-grid">
               <label>Slug / URL<input name="slug" value="${esc(page.slug)}" ${editSlug === "new" ? "" : "readonly"} required /></label>
@@ -63,7 +69,7 @@
               <label style="grid-column:1/-1">Meta title<input name="metaTitle" value="${esc(page.metaTitle || "")}" /></label>
               <label style="grid-column:1/-1">Meta description<textarea name="metaDescription" rows="2">${esc(page.metaDescription || "")}</textarea></label>
               <label style="grid-column:1/-1">Lead / mở đầu<textarea name="lead" rows="3">${esc(page.lead || "")}</textarea></label>
-              <label style="grid-column:1/-1">Nội dung (## tiêu đề H2, mỗi đoạn 1 dòng)<textarea name="body" rows="14">${esc(sectionToText(page.sections))}</textarea></label>
+              <label style="grid-column:1/-1">Nội dung (## tiêu đề H2, mỗi đoạn 1 dòng)<textarea name="body" class="textarea-lg" rows="28">${esc(sectionToText(page.sections))}</textarea></label>
               <label style="grid-column:1/-1">Điểm nổi bật (mỗi dòng 1 mục)<textarea name="highlights" rows="3">${esc((page.highlights || []).join("\n"))}</textarea></label>
             </div>
             <h4 class="seo-section-title">Hình ảnh</h4>
@@ -84,13 +90,15 @@
                 )
                 .join("")}
             </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Lưu & xuất trang</button>
-              <button type="button" class="btn btn-ghost" id="backSubpages">← Quay lại</button>
+            <div class="editor-toolbar editor-toolbar--bottom">
+              <button type="submit" class="btn btn-save">Lưu</button>
+              <button type="button" class="btn btn-exit" id="backSubpagesBottom">Thoát</button>
             </div>
           </form>`;
 
-        $("#backSubpages").addEventListener("click", () => renderSubpages(kind));
+        const goBackSub = () => renderSubpages(kind);
+        $("#backSubpages")?.addEventListener("click", goBackSub);
+        $("#backSubpagesBottom")?.addEventListener("click", goBackSub);
         content.querySelectorAll(".pick-from-media").forEach((btn) => {
           btn.addEventListener("click", async () => {
             await openMediaPicker({
@@ -104,6 +112,7 @@
 
         $("#subpageForm").addEventListener("submit", async (e) => {
           e.preventDefault();
+          const stay = e.submitter?.id === "subSaveStay" || e.submitter?.name === "stay";
           const fd = new FormData(e.target);
           const images = [];
           for (let i = 0; i < 5; i++) {
@@ -135,6 +144,7 @@
               });
             }
             showToast("Đã lưu trang & xuất HTML");
+            if (stay) return renderSubpages(kind, payload.slug);
             renderSubpages(kind);
           } catch (err) {
             showToast(err.message);

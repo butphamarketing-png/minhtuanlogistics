@@ -129,16 +129,20 @@
           <button type="button" data-view="translations">🌐 Đa ngôn ngữ</button>
           <button type="button" data-view="submissions">📬 Yêu cầu KH</button>
         </nav>
-        <div class="sidebar-foot">
-          <a href="/" target="_blank" rel="noopener">↗ Xem website</a>
-          <button type="button" id="logoutBtn">Đăng xuất</button>
-        </div>
+        <nav class="sidebar-tabs" aria-label="Thao tác nhanh">
+          <a class="sidebar-tab" href="/" target="_blank" rel="noopener">↗ Xem website</a>
+          <button type="button" class="sidebar-tab sidebar-tab--logout" id="logoutBtn">🚪 Đăng xuất</button>
+        </nav>
       </aside>
 
       <main class="main">
         <header class="topbar">
           <h2 id="viewTitle">Tổng quan</h2>
-          <span class="topbar-user" id="topbarUser"></span>
+          <div class="topbar-right">
+            <a class="topbar-tab" href="/" target="_blank" rel="noopener">↗ Xem website</a>
+            <button type="button" class="topbar-tab topbar-tab--logout" id="logoutBtnTop">Đăng xuất</button>
+            <span class="topbar-user" id="topbarUser"></span>
+          </div>
         </header>
         <div class="content" id="content"></div>
       </main>

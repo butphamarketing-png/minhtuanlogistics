@@ -85,12 +85,15 @@
     input.type = input.type === "password" ? "text" : "password";
   });
 
-  $("#logoutBtn").addEventListener("click", async () => {
+  const doLogout = async () => {
     try { await api("/auth/logout", { method: "POST" }); } catch (_) {}
     token = "";
     localStorage.removeItem("admin_token");
     showLogin();
-  });
+  };
+
+  $("#logoutBtn")?.addEventListener("click", doLogout);
+  $("#logoutBtnTop")?.addEventListener("click", doLogout);
 
   $("#sidebarNav").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-view]");
@@ -147,25 +150,61 @@
   async function renderDashboard() {
     const d = await api("/dashboard");
     content.innerHTML = `
+      <div class="dash-cards">
+        <button type="button" class="dash-card go-view" data-view="settings">
+          <span class="dash-card-ico dash-card-ico--amber" aria-hidden="true">⚙️</span>
+          <span class="dash-card-body">
+            <strong>Cấu hình website</strong>
+            <small>Hotline, Zalo, footer, SEO</small>
+            <em>Xem chi tiết →</em>
+          </span>
+        </button>
+        <button type="button" class="dash-card go-view" data-view="homepage">
+          <span class="dash-card-ico dash-card-ico--green" aria-hidden="true">🏠</span>
+          <span class="dash-card-body">
+            <strong>Trang chủ</strong>
+            <small>Hero, dịch vụ nổi bật</small>
+            <em>Xem chi tiết →</em>
+          </span>
+        </button>
+        <a class="dash-card" href="/" target="_blank" rel="noopener">
+          <span class="dash-card-ico dash-card-ico--blue" aria-hidden="true">↗</span>
+          <span class="dash-card-body">
+            <strong>Xem website</strong>
+            <small>Mở minhtuanlogistics.com</small>
+            <em>Mở tab mới →</em>
+          </span>
+        </a>
+        <button type="button" class="dash-card go-view" data-view="submissions">
+          <span class="dash-card-ico dash-card-ico--navy" aria-hidden="true">📬</span>
+          <span class="dash-card-body">
+            <strong>Thư liên hệ</strong>
+            <small>${d.unread || 0} chưa đọc · ${d.submissions} tổng</small>
+            <em>Xem chi tiết →</em>
+          </span>
+        </button>
+      </div>
+
       <div class="stats-grid">
         <div class="stat-card"><strong>${d.news}</strong><span>Bài viết tin tức</span></div>
         <div class="stat-card"><strong>${d.published}</strong><span>Đang xuất bản</span></div>
         <div class="stat-card"><strong>${d.about || 0}</strong><span>Giới thiệu</span></div>
         <div class="stat-card"><strong>${d.services || 0}</strong><span>Dịch vụ</span></div>
-        <div class="stat-card"><strong>${d.submissions}</strong><span>Yêu cầu khách hàng</span></div>
         <div class="stat-card"><strong>${d.media}</strong><span>File media</span></div>
+        <div class="stat-card"><strong>${d.cms ? "Supabase" : "Local"}</strong><span>Lưu trữ CMS</span></div>
       </div>
+
       <div class="panel">
-        <h3>Quản lý toàn bộ website</h3>
-        <div class="form-grid" style="margin-top:12px">
-          <button type="button" class="btn btn-ghost go-view" data-view="settings">⚙️ Hotline, Zalo, footer</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="homepage">🏠 Trang chủ</button>
+        <h3>Quản lý nhanh</h3>
+        <div class="dash-quick">
           <button type="button" class="btn btn-ghost go-view" data-view="about">🏢 Giới thiệu</button>
           <button type="button" class="btn btn-ghost go-view" data-view="services">🚚 Dịch vụ</button>
           <button type="button" class="btn btn-ghost go-view" data-view="news">📰 Tin tức SEO</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="seoPages">🔎 SEO trang tĩnh</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="seoPages">🔎 SEO trang</button>
           <button type="button" class="btn btn-ghost go-view" data-view="media">🖼️ Kho hình ảnh</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="submissions">📬 Form liên hệ</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="gallery">🖼️ Thư viện</button>
+          <button type="button" class="btn btn-ghost go-view" data-view="translations">🌐 Đa ngôn ngữ</button>
+          <button type="button" class="btn btn-ghost" id="dashLogout">🚪 Đăng xuất</button>
         </div>
       </div>`;
     content.querySelectorAll(".go-view").forEach((btn) => {
@@ -175,6 +214,7 @@
         renderView(currentView);
       });
     });
+    content.querySelector("#dashLogout")?.addEventListener("click", doLogout);
   }
 
   async function renderSettings() {
@@ -567,10 +607,15 @@
 
     return `
       <form id="newsForm" class="panel news-seo-form">
+        <div class="editor-toolbar">
+          <button type="submit" class="btn btn-save" id="seoSaveBtn">Lưu</button>
+          <button type="submit" class="btn btn-save" name="stay" value="1" id="seoSaveStay">Lưu tại trang</button>
+          <button type="reset" class="btn btn-reset">Làm lại</button>
+          <button type="button" class="btn btn-exit" id="backNews">Thoát</button>
+          ${p.slug ? `<a class="btn btn-ghost" href="/bai-viet/${esc(p.slug)}" target="_blank" rel="noopener">↗ Xem bài</a>` : ""}
+        </div>
         <h3>${p.id ? "Sửa bài viết" : "Thêm bài viết"} · Chuẩn SEO Rank Math</h3>
         <p class="seo-hint">Xuất bản chỉ được phép khi <strong>SEO cơ bản + tiêu chí bắt buộc</strong> đạt (từ khóa, meta, URL, ≥1200 từ khuyến nghị / ≥600 tối thiểu, ≥5 ảnh alt từ khóa, H2, link nội bộ…).</p>
-
-        <div id="seoScorePanel" class="seo-score-panel" aria-live="polite"></div>
 
         <div class="form-grid">
           <label style="grid-column:1/-1">Từ khóa chính (Focus Keyword)<input name="keyword" id="seoKeyword" value="${esc(p.keyword)}" required placeholder="vd: dịch vụ xuất nhập khẩu TP.HCM" /></label>
@@ -582,8 +627,8 @@
           <label>Ngày<input name="date" type="date" value="${esc(p.date)}" /></label>
           <label style="grid-column:1/-1">Mô tả Meta SEO (120–160 ký tự, có từ khóa)<textarea name="metaDescription" id="seoMetaDesc" rows="2" required>${esc(p.metaDescription || "")}</textarea></label>
           <label style="grid-column:1/-1">Mô tả ngắn / mở bài (có từ khóa trong 10% đầu)<textarea name="excerpt" id="seoExcerpt" rows="2">${esc(p.excerpt || "")}</textarea></label>
-          <label style="grid-column:1/-1">Tiêu đề phụ H2 (mỗi dòng 1 H2 — ít nhất 1 dòng chứa từ khóa)<textarea name="headings" id="seoHeadings" rows="4" placeholder="Dịch vụ xuất nhập khẩu TP.HCM dành cho SME&#10;Quy trình khai báo hải quan trọn gói&#10;Báo giá và cam kết đúng tiến độ">${esc(headings)}</textarea></label>
-          <label style="grid-column:1/-1">Nội dung (mỗi đoạn 1 dòng · chèn link: [text](https://...) hoặc [text](/dich-vu/xuat-nhap-khau))<textarea name="body" id="seoBody" rows="12">${esc(bodyText)}</textarea></label>
+          <label style="grid-column:1/-1">Tiêu đề phụ H2 (mỗi dòng 1 H2 — ít nhất 1 dòng chứa từ khóa)<textarea name="headings" id="seoHeadings" class="textarea-md" rows="6" placeholder="Dịch vụ xuất nhập khẩu TP.HCM dành cho SME&#10;Quy trình khai báo hải quan trọn gói&#10;Báo giá và cam kết đúng tiến độ">${esc(headings)}</textarea></label>
+          <label style="grid-column:1/-1">Nội dung (mỗi đoạn 1 dòng · chèn link: [text](https://...) hoặc [text](/dich-vu/xuat-nhap-khau))<textarea name="body" id="seoBody" class="textarea-lg" rows="28">${esc(bodyText)}</textarea></label>
         </div>
 
         <h4 class="seo-section-title">5 hình ảnh (bắt buộc) — alt chứa từ khóa chính</h4>
@@ -611,11 +656,13 @@
           <label><input type="checkbox" name="published" id="seoPublished" ${p.published !== false ? "checked" : ""} /> Xuất bản (chỉ khi checklist SEO đạt)</label>
         </div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="seoSaveBtn">Lưu bài viết</button>
-          <button type="button" class="btn btn-ghost" id="backNews">← Quay lại</button>
-        </div>
+        <div id="seoScorePanel" class="seo-score-panel seo-score-panel--bottom" aria-live="polite"></div>
         <p id="seoPublishBlock" class="seo-publish-block" hidden></p>
+
+        <div class="editor-toolbar editor-toolbar--bottom">
+          <button type="submit" class="btn btn-save">Lưu</button>
+          <button type="button" class="btn btn-exit" id="backNewsBottom">Thoát</button>
+        </div>
       </form>`;
   }
 
@@ -693,13 +740,13 @@
         const items = g.items
           .map(
             (it) =>
-              `<li class="${it.ok ? "seo-ok" : "seo-fail"}">${it.ok ? "✓" : "✗"} ${esc(it.message)}</li>`
+              `<li class="seo-row ${it.ok ? "seo-ok" : "seo-fail"}"><span class="seo-row-ico" aria-hidden="true">${it.ok ? "✓" : "✗"}</span><span>${esc(it.message)}</span></li>`
           )
           .join("");
         return `<details class="seo-group" ${g.allGood ? "" : "open"}>
           <summary><span class="seo-group-label">${esc(g.label)}</span>
           <span class="badge ${g.allGood ? "badge-ok" : "badge-off"}">${esc(g.summary)}</span></summary>
-          <ul>${items}</ul>
+          <ul class="seo-row-list">${items}</ul>
         </details>`;
       })
       .join("");
@@ -729,7 +776,9 @@
   }
 
   function bindNewsForm(post, allPosts) {
-    $("#backNews").addEventListener("click", () => renderNews());
+    const goBack = () => renderNews();
+    $("#backNews")?.addEventListener("click", goBack);
+    $("#backNewsBottom")?.addEventListener("click", goBack);
     const form = $("#newsForm");
 
     form.querySelectorAll(".pick-from-media").forEach((btn) => {
@@ -769,6 +818,7 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const stay = e.submitter?.id === "seoSaveStay" || e.submitter?.name === "stay";
       const fd = new FormData(form);
       const body = collectNewsForm(fd);
       const result = refreshSeo();
@@ -779,12 +829,21 @@
       }
 
       try {
+        let saved = { ...(post || {}), ...body };
         if (post?.id) {
           await api(`/news/${post.id}`, { method: "PUT", body: JSON.stringify(body) });
+          saved.id = post.id;
         } else {
-          await api("/news", { method: "POST", body: JSON.stringify(body) });
+          saved = await api("/news", { method: "POST", body: JSON.stringify(body) });
         }
         showToast(body.published ? "Đã xuất bản (SEO đạt)" : "Đã lưu nháp");
+        if (stay && saved?.id) {
+          const nextPosts = (allPosts || []).filter((p) => String(p.id) !== String(saved.id));
+          nextPosts.unshift(saved);
+          content.innerHTML = renderNewsForm(saved);
+          bindNewsForm(saved, nextPosts);
+          return;
+        }
         renderNews();
       } catch (err) {
         showToast(err.message || "Lỗi lưu bài");
