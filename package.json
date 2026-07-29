@@ -18,7 +18,9 @@
     "seo:money": "node scripts/upgrade-money-pages.js",
     "seo:pillars": "node scripts/upgrade-pillar-posts.js",
     "seo:clean-urls": "node scripts/fix-clean-urls.js",
-    "storage:status": "node -e \"require('./lib/env').loadEnv(); const r=require('./lib/r2'); const s=require('./lib/supabase'); s.health().then(h=>console.log(JSON.stringify({r2:r.isConfigured(),supabase:h},null,2)));\"",
+    "storage:status": "node -e \"require('./lib/env').loadEnv(); const r=require('./lib/r2'); const s=require('./lib/supabase'); const c=require('./lib/cms-db'); Promise.all([s.health(),c.healthCms()]).then(([h,cms])=>console.log(JSON.stringify({r2:r.isConfigured(),supabase:h,cms},null,2)));\"",
+    "cms:migrate": "node scripts/migrate-cms-to-supabase.js",
+    "cms:migrate:docs": "node scripts/migrate-cms-to-supabase.js --skip-news",
     "build": "node scripts/normalize-keyword-density.js && node scripts/generate-news-index.js && node scripts/generate-subpages.js && node scripts/generate-article-pages.js && node scripts/generate-sitemap.js",
     "vercel-build": "npm run build"
   },
