@@ -49,10 +49,20 @@ create table if not exists public.submissions (
 
 create index if not exists submissions_created_at_idx on public.submissions (created_at desc);
 
+-- Website page visits (IP / path analytics for admin overview)
+create table if not exists public.visits (
+  id bigint primary key,
+  created_at timestamptz not null default now(),
+  data jsonb not null default '{}'::jsonb
+);
+
+create index if not exists visits_created_at_idx on public.visits (created_at desc);
+
 -- RLS: public read for live site; writes via service_role only
 alter table public.cms_docs enable row level security;
 alter table public.news_posts enable row level security;
 alter table public.submissions enable row level security;
+alter table public.visits enable row level security;
 
 drop policy if exists "cms_docs_public_read" on public.cms_docs;
 create policy "cms_docs_public_read"
@@ -62,8 +72,9 @@ drop policy if exists "news_posts_public_read" on public.news_posts;
 create policy "news_posts_public_read"
   on public.news_posts for select using (published = true);
 
--- Submissions: no public read (PII)
+-- Submissions / visits: no public read (PII)
 drop policy if exists "submissions_no_public" on public.submissions;
+drop policy if exists "visits_no_public" on public.visits;
 
 -- media table (safe if already created)
 create table if not exists public.media (

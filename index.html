@@ -60,7 +60,7 @@
   <body class="is-loading" data-page="home">
     <div class="page-loader is-active" id="pageLoader" role="status" aria-live="polite" data-i18n-aria="aria.loading">
       <div class="page-loader-stack">
-        <img class="page-loader-plane" src="/logo-plane.png" alt="" width="340" height="218" />
+        <img class="page-loader-logo" src="/logo-plane.png" alt="Minh Tuấn Logistics" width="220" height="220" onerror="this.onerror=null;this.src='/logo.png'" />
         <div class="page-loader-brand-block">
           <p class="page-loader-brand">
             <strong>MINH TUẤN</strong>
@@ -845,8 +845,8 @@
         <form class="booking-form" id="bookingForm" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label for="bookingFrom" data-i18n="booking.from">Gửi từ quốc gia *</label>
-              <select id="bookingFrom" name="from" required>
+              <label for="bookingFrom" data-i18n="booking.from">Gửi từ quốc gia</label>
+              <select id="bookingFrom" name="from">
                 <option value="" data-i18n="booking.select_country">Chọn quốc gia</option>
                 <option value="Việt Nam">Việt Nam</option>
                 <option value="Trung Quốc">Trung Quốc</option>
@@ -865,8 +865,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="bookingTo" data-i18n="booking.to">Đến quốc gia *</label>
-              <select id="bookingTo" name="to" required>
+              <label for="bookingTo" data-i18n="booking.to">Đến quốc gia</label>
+              <select id="bookingTo" name="to">
                 <option value="" data-i18n="booking.select_country">Chọn quốc gia</option>
                 <option value="Việt Nam">Việt Nam</option>
                 <option value="Trung Quốc">Trung Quốc</option>
@@ -887,16 +887,16 @@
           </div>
           <div class="form-row form-row-3">
             <div class="form-group">
-              <label for="bookingWeight" data-i18n="booking.weight">Số kg *</label>
-              <input id="bookingWeight" name="weight" type="number" min="0.1" step="0.1" data-i18n-placeholder="booking.weight_placeholder" placeholder="VD: 25" required />
+              <label for="bookingWeight" data-i18n="booking.weight">Số kg</label>
+              <input id="bookingWeight" name="weight" type="number" min="0.1" step="0.1" data-i18n-placeholder="booking.weight_placeholder" placeholder="VD: 25" />
             </div>
             <div class="form-group">
-              <label for="bookingQty" data-i18n="booking.qty">Số lượng *</label>
-              <input id="bookingQty" name="qty" type="number" min="1" step="1" data-i18n-placeholder="booking.qty_placeholder" placeholder="VD: 10" required />
+              <label for="bookingQty" data-i18n="booking.qty">Số lượng</label>
+              <input id="bookingQty" name="qty" type="number" min="1" step="1" data-i18n-placeholder="booking.qty_placeholder" placeholder="VD: 10" />
             </div>
             <div class="form-group">
-              <label for="bookingMode" data-i18n="booking.mode">Hình thức *</label>
-              <select id="bookingMode" name="mode" required>
+              <label for="bookingMode" data-i18n="booking.mode">Hình thức</label>
+              <select id="bookingMode" name="mode">
                 <option value="" data-i18n="booking.select_mode">Chọn hình thức</option>
                 <option value="sea" data-i18n="services.sea">Vận chuyển đường biển</option>
                 <option value="road" data-i18n="services.domestic">Vận chuyển đường bộ</option>
@@ -906,8 +906,8 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="bookingDate" data-i18n="booking.date">Ngày đặt lịch *</label>
-              <input id="bookingDate" name="date" type="date" required />
+              <label for="bookingDate" data-i18n="booking.date">Ngày đặt lịch</label>
+              <input id="bookingDate" name="date" type="date" />
             </div>
             <div class="form-group">
               <label for="bookingPhone" data-i18n="form.phone">Số điện thoại *</label>

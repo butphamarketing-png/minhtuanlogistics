@@ -245,7 +245,117 @@
 
   async function renderDashboard() {
     const d = await api("/dashboard");
+    const visitors = Array.isArray(d.visitors) ? d.visitors : [];
+    const series = Array.isArray(d.visitSeries) ? d.visitSeries : Array(12).fill(0);
+    const maxSeries = Math.max(1, ...series);
+
+    const fmtTime = (iso) => {
+      if (!iso) return "—";
+      try {
+        return new Date(iso).toLocaleString("vi-VN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          day: "2-digit",
+          month: "2-digit",
+        });
+      } catch {
+        return String(iso);
+      }
+    };
+
+    const levelClass = (level) => {
+      if (level === "nghi ngờ") return "visit-level visit-level--danger";
+      if (level === "theo dõi") return "visit-level visit-level--warn";
+      return "visit-level visit-level--ok";
+    };
+
+    const chartBars = series
+      .map((n, i) => {
+        const h = Math.round((n / maxSeries) * 100);
+        return `<span class="visit-chart-bar" style="--h:${h}%" title="#${i + 1}: ${n} lượt"></span>`;
+      })
+      .join("");
+
+    const renderRows = (list) => {
+      if (!list.length) {
+        return `<tr><td colspan="7" class="empty-cell">Chưa có dữ liệu truy cập. Khi khách vào website, IP và trang sẽ hiện tại đây.</td></tr>`;
+      }
+      return list
+        .map((v) => {
+          const pathLabel = esc(v.path || v.url || "/");
+          const signals = (v.signals || []).join(" · ");
+          return `<tr data-level="${esc(v.level)}">
+            <td><code class="visit-ip">${esc(v.ip)}</code></td>
+            <td>${esc(v.location || "—")}</td>
+            <td><span class="${levelClass(v.level)}">${esc(v.level)}</span></td>
+            <td>${v.visits || 0}</td>
+            <td>${v.lead ? '<span class="visit-lead">Lead</span>' : "—"}</td>
+            <td>${esc(fmtTime(v.lastSeen))}</td>
+            <td>
+              <a class="visit-path" href="${esc(v.path || "/")}" target="_blank" rel="noopener">${pathLabel}</a>
+              ${signals ? `<small class="visit-signals">${esc(signals)}</small>` : ""}
+            </td>
+          </tr>`;
+        })
+        .join("");
+    };
+
     content.innerHTML = `
+      <div class="visit-overview">
+        <div class="visit-chart-card panel">
+          <div class="visit-chart-head">
+            <div>
+              <h3>Hoạt động truy cập</h3>
+              <p class="muted">12 khung giờ gần nhất</p>
+            </div>
+          </div>
+          <div class="visit-chart" aria-hidden="true">${chartBars}</div>
+          <div class="visit-chart-labels">${series.map((_, i) => `<span>#${i + 1}</span>`).join("")}</div>
+        </div>
+        <div class="visit-metric-cards">
+          <div class="visit-metric panel">
+            <span class="visit-metric-label">Lượt truy cập ghi nhận</span>
+            <strong class="visit-metric-value">${d.visitsTotal || 0}</strong>
+            <small>${d.uniqueIps || 0} IP khác nhau</small>
+          </div>
+          <div class="visit-metric panel">
+            <span class="visit-metric-label">IP nghi ngờ</span>
+            <strong class="visit-metric-value visit-metric-value--warn">${d.suspiciousIps || 0}</strong>
+            <small>Bot / tần suất cao / path lạ</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel visit-panel">
+        <div class="visit-panel-head">
+          <div>
+            <h3>Người truy cập và IP</h3>
+            <p class="muted">Theo dõi địa điểm, lượt truy cập và trang khách đã xem trên toàn website</p>
+          </div>
+          <div class="visit-filters">
+            <button type="button" class="btn btn-ghost visit-filter is-active" data-filter="all">Tất cả</button>
+            <button type="button" class="btn btn-ghost visit-filter" data-filter="suspicious">Chỉ nghi ngờ</button>
+            <button type="button" class="btn btn-ghost" id="visitRefresh">Làm mới</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table visit-table">
+            <thead>
+              <tr>
+                <th>IP</th>
+                <th>Địa điểm</th>
+                <th>Mức</th>
+                <th>Lượt</th>
+                <th>Lead</th>
+                <th>Lần cuối</th>
+                <th>Trang / dấu hiệu</th>
+              </tr>
+            </thead>
+            <tbody id="visitTableBody">${renderRows(visitors)}</tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="dash-cards">
         <button type="button" class="dash-card go-view" data-view="settings">
           <span class="dash-card-ico dash-card-ico--amber" aria-hidden="true">⚙️</span>
@@ -288,25 +398,28 @@
         <div class="stat-card"><strong>${d.services || 0}</strong><span>Dịch vụ</span></div>
         <div class="stat-card"><strong>${d.media}</strong><span>File media</span></div>
         <div class="stat-card"><strong>${d.cms ? "Supabase" : "Local"}</strong><span>Lưu trữ CMS</span></div>
-      </div>
-
-      <div class="panel">
-        <h3>Quản lý nhanh</h3>
-        <div class="dash-quick">
-          <button type="button" class="btn btn-ghost go-view" data-view="about">🏢 Giới thiệu</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="services">🚚 Dịch vụ</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="news">📰 Tin tức SEO</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="seoPages">🔎 SEO trang</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="media">🖼️ Kho hình ảnh</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="gallery">🖼️ Thư viện</button>
-          <button type="button" class="btn btn-ghost go-view" data-view="translations">🌐 Đa ngôn ngữ</button>
-          <button type="button" class="btn btn-ghost" id="dashLogout">🚪 Đăng xuất</button>
-        </div>
       </div>`;
+
+    const tbody = content.querySelector("#visitTableBody");
+    const applyFilter = (mode) => {
+      const list =
+        mode === "suspicious"
+          ? visitors.filter((v) => v.level === "nghi ngờ")
+          : visitors;
+      tbody.innerHTML = renderRows(list);
+    };
+
+    content.querySelectorAll(".visit-filter").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        content.querySelectorAll(".visit-filter").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        applyFilter(btn.dataset.filter);
+      });
+    });
+    content.querySelector("#visitRefresh")?.addEventListener("click", () => renderDashboard());
     content.querySelectorAll(".go-view").forEach((btn) => {
       btn.addEventListener("click", () => navigateTo(btn.dataset.view));
     });
-    content.querySelector("#dashLogout")?.addEventListener("click", doLogout);
   }
 
   async function renderSettings() {

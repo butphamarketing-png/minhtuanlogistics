@@ -1,0 +1,38 @@
+[
+  {
+    "ip": "127.0.0.1",
+    "path": "/?booking%3D1",
+    "url": "http://127.0.0.1:5500/?booking%3D1",
+    "referrer": "http://127.0.0.1:5500/?booking%3D1",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.2.11 Chrome/142.0.7444.265 Electron/39.8.1 Safari/537.36",
+    "country": "",
+    "city": "",
+    "location": "",
+    "id": 1785472631606,
+    "createdAt": "2026-07-31T04:37:11.030Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "path": "/lien-he",
+    "url": "http://localhost:5500/lien-he",
+    "referrer": "http://localhost:5500/",
+    "ua": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.19041.3031",
+    "country": "",
+    "city": "",
+    "location": "",
+    "id": 1785472582650,
+    "createdAt": "2026-07-31T04:36:22.503Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "path": "/",
+    "url": "http://localhost:5500/",
+    "referrer": "",
+    "ua": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.19041.3031",
+    "country": "",
+    "city": "",
+    "location": "",
+    "id": 1785472580153,
+    "createdAt": "2026-07-31T04:36:20.116Z"
+  }
+]

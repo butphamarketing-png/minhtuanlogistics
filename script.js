@@ -1,8 +1,7 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_KEY = "mt_loader_seen";
-  const LOADER_DURATION = 900;
+  const LOADER_MIN_MS = 2400;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
@@ -11,37 +10,28 @@
     pageLoader.dataset.done = "1";
     pageLoader.classList.add("is-done");
     document.body.classList.remove("is-loading");
-    window.setTimeout(() => pageLoader.remove(), 400);
+    window.setTimeout(() => pageLoader.remove(), 420);
   };
 
   if (pageLoader) {
     const preferReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const seen = (() => {
-      try {
-        return sessionStorage.getItem(LOADER_KEY) === "1";
-      } catch {
-        return false;
-      }
-    })();
 
-    if (preferReduced || seen) {
+    if (preferReduced) {
       pageLoader.remove();
       document.body.classList.remove("is-loading");
     } else {
-      try {
-        sessionStorage.setItem(LOADER_KEY, "1");
-      } catch {
-        /* ignore */
+      const started = Date.now();
+      const finishWhenReady = () => {
+        const elapsed = Date.now() - started;
+        const wait = Math.max(0, LOADER_MIN_MS - elapsed);
+        window.setTimeout(dismissLoader, wait);
+      };
+      window.setTimeout(finishWhenReady, LOADER_MIN_MS + 1200);
+      if (document.readyState === "complete") {
+        finishWhenReady();
+      } else {
+        window.addEventListener("load", finishWhenReady, { once: true });
       }
-      const maxWait = window.setTimeout(dismissLoader, LOADER_DURATION);
-      window.addEventListener(
-        "load",
-        () => {
-          window.clearTimeout(maxWait);
-          window.setTimeout(dismissLoader, 180);
-        },
-        { once: true }
-      );
     }
   } else {
     document.body.classList.remove("is-loading");
@@ -138,6 +128,58 @@
   };
 
   initFloatingContact();
+
+  /* Fake visit counter bar (online / week / month / total) */
+  const initVisitCounterBar = () => {
+    if (document.querySelector(".site-visit-bar")) return;
+    const footer = document.querySelector(".footer");
+    if (!footer) return;
+
+    const day = Math.floor(Date.now() / 86400000);
+    const now = new Date();
+    const hour = now.getHours();
+    const dow = now.getDay();
+    const dom = now.getDate();
+
+    const baseOnline = 2 + ((day + hour) % 5);
+    const week = 580 + ((day * 13) % 240) + dow * 28 + hour * 2;
+    const month = 4800 + ((day * 17) % 900) + dom * 52 + hour * 3;
+    const total = 112400 + day * 19 + hour * 7 + dom * 11;
+
+    const bar = document.createElement("div");
+    bar.className = "site-visit-bar";
+    bar.setAttribute("aria-label", "Thống kê truy cập");
+    bar.innerHTML = `
+      <div class="container site-visit-bar-inner">
+        <span class="site-visit-item"><b data-i18n="stats.online">${menuLabel("stats.online")}</b>: <strong data-visit="online">${baseOnline}</strong></span>
+        <span class="site-visit-sep" aria-hidden="true">|</span>
+        <span class="site-visit-item"><b data-i18n="stats.week">${menuLabel("stats.week")}</b>: <strong data-visit="week">${week.toLocaleString("vi-VN")}</strong></span>
+        <span class="site-visit-sep" aria-hidden="true">|</span>
+        <span class="site-visit-item"><b data-i18n="stats.month">${menuLabel("stats.month")}</b>: <strong data-visit="month">${month.toLocaleString("vi-VN")}</strong></span>
+        <span class="site-visit-sep" aria-hidden="true">|</span>
+        <span class="site-visit-item"><b data-i18n="stats.total">${menuLabel("stats.total")}</b>: <strong data-visit="total">${total.toLocaleString("vi-VN")}</strong></span>
+      </div>
+    `;
+    footer.appendChild(bar);
+    window.I18N?.apply?.(bar);
+
+    let online = baseOnline;
+    const onlineEl = bar.querySelector('[data-visit="online"]');
+    const tickOnline = () => {
+      const delta = Math.random() < 0.5 ? -1 : 1;
+      online = Math.min(12, Math.max(1, online + delta));
+      if (onlineEl) onlineEl.textContent = String(online);
+    };
+    window.setInterval(tickOnline, 18000 + Math.floor(Math.random() * 12000));
+
+    window.addEventListener("localechange", () => {
+      bar.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (key) el.textContent = menuLabel(key);
+      });
+    });
+  };
+  initVisitCounterBar();
 
   /* Image performance helpers */
   document.querySelectorAll("img").forEach((img) => {
@@ -333,6 +375,43 @@
       body: JSON.stringify(payload),
     }).catch(() => {});
   };
+
+  /* Visit tracking for admin overview */
+  const trackPageVisit = () => {
+    try {
+      const pathName = window.location.pathname || "/";
+      if (pathName.startsWith("/adminbp")) return;
+      const fullPath = pathName + (window.location.search || "");
+      const trackKey = `mt_visit_${fullPath}`;
+      try {
+        const last = Number(sessionStorage.getItem(trackKey) || 0);
+        if (Date.now() - last < 90 * 1000) return;
+        sessionStorage.setItem(trackKey, String(Date.now()));
+      } catch (_) {
+        /* ignore */
+      }
+      const payload = JSON.stringify({
+        path: fullPath,
+        url: window.location.href,
+        referrer: document.referrer || "",
+        ua: navigator.userAgent || "",
+      });
+      if (navigator.sendBeacon) {
+        const blob = new Blob([payload], { type: "application/json" });
+        navigator.sendBeacon("/api/track", blob);
+        return;
+      }
+      fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+        keepalive: true,
+      }).catch(() => {});
+    } catch (_) {
+      /* ignore */
+    }
+  };
+  trackPageVisit();
 
   if (contactForm) {
     contactForm.addEventListener("submit", (event) => {
@@ -755,7 +834,7 @@
       sessionStorage.removeItem(BOOKING_KEY);
       openBookingModal();
     } else {
-      const delay = document.getElementById("pageLoader") ? 1200 : 600;
+      const delay = document.getElementById("pageLoader") ? 2800 : 700;
       window.setTimeout(showBooking, delay);
     }
 
@@ -801,12 +880,6 @@
         valid = false;
       };
 
-      if (!from) mark(bookingForm.from);
-      if (!to) mark(bookingForm.to);
-      if (!weight || Number(weight) <= 0) mark(bookingForm.weight);
-      if (!qty || Number(qty) < 1) mark(bookingForm.qty);
-      if (!mode) mark(bookingForm.mode);
-      if (!date) mark(bookingForm.date);
       if (!name) mark(bookingForm.name);
       if (phoneDigits.length < 9 || phoneDigits.length > 11) mark(bookingForm.phone);
 
@@ -815,14 +888,15 @@
         return;
       }
 
+      const dash = "—";
       const message = [
         menuLabel("msg.booking_request"),
-        `${menuLabel("msg.from")}: ${from}`,
-        `${menuLabel("msg.to")}: ${to}`,
-        `${menuLabel("msg.weight")}: ${weight}`,
-        `${menuLabel("msg.qty")}: ${qty}`,
-        `${menuLabel("msg.mode")}: ${modeLabel(mode)}`,
-        `${menuLabel("msg.date")}: ${date}`,
+        `${menuLabel("msg.from")}: ${from || dash}`,
+        `${menuLabel("msg.to")}: ${to || dash}`,
+        `${menuLabel("msg.weight")}: ${weight || dash}`,
+        `${menuLabel("msg.qty")}: ${qty || dash}`,
+        `${menuLabel("msg.mode")}: ${mode ? modeLabel(mode) : dash}`,
+        `${menuLabel("msg.date")}: ${date || dash}`,
         `${menuLabel("msg.name")}: ${name}`,
         `${menuLabel("msg.phone")}: ${phoneValue}`,
       ].join("\n");
@@ -849,4 +923,130 @@
       showBookingNote(menuLabel("msg.zalo_opened"), "success");
     });
   }
+
+  /* Fake social-proof notifications */
+  const SOCIAL_NAMES = [
+    "Nguyễn Văn Hùng",
+    "Trần Thị Mai",
+    "Lê Minh Đức",
+    "Phạm Hoàng Nam",
+    "Hoàng Thị Lan",
+    "Võ Quang Huy",
+    "Đặng Thu Hà",
+    "Bùi Văn Khoa",
+    "Ngô Thị Hương",
+    "Đỗ Thanh Tùng",
+    "Lý Anh Tuấn",
+    "Phan Thị Nga",
+  ];
+
+  const SOCIAL_ACTIONS = [
+    "social.action_delivery",
+    "social.action_delivery",
+    "social.action_delivery",
+    "social.action_quote",
+    "social.action_consult",
+  ];
+
+  const fillTemplate = (template, vars) =>
+    String(template || "").replace(/\{(\w+)\}/g, (_, key) =>
+      vars[key] != null ? String(vars[key]) : `{${key}}`
+    );
+
+  const initSocialProof = () => {
+    const toast = document.createElement("aside");
+    toast.className = "social-proof-toast";
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
+    toast.innerHTML = `
+      <span class="social-proof-avatar" aria-hidden="true"></span>
+      <div class="social-proof-body">
+        <span class="social-proof-time"></span>
+        <p class="social-proof-text"></p>
+      </div>
+      <button class="social-proof-close" type="button" aria-label="${menuLabel("booking.close")}">×</button>
+    `;
+    document.body.appendChild(toast);
+
+    const avatarEl = toast.querySelector(".social-proof-avatar");
+    const timeEl = toast.querySelector(".social-proof-time");
+    const textEl = toast.querySelector(".social-proof-text");
+    const closeBtn = toast.querySelector(".social-proof-close");
+
+    let hideTimer = null;
+    let nextTimer = null;
+    let nameIndex = Math.floor(Math.random() * SOCIAL_NAMES.length);
+    let dismissed = false;
+
+    const isBookingOpen = () =>
+      Boolean(bookingModal?.classList.contains("is-open"));
+
+    const hideToast = () => {
+      toast.classList.remove("is-visible");
+      toast.classList.add("is-leaving");
+      window.setTimeout(() => {
+        toast.classList.remove("is-leaving");
+      }, 360);
+    };
+
+    const pickMinutes = () => {
+      const pool = [2, 3, 3, 3, 4, 5, 5, 7, 8, 12];
+      return pool[Math.floor(Math.random() * pool.length)];
+    };
+
+    const showNext = () => {
+      if (dismissed || document.hidden || isBookingOpen()) {
+        nextTimer = window.setTimeout(showNext, 8000);
+        return;
+      }
+
+      const name = SOCIAL_NAMES[nameIndex % SOCIAL_NAMES.length];
+      nameIndex += 1;
+      const minutes = pickMinutes();
+      const actionKey = SOCIAL_ACTIONS[Math.floor(Math.random() * SOCIAL_ACTIONS.length)];
+      const customerLabel = fillTemplate(menuLabel("social.customer"), { name });
+      const timeLabel = fillTemplate(menuLabel("social.time_min"), { n: minutes });
+
+      avatarEl.textContent = name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(-2)
+        .map((part) => part.charAt(0))
+        .join("")
+        .toUpperCase();
+      timeEl.textContent = timeLabel;
+      textEl.innerHTML = `<strong>${customerLabel}</strong> ${menuLabel(actionKey)}`;
+
+      toast.classList.remove("is-leaving");
+      requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => {
+        hideToast();
+        nextTimer = window.setTimeout(showNext, 10000 + Math.random() * 12000);
+      }, 6500);
+    };
+
+    closeBtn.addEventListener("click", () => {
+      dismissed = true;
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(nextTimer);
+      hideToast();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        window.clearTimeout(hideTimer);
+        window.clearTimeout(nextTimer);
+        hideToast();
+      } else if (!dismissed) {
+        nextTimer = window.setTimeout(showNext, 4000);
+      }
+    });
+
+    const firstDelay = document.getElementById("pageLoader") ? 4500 : 2800;
+    nextTimer = window.setTimeout(showNext, firstDelay);
+  };
+
+  initSocialProof();
 })();
