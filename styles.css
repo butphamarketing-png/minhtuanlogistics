@@ -83,43 +83,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Keep loader sequence readable even with reduced-motion OS setting */
-  .page-loader .page-loader-stack {
-    animation: loader-journey 4.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-  }
-
-  .page-loader .page-loader-brand-block {
-    animation: loader-brand-reveal 4.4s ease forwards !important;
-  }
-
-  .page-loader .page-loader-bar {
-    animation: loader-bar-show 4.4s ease forwards !important;
-  }
-
-  .page-loader .page-loader-bar span {
-    animation: loader-progress 1.9s cubic-bezier(0.4, 0, 0.2, 1) 1.35s forwards !important;
-  }
-
-  .page-loader .page-loader-plane,
-  .page-loader .page-loader-logo {
-    animation: loader-plane-bob 0.9s ease-in-out 1.15s 3 alternate both !important;
-  }
-
-  .page-loader-ring-wrap {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .float-btn-shine,
+  .float-btn--glow,
+  .float-sparkle,
+  .hero-headline-line--accent,
+  .hero-copy--minimal,
+  .topbar-track,
+  .scroll-progress span {
     animation: none !important;
-  }
-
-  .topbar-track {
-    animation: topbar-marquee-rtl 32s linear infinite !important;
+    transition: none !important;
   }
 
   .reveal,
@@ -130,16 +106,18 @@
     transform: none;
   }
 
-  .float-btn-shine,
-  .float-btn--glow,
-  .float-sparkle,
-  .hero-headline-line--accent,
-  .hero-copy--minimal {
-    animation: none !important;
+  /* Loader vẫn chạy đủ ~4s — không kill bằng animation-duration toàn cục */
+  .page-loader .page-loader-stack {
+    animation: mt-loader-journey 4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
   }
-
-  .scroll-progress span {
-    transition: none;
+  .page-loader .page-loader-brand-block {
+    animation: mt-loader-brand 4s ease forwards !important;
+  }
+  .page-loader .page-loader-bar {
+    animation: mt-loader-bar 4s ease forwards !important;
+  }
+  .page-loader .page-loader-bar span {
+    animation: mt-loader-progress 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards !important;
   }
 }
 
@@ -282,7 +260,7 @@ body.has-mobile-call-bar {
   will-change: transform, opacity;
   transform: translate3d(-110vw, 0, 0);
   opacity: 0;
-  animation: loader-journey 4.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: mt-loader-journey 4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .page-loader-plane,
@@ -292,7 +270,6 @@ body.has-mobile-call-bar {
   object-fit: contain;
   filter: drop-shadow(0 14px 34px rgba(0, 61, 165, 0.28));
   will-change: transform;
-  animation: loader-plane-bob 0.9s ease-in-out 1.15s 3 alternate both;
 }
 
 .page-loader-brand-block {
@@ -301,7 +278,7 @@ body.has-mobile-call-bar {
   align-items: center;
   opacity: 0;
   transform: translateY(20px) scale(0.96);
-  animation: loader-brand-reveal 4.4s ease forwards;
+  animation: mt-loader-brand 4s ease forwards;
 }
 
 .page-loader-ring-wrap,
@@ -343,7 +320,7 @@ body.has-mobile-call-bar {
   background: rgba(0, 61, 165, 0.12);
   overflow: hidden;
   opacity: 0;
-  animation: loader-bar-show 4.4s ease forwards;
+  animation: mt-loader-bar 4s ease forwards;
 }
 
 .page-loader-bar span {
@@ -352,92 +329,61 @@ body.has-mobile-call-bar {
   width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, #e31c23, #ffcc00, #003da5);
-  animation: loader-progress 1.9s cubic-bezier(0.4, 0, 0.2, 1) 1.35s forwards;
+  animation: mt-loader-progress 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
 }
 
-/* 0–28%: bay trái → giữa | 28–72%: dừng + hiện brand | 72–100%: bay phải */
+/* Aliases kept for older cached CSS references */
 @keyframes loader-journey {
-  0% {
-    transform: translate3d(-110vw, 0, 0);
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  24% {
-    transform: translate3d(12px, 0, 0);
-    opacity: 1;
-  }
-  28% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-  72% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(110vw, 0, 0);
-    opacity: 0;
-  }
+  0% { transform: translate3d(-110vw, 0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  22% { transform: translate3d(10px, 0, 0); opacity: 1; }
+  28% { transform: translate3d(0, 0, 0); opacity: 1; }
+  72% { transform: translate3d(0, 0, 0); opacity: 1; }
+  100% { transform: translate3d(110vw, 0, 0); opacity: 0; }
 }
-
+@keyframes mt-loader-journey {
+  0% { transform: translate3d(-110vw, 0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  22% { transform: translate3d(10px, 0, 0); opacity: 1; }
+  28% { transform: translate3d(0, 0, 0); opacity: 1; }
+  72% { transform: translate3d(0, 0, 0); opacity: 1; }
+  100% { transform: translate3d(110vw, 0, 0); opacity: 0; }
+}
 @keyframes loader-brand-reveal {
-  0%,
-  26% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.96);
-  }
-  34%,
-  70% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(0) scale(1);
-  }
+  0%, 26% { opacity: 0; transform: translateY(20px) scale(0.96); }
+  34%, 70% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(0) scale(1); }
 }
-
+@keyframes mt-loader-brand {
+  0%, 26% { opacity: 0; transform: translateY(18px); }
+  34%, 70% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(0); }
+}
 @keyframes loader-bar-show {
-  0%,
-  30% {
-    opacity: 0;
-  }
-  36%,
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  0%, 30% { opacity: 0; }
+  36%, 70% { opacity: 1; }
+  100% { opacity: 0; }
 }
-
+@keyframes mt-loader-bar {
+  0%, 30% { opacity: 0; }
+  36%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
 @keyframes loader-plane-bob {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-10px);
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
 }
-
 @keyframes loader-progress {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
-
+@keyframes mt-loader-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
 @keyframes loader-ring {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 body.menu-open {

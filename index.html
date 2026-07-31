@@ -46,7 +46,65 @@
       rel="stylesheet"
     />
     <link rel="preload" href="/hero-slide-1.png" as="image" fetchpriority="high" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260731b" />
+    <style id="loader-critical">
+      /* Critical loader — luôn chạy dù styles.css cache cũ */
+      body.is-loading { overflow: hidden; }
+      .page-loader {
+        position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center;
+        background: #f7faff; overflow: hidden;
+      }
+      .page-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s ease; }
+      .page-loader-stack {
+        position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px;
+        transform: translate3d(-110vw, 0, 0); opacity: 0;
+        animation: mt-loader-journey 4s cubic-bezier(.22, 1, .36, 1) forwards !important;
+      }
+      .page-loader-plane {
+        width: min(300px, 72vw); height: auto; object-fit: contain;
+        filter: drop-shadow(0 14px 34px rgba(0, 61, 165, .28));
+      }
+      .page-loader-brand-block {
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        opacity: 0; transform: translateY(18px);
+        animation: mt-loader-brand 4s ease forwards !important;
+      }
+      .page-loader-brand { margin: 0; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+      .page-loader-brand strong { font-size: clamp(28px, 6.5vw, 42px); font-weight: 800; letter-spacing: .06em; color: #e31c23; }
+      .page-loader-brand small { font-size: clamp(13px, 3vw, 17px); font-weight: 700; color: #003da5; letter-spacing: .12em; text-transform: uppercase; }
+      .page-loader-bar {
+        width: min(280px, 76vw); height: 5px; margin-top: 14px; border-radius: 999px;
+        background: rgba(0, 61, 165, .12); overflow: hidden; opacity: 0;
+        animation: mt-loader-bar 4s ease forwards !important;
+      }
+      .page-loader-bar span {
+        display: block; height: 100%; width: 0; border-radius: inherit;
+        background: linear-gradient(90deg, #e31c23, #ffcc00, #003da5);
+        animation: mt-loader-progress 1.8s cubic-bezier(.4, 0, .2, 1) 1.2s forwards !important;
+      }
+      @keyframes mt-loader-journey {
+        0% { transform: translate3d(-110vw, 0, 0); opacity: 0; }
+        10% { opacity: 1; }
+        22% { transform: translate3d(10px, 0, 0); opacity: 1; }
+        28% { transform: translate3d(0, 0, 0); opacity: 1; }
+        72% { transform: translate3d(0, 0, 0); opacity: 1; }
+        100% { transform: translate3d(110vw, 0, 0); opacity: 0; }
+      }
+      @keyframes mt-loader-brand {
+        0%, 26% { opacity: 0; transform: translateY(18px); }
+        34%, 70% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(0); }
+      }
+      @keyframes mt-loader-bar {
+        0%, 30% { opacity: 0; }
+        36%, 70% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+      @keyframes mt-loader-progress {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+    </style>
     <script type="application/ld+json" id="schema-org">
 {"@context":"https://schema.org","@type":"Organization","name":"CÔNG TY TNHH XNK TM DV MINH TUẤN","alternateName":"MINH TUẤN Logistics","url":"https://minhtuanlogistics.com","logo":"https://minhtuanlogistics.com/logo.png","email":"contact@minhtuan.vn","telephone":"+84938961012","address":{"@type":"PostalAddress","streetAddress":"69/1 Trần Quốc Hoàn, P. Tân Sơn Nhất","addressLocality":"TP. Hồ Chí Minh","addressRegion":"TP. Hồ Chí Minh","postalCode":"700000","addressCountry":"VN"}}
     </script>
@@ -939,7 +997,7 @@
     <script src="seo.js"></script>
     <script src="nav.js"></script>
     <script src="site-cms.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=20260731b"></script>
     <script src="news-data.js"></script>
     <script src="news.js"></script>
   </body>

@@ -1,8 +1,8 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_MS = 4400;
-  const LOADER_FADE_MS = 420;
+  const LOADER_MS = 4000;
+  const LOADER_FADE_MS = 400;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
@@ -11,13 +11,27 @@
     pageLoader.dataset.done = "1";
     pageLoader.classList.add("is-done");
     document.body.classList.remove("is-loading");
-    window.setTimeout(() => pageLoader.remove(), LOADER_FADE_MS);
+    window.setTimeout(() => {
+      pageLoader.remove();
+      document.getElementById("loader-critical")?.remove();
+    }, LOADER_FADE_MS);
   };
 
   if (pageLoader) {
-    // CSS keyframes handle: left → center → brand → right.
-    // JS only removes overlay after the journey finishes.
+    // Restart animation on every full load (including refresh)
+    const stack = pageLoader.querySelector(".page-loader-stack");
+    if (stack) {
+      stack.style.animation = "none";
+      // force reflow then replay
+      void stack.offsetWidth;
+      stack.style.animation = "";
+    }
     window.setTimeout(dismissLoader, LOADER_MS);
+
+    // bfcache restore: reload so loader HTML + animation run again
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) window.location.reload();
+    });
   } else {
     document.body.classList.remove("is-loading");
   }
@@ -819,7 +833,7 @@
       sessionStorage.removeItem(BOOKING_KEY);
       openBookingModal();
     } else {
-      const delay = document.getElementById("pageLoader") ? 4600 : 700;
+      const delay = document.getElementById("pageLoader") ? 4200 : 700;
       window.setTimeout(showBooking, delay);
     }
 
