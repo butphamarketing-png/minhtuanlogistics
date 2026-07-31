@@ -1,39 +1,56 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_MIN_MS = 3400;
-  const LOADER_EXIT_MS = 620;
+  const LOADER_EXIT_MS = 700;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
-  const dismissLoader = () => {
-    if (!pageLoader || pageLoader.dataset.done === "1") return;
-    pageLoader.dataset.done = "1";
-    pageLoader.classList.add("is-done");
-    document.body.classList.remove("is-loading");
-    window.setTimeout(() => pageLoader.remove(), LOADER_EXIT_MS);
+  const runLoaderSequence = () => {
+    if (!pageLoader) return;
+    const stack = pageLoader.querySelector(".page-loader-stack");
+    if (!stack) {
+      pageLoader.remove();
+      document.body.classList.remove("is-loading");
+      return;
+    }
+
+    const preferReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (preferReduced) {
+      stack.classList.add("is-in", "is-brand");
+      window.setTimeout(() => {
+        pageLoader.classList.add("is-done");
+        document.body.classList.remove("is-loading");
+        window.setTimeout(() => pageLoader.remove(), 320);
+      }, 900);
+      return;
+    }
+
+    // Force starting off-screen, then fly in
+    stack.classList.remove("is-in", "is-brand", "is-out");
+    void stack.offsetWidth;
+
+    requestAnimationFrame(() => {
+      stack.classList.add("is-in");
+    });
+
+    // Stop at center → show brand + slogan
+    window.setTimeout(() => {
+      stack.classList.add("is-brand");
+    }, 1050);
+
+    // Hold, then fly out to the right, then fade overlay
+    window.setTimeout(() => {
+      stack.classList.add("is-out");
+      document.body.classList.remove("is-loading");
+      window.setTimeout(() => {
+        pageLoader.classList.add("is-done");
+        window.setTimeout(() => pageLoader.remove(), 380);
+      }, 520);
+    }, 3400);
   };
 
   if (pageLoader) {
-    const preferReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (preferReduced) {
-      pageLoader.remove();
-      document.body.classList.remove("is-loading");
-    } else {
-      const started = Date.now();
-      const finishWhenReady = () => {
-        const elapsed = Date.now() - started;
-        const wait = Math.max(0, LOADER_MIN_MS - elapsed);
-        window.setTimeout(dismissLoader, wait);
-      };
-      window.setTimeout(finishWhenReady, LOADER_MIN_MS + 1500);
-      if (document.readyState === "complete") {
-        finishWhenReady();
-      } else {
-        window.addEventListener("load", finishWhenReady, { once: true });
-      }
-    }
+    runLoaderSequence();
   } else {
     document.body.classList.remove("is-loading");
   }
@@ -835,7 +852,7 @@
       sessionStorage.removeItem(BOOKING_KEY);
       openBookingModal();
     } else {
-      const delay = document.getElementById("pageLoader") ? 4000 : 700;
+      const delay = document.getElementById("pageLoader") ? 3600 : 700;
       window.setTimeout(showBooking, delay);
     }
 
