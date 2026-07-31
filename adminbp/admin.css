@@ -1018,6 +1018,11 @@ textarea { min-height: 100px; resize: vertical; }
   padding: 8px 4px 0;
 }
 
+.visit-chart--month {
+  grid-template-columns: repeat(var(--days, 31), minmax(0, 1fr));
+  gap: 3px;
+}
+
 .visit-chart-bar {
   display: block;
   height: var(--h, 8%);
@@ -1025,6 +1030,11 @@ textarea { min-height: 100px; resize: vertical; }
   border-radius: 6px 6px 2px 2px;
   background: linear-gradient(180deg, #2dd4bf, #0d9488);
   opacity: 0.92;
+}
+
+.visit-chart-bar.is-today {
+  background: linear-gradient(180deg, #38bdf8, #0284c7);
+  opacity: 1;
 }
 
 .visit-chart-labels {
@@ -1035,6 +1045,17 @@ textarea { min-height: 100px; resize: vertical; }
   color: var(--muted);
   font-size: 11px;
   text-align: center;
+}
+
+.visit-chart-labels--month {
+  grid-template-columns: repeat(var(--days, 31), minmax(0, 1fr));
+  gap: 3px;
+  font-size: 10px;
+}
+
+.visit-chart-labels--month .is-today {
+  color: #38bdf8;
+  font-weight: 700;
 }
 
 .visit-metric-cards {

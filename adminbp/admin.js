@@ -246,8 +246,13 @@
   async function renderDashboard() {
     const d = await api("/dashboard");
     const visitors = Array.isArray(d.visitors) ? d.visitors : [];
-    const series = Array.isArray(d.visitSeries) ? d.visitSeries : Array(12).fill(0);
+    const series = Array.isArray(d.visitSeries) ? d.visitSeries : [];
+    const labels = Array.isArray(d.visitLabels) && d.visitLabels.length
+      ? d.visitLabels
+      : series.map((_, i) => String(i + 1));
+    const monthLabel = d.visitMonthLabel || "tháng này";
     const maxSeries = Math.max(1, ...series);
+    const today = new Date().getDate();
 
     const fmtTime = (iso) => {
       if (!iso) return "—";
@@ -272,13 +277,23 @@
     const chartBars = series
       .map((n, i) => {
         const h = Math.round((n / maxSeries) * 100);
-        return `<span class="visit-chart-bar" style="--h:${h}%" title="#${i + 1}: ${n} lượt"></span>`;
+        const day = labels[i] || String(i + 1);
+        const isToday = Number(day) === today;
+        return `<span class="visit-chart-bar${isToday ? " is-today" : ""}" style="--h:${Math.max(h, n > 0 ? 8 : 2)}%" title="Ngày ${day}: ${n} lượt"></span>`;
+      })
+      .join("");
+
+    const chartLabels = labels
+      .map((day, i) => {
+        const n = Number(day);
+        const show = n === 1 || n === labels.length || n % 5 === 0 || n === today;
+        return `<span class="${n === today ? "is-today" : ""}">${show ? day : ""}</span>`;
       })
       .join("");
 
     const renderRows = (list) => {
       if (!list.length) {
-        return `<tr><td colspan="7" class="empty-cell">Chưa có dữ liệu truy cập. Khi khách vào website, IP và trang sẽ hiện tại đây.</td></tr>`;
+        return `<tr><td colspan="7" class="empty-cell">Chưa có dữ liệu truy cập trong ${esc(monthLabel)}. Khi khách vào website, IP và trang sẽ hiện tại đây.</td></tr>`;
       }
       return list
         .map((v) => {
@@ -306,17 +321,17 @@
           <div class="visit-chart-head">
             <div>
               <h3>Hoạt động truy cập</h3>
-              <p class="muted">12 khung giờ gần nhất</p>
+              <p class="muted">Từ ngày 1 đến hết ${esc(monthLabel)}</p>
             </div>
           </div>
-          <div class="visit-chart" aria-hidden="true">${chartBars}</div>
-          <div class="visit-chart-labels">${series.map((_, i) => `<span>#${i + 1}</span>`).join("")}</div>
+          <div class="visit-chart visit-chart--month" style="--days:${series.length || 31}" aria-hidden="true">${chartBars}</div>
+          <div class="visit-chart-labels visit-chart-labels--month" style="--days:${series.length || 31}">${chartLabels}</div>
         </div>
         <div class="visit-metric-cards">
           <div class="visit-metric panel">
-            <span class="visit-metric-label">Lượt truy cập ghi nhận</span>
+            <span class="visit-metric-label">Lượt truy cập tháng này</span>
             <strong class="visit-metric-value">${d.visitsTotal || 0}</strong>
-            <small>${d.uniqueIps || 0} IP khác nhau</small>
+            <small>${d.uniqueIps || 0} IP khác nhau · ${esc(monthLabel)}</small>
           </div>
           <div class="visit-metric panel">
             <span class="visit-metric-label">IP nghi ngờ</span>
@@ -330,7 +345,7 @@
         <div class="visit-panel-head">
           <div>
             <h3>Người truy cập và IP</h3>
-            <p class="muted">Theo dõi địa điểm, lượt truy cập và trang khách đã xem trên toàn website</p>
+            <p class="muted">Dữ liệu từ ngày 1 đến hết ${esc(monthLabel)}</p>
           </div>
           <div class="visit-filters">
             <button type="button" class="btn btn-ghost visit-filter is-active" data-filter="all">Tất cả</button>

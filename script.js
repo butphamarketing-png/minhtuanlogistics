@@ -1,7 +1,8 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_MIN_MS = 2400;
+  const LOADER_MIN_MS = 3400;
+  const LOADER_EXIT_MS = 620;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
@@ -10,7 +11,7 @@
     pageLoader.dataset.done = "1";
     pageLoader.classList.add("is-done");
     document.body.classList.remove("is-loading");
-    window.setTimeout(() => pageLoader.remove(), 420);
+    window.setTimeout(() => pageLoader.remove(), LOADER_EXIT_MS);
   };
 
   if (pageLoader) {
@@ -26,7 +27,7 @@
         const wait = Math.max(0, LOADER_MIN_MS - elapsed);
         window.setTimeout(dismissLoader, wait);
       };
-      window.setTimeout(finishWhenReady, LOADER_MIN_MS + 1200);
+      window.setTimeout(finishWhenReady, LOADER_MIN_MS + 1500);
       if (document.readyState === "complete") {
         finishWhenReady();
       } else {
@@ -834,7 +835,7 @@
       sessionStorage.removeItem(BOOKING_KEY);
       openBookingModal();
     } else {
-      const delay = document.getElementById("pageLoader") ? 2800 : 700;
+      const delay = document.getElementById("pageLoader") ? 4000 : 700;
       window.setTimeout(showBooking, delay);
     }
 

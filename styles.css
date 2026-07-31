@@ -96,16 +96,19 @@
     animation: none !important;
   }
 
-  .page-loader-plane {
-    animation: loader-plane-enter 0.55s cubic-bezier(0.4, 0.05, 0.2, 1) 0.05s both !important;
+  .page-loader-plane,
+  .page-loader-logo {
+    animation: none !important;
   }
 
   .page-loader-stack {
-    animation: loader-stack-exit 0.45s cubic-bezier(0.4, 0.05, 0.2, 1) 0.55s forwards !important;
+    animation: none !important;
   }
 
   .page-loader-brand-block {
-    animation: loader-brand-in 0.35s ease 0.2s forwards !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 
   .page-loader-bar span {
@@ -260,6 +263,7 @@ body.has-mobile-call-bar {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transition-delay: 0.45s;
 }
 
 .page-loader-stack {
@@ -268,31 +272,24 @@ body.has-mobile-call-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(16px, 3vh, 28px);
+  gap: clamp(14px, 2.8vh, 24px);
   padding: 24px;
   will-change: transform, opacity;
+  animation: loader-fly-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .page-loader.is-done .page-loader-stack {
-  animation: loader-stack-exit 0.4s cubic-bezier(0.4, 0.05, 0.2, 1) forwards;
+  animation: loader-fly-out 0.58s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.page-loader-plane {
-  width: min(340px, 78vw);
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 32px rgba(255, 204, 0, 0.38));
-  will-change: transform, opacity;
-  animation: loader-plane-enter 0.55s cubic-bezier(0.4, 0.05, 0.2, 1) 0.05s both;
-}
-
+.page-loader-plane,
 .page-loader-logo {
-  width: min(220px, 52vw);
+  width: min(300px, 72vw);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 10px 28px rgba(0, 61, 165, 0.28));
-  will-change: transform, opacity;
-  animation: loader-plane-enter 0.7s cubic-bezier(0.4, 0.05, 0.2, 1) both;
+  filter: drop-shadow(0 14px 34px rgba(0, 61, 165, 0.28));
+  will-change: transform;
+  animation: loader-plane-hover 1.6s ease-in-out 1s infinite alternate;
 }
 
 .page-loader-brand-block {
@@ -300,7 +297,13 @@ body.has-mobile-call-bar {
   flex-direction: column;
   align-items: center;
   opacity: 0;
-  animation: loader-brand-in 0.35s ease 0.2s forwards;
+  transform: translateY(14px);
+  animation: loader-brand-in 0.5s ease 1.05s forwards;
+}
+
+.page-loader.is-done .page-loader-brand-block {
+  animation: none;
+  opacity: 1;
 }
 
 .page-loader-ring-wrap,
@@ -313,12 +316,13 @@ body.has-mobile-call-bar {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
+  text-align: center;
 }
 
 .page-loader-brand strong {
-  font-size: clamp(28px, 6.5vw, 40px);
+  font-size: clamp(28px, 6.5vw, 42px);
   font-weight: 800;
   letter-spacing: 0.06em;
   color: #e31c23;
@@ -326,22 +330,22 @@ body.has-mobile-call-bar {
 }
 
 .page-loader-brand small {
-  font-size: clamp(14px, 3.2vw, 18px);
+  font-size: clamp(13px, 3vw, 17px);
   font-weight: 700;
   color: #003da5;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .page-loader-bar {
   width: min(280px, 76vw);
   height: 5px;
-  margin-top: 18px;
+  margin-top: 16px;
   border-radius: 999px;
   background: rgba(0, 61, 165, 0.12);
   overflow: hidden;
   opacity: 0;
-  animation: loader-text-in 0.3s ease 0.22s forwards;
+  animation: loader-text-in 0.35s ease 1.25s forwards;
 }
 
 .page-loader-bar span {
@@ -350,16 +354,19 @@ body.has-mobile-call-bar {
   width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, #e31c23, #ffcc00, #003da5);
-  animation: loader-progress 2.1s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards !important;
+  animation: loader-progress 2s cubic-bezier(0.4, 0, 0.2, 1) 1.3s forwards !important;
 }
 
-@keyframes loader-plane-enter {
+@keyframes loader-fly-in {
   0% {
     transform: translateX(-120vw);
-    opacity: 0;
+    opacity: 0.35;
   }
-  12% {
+  55% {
     opacity: 1;
+  }
+  82% {
+    transform: translateX(10px);
   }
   100% {
     transform: translateX(0);
@@ -367,12 +374,9 @@ body.has-mobile-call-bar {
   }
 }
 
-@keyframes loader-stack-exit {
+@keyframes loader-fly-out {
   0% {
     transform: translateX(0);
-    opacity: 1;
-  }
-  88% {
     opacity: 1;
   }
   100% {
@@ -381,10 +385,19 @@ body.has-mobile-call-bar {
   }
 }
 
+@keyframes loader-plane-hover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-6px);
+  }
+}
+
 @keyframes loader-brand-in {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
   100% {
     opacity: 1;
