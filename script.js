@@ -1,56 +1,23 @@
 (() => {
   const phone = "0938961012";
   const email = "contact@minhtuan.vn";
-  const LOADER_EXIT_MS = 700;
+  const LOADER_MS = 4400;
+  const LOADER_FADE_MS = 420;
   const pageLoader = document.getElementById("pageLoader");
   const menuLabel = (key) => (window.I18N ? window.I18N.t(key) : key);
 
-  const runLoaderSequence = () => {
-    if (!pageLoader) return;
-    const stack = pageLoader.querySelector(".page-loader-stack");
-    if (!stack) {
-      pageLoader.remove();
-      document.body.classList.remove("is-loading");
-      return;
-    }
-
-    const preferReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (preferReduced) {
-      stack.classList.add("is-in", "is-brand");
-      window.setTimeout(() => {
-        pageLoader.classList.add("is-done");
-        document.body.classList.remove("is-loading");
-        window.setTimeout(() => pageLoader.remove(), 320);
-      }, 900);
-      return;
-    }
-
-    // Force starting off-screen, then fly in
-    stack.classList.remove("is-in", "is-brand", "is-out");
-    void stack.offsetWidth;
-
-    requestAnimationFrame(() => {
-      stack.classList.add("is-in");
-    });
-
-    // Stop at center → show brand + slogan
-    window.setTimeout(() => {
-      stack.classList.add("is-brand");
-    }, 1050);
-
-    // Hold, then fly out to the right, then fade overlay
-    window.setTimeout(() => {
-      stack.classList.add("is-out");
-      document.body.classList.remove("is-loading");
-      window.setTimeout(() => {
-        pageLoader.classList.add("is-done");
-        window.setTimeout(() => pageLoader.remove(), 380);
-      }, 520);
-    }, 3400);
+  const dismissLoader = () => {
+    if (!pageLoader || pageLoader.dataset.done === "1") return;
+    pageLoader.dataset.done = "1";
+    pageLoader.classList.add("is-done");
+    document.body.classList.remove("is-loading");
+    window.setTimeout(() => pageLoader.remove(), LOADER_FADE_MS);
   };
 
   if (pageLoader) {
-    runLoaderSequence();
+    // CSS keyframes handle: left → center → brand → right.
+    // JS only removes overlay after the journey finishes.
+    window.setTimeout(dismissLoader, LOADER_MS);
   } else {
     document.body.classList.remove("is-loading");
   }
@@ -852,7 +819,7 @@
       sessionStorage.removeItem(BOOKING_KEY);
       openBookingModal();
     } else {
-      const delay = document.getElementById("pageLoader") ? 3600 : 700;
+      const delay = document.getElementById("pageLoader") ? 4600 : 700;
       window.setTimeout(showBooking, delay);
     }
 

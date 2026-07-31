@@ -92,33 +92,30 @@
     scroll-behavior: auto !important;
   }
 
+  /* Keep loader sequence readable even with reduced-motion OS setting */
+  .page-loader .page-loader-stack {
+    animation: loader-journey 4.4s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  }
+
+  .page-loader .page-loader-brand-block {
+    animation: loader-brand-reveal 4.4s ease forwards !important;
+  }
+
+  .page-loader .page-loader-bar {
+    animation: loader-bar-show 4.4s ease forwards !important;
+  }
+
+  .page-loader .page-loader-bar span {
+    animation: loader-progress 1.9s cubic-bezier(0.4, 0, 0.2, 1) 1.35s forwards !important;
+  }
+
+  .page-loader .page-loader-plane,
+  .page-loader .page-loader-logo {
+    animation: loader-plane-bob 0.9s ease-in-out 1.15s 3 alternate both !important;
+  }
+
   .page-loader-ring-wrap {
     animation: none !important;
-  }
-
-  .page-loader-plane,
-  .page-loader-logo {
-    animation: none !important;
-  }
-
-  .page-loader-stack {
-    transform: none !important;
-    opacity: 1 !important;
-    transition: none !important;
-  }
-
-  .page-loader-brand-block {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .page-loader-bar {
-    opacity: 1 !important;
-  }
-
-  .page-loader-bar span {
-    animation: loader-progress 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
   }
 
   .topbar-track {
@@ -244,7 +241,7 @@ body.has-mobile-call-bar {
   overflow: hidden;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .page-loader::before {
@@ -273,6 +270,7 @@ body.has-mobile-call-bar {
   pointer-events: none;
 }
 
+/* Plane + brand: left → center → hold/brand → right (pure CSS) */
 .page-loader-stack {
   position: relative;
   z-index: 2;
@@ -281,25 +279,10 @@ body.has-mobile-call-bar {
   align-items: center;
   gap: clamp(14px, 2.8vh, 24px);
   padding: 24px;
-  transform: translate3d(-120vw, 0, 0);
-  opacity: 0.45;
   will-change: transform, opacity;
-  transition:
-    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.45s ease;
-}
-
-.page-loader-stack.is-in {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-}
-
-.page-loader-stack.is-out {
-  transform: translate3d(120vw, 0, 0);
+  transform: translate3d(-110vw, 0, 0);
   opacity: 0;
-  transition:
-    transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.45s ease 0.12s;
+  animation: loader-journey 4.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .page-loader-plane,
@@ -308,11 +291,8 @@ body.has-mobile-call-bar {
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 14px 34px rgba(0, 61, 165, 0.28));
-}
-
-.page-loader-stack.is-in:not(.is-out) .page-loader-plane,
-.page-loader-stack.is-in:not(.is-out) .page-loader-logo {
-  animation: loader-plane-hover 1.4s ease-in-out 0.15s infinite alternate;
+  will-change: transform;
+  animation: loader-plane-bob 0.9s ease-in-out 1.15s 3 alternate both;
 }
 
 .page-loader-brand-block {
@@ -320,15 +300,8 @@ body.has-mobile-call-bar {
   flex-direction: column;
   align-items: center;
   opacity: 0;
-  transform: translateY(18px) scale(0.96);
-  transition:
-    opacity 0.55s ease,
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.page-loader-stack.is-brand .page-loader-brand-block {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(20px) scale(0.96);
+  animation: loader-brand-reveal 4.4s ease forwards;
 }
 
 .page-loader-ring-wrap,
@@ -370,11 +343,7 @@ body.has-mobile-call-bar {
   background: rgba(0, 61, 165, 0.12);
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.page-loader-stack.is-brand .page-loader-bar {
-  opacity: 1;
+  animation: loader-bar-show 4.4s ease forwards;
 }
 
 .page-loader-bar span {
@@ -383,18 +352,73 @@ body.has-mobile-call-bar {
   width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, #e31c23, #ffcc00, #003da5);
+  animation: loader-progress 1.9s cubic-bezier(0.4, 0, 0.2, 1) 1.35s forwards;
 }
 
-.page-loader-stack.is-brand .page-loader-bar span {
-  animation: loader-progress 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
+/* 0–28%: bay trái → giữa | 28–72%: dừng + hiện brand | 72–100%: bay phải */
+@keyframes loader-journey {
+  0% {
+    transform: translate3d(-110vw, 0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  24% {
+    transform: translate3d(12px, 0, 0);
+    opacity: 1;
+  }
+  28% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  72% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(110vw, 0, 0);
+    opacity: 0;
+  }
 }
 
-@keyframes loader-plane-hover {
+@keyframes loader-brand-reveal {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  34%,
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loader-bar-show {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  36%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-plane-bob {
   0% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
   }
 }
 
