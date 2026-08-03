@@ -22,6 +22,7 @@ const staticPages = [
   { loc: "/dich-vu", priority: "0.9", changefreq: "monthly" },
   { loc: "/du-an", priority: "0.7", changefreq: "monthly" },
   { loc: "/tin-tuc", priority: "0.8", changefreq: "daily" },
+  { loc: "/tuyen-dung", priority: "0.8", changefreq: "weekly" },
   { loc: "/hinh-anh", priority: "0.6", changefreq: "monthly" },
   { loc: "/lien-he", priority: "0.8", changefreq: "monthly" },
 ];

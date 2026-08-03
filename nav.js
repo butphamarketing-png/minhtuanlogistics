@@ -43,6 +43,15 @@
       ],
     },
     {
+      labelKey: "nav.careers",
+      href: "/tuyen-dung",
+      children: [
+        { labelKey: "nav.careers_all", href: "/tuyen-dung" },
+        { labelKey: "nav.careers_amazon", href: "/bai-viet/tuyen-dung-nhan-vien-san-amazon" },
+        { labelKey: "nav.careers_warehouse", href: "/bai-viet/tuyen-dung-tro-ly-kho-nhan-vien-chung-tu" },
+      ],
+    },
+    {
       labelKey: "nav.gallery",
       href: "/hinh-anh",
       children: [

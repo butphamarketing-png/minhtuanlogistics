@@ -10,8 +10,9 @@
     warehouse: "Kho bãi",
     global: "Quốc tế",
     business: "Doanh nghiệp",
+    careers: "Tuyển dụng",
   };
-  const CAT_INDEX = { sea: 0, air: 1, road: 2, customs: 3, warehouse: 4, global: 5, business: 6 };
+  const CAT_INDEX = { sea: 0, air: 1, road: 2, customs: 3, warehouse: 4, global: 5, business: 6, careers: 6 };
 
   const esc = (s) =>
     String(s)

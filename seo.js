@@ -15,6 +15,7 @@
     services: { path: "/dich-vu", titleKey: "meta.services.title", descKey: "meta.services.description", type: "website" },
     projects: { path: "/du-an", titleKey: "meta.projects.title", descKey: "meta.projects.description", type: "website" },
     news: { path: "/tin-tuc", titleKey: "meta.news.title", descKey: "meta.news.description", type: "website" },
+    careers: { path: "/tuyen-dung", titleKey: "meta.careers.title", descKey: "meta.careers.description", type: "website" },
     gallery: { path: "/hinh-anh", titleKey: "meta.gallery.title", descKey: "meta.gallery.description", type: "website" },
     contact: { path: "/lien-he", titleKey: "meta.contact.title", descKey: "meta.contact.description", type: "website" },
     article: { path: "/bai-viet", titleKey: null, descKey: null, type: "article" },
@@ -125,6 +126,7 @@
       "dich-vu.html": "services",
       "du-an.html": "projects",
       "tin-tuc.html": "news",
+      "tuyen-dung.html": "careers",
       "hinh-anh.html": "gallery",
       "lien-he.html": "contact",
       "bai-viet.html": "article",
@@ -454,7 +456,9 @@
 
     upsertJsonLd("schema-breadcrumb", buildBreadcrumb([
       { name: t("nav.home", "Trang chủ"), path: "/" },
-      { name: t("nav.news", "Tin tức"), path: "/tin-tuc" },
+      post.category === "careers"
+        ? { name: t("nav.careers", "Tuyển dụng"), path: "/tuyen-dung" }
+        : { name: t("nav.news", "Tin tức"), path: "/tin-tuc" },
       { name: post.keyword, path: `/bai-viet/${encodeURIComponent(post.slug)}` },
     ]));
   };

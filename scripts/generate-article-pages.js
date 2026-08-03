@@ -111,6 +111,17 @@ const render = (post, all) => {
   const content = sectionHtml(post);
   const keywords = [post.keyword, ...(post.secondaryKeywords || [])].filter(Boolean).join(", ");
   const absImage = absUrl(SITE_URL, image);
+  const isCareers = post.category === "careers";
+  const listHref = isCareers ? "/tuyen-dung" : "/tin-tuc";
+  const listLabel = isCareers ? "Tuyển dụng" : "Tin tức";
+  const listBack = isCareers ? "← Tất cả vị trí tuyển dụng" : "← Tất cả tin tức";
+  const ctaHtml = isCareers
+    ? `<a class="btn btn-cta" href="mailto:hcnsminhtuan@gmail.com">Gửi CV ứng tuyển</a>
+              <a class="btn btn-ghost" href="tel:0938961012">Gọi 0938 961 012</a>
+              <a class="btn btn-ghost" href="/tuyen-dung">Xem tất cả vị trí</a>`
+    : `<a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
+              <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
+              <a class="btn btn-ghost" href="/dich-vu">Xem dịch vụ logistics</a>`;
 
   const headSocial = socialMeta({
     siteUrl: SITE_URL,
@@ -166,7 +177,7 @@ ${jsonLd("schema-breadcrumb", {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Trang chủ", item: `${SITE_URL}/` },
-    { "@type": "ListItem", position: 2, name: "Tin tức", item: `${SITE_URL}/tin-tuc` },
+    { "@type": "ListItem", position: 2, name: listLabel, item: `${SITE_URL}${listHref}` },
     { "@type": "ListItem", position: 3, name: post.keyword, item: url },
   ],
 })}
@@ -192,7 +203,7 @@ ${jsonLd("schema-breadcrumb", {
           <article class="article-detail" itemscope itemtype="https://schema.org/Article">
             <nav class="breadcrumb" aria-label="Breadcrumb">
               <a href="/">Trang chủ</a><span aria-hidden="true">/</span>
-              <a href="/tin-tuc">Tin tức</a><span aria-hidden="true">/</span>
+              <a href="${listHref}">${listLabel}</a><span aria-hidden="true">/</span>
               <span>${esc(post.keyword)}</span>
             </nav>
             <div class="article-hero">
@@ -210,9 +221,7 @@ ${jsonLd("schema-breadcrumb", {
           ${content}
             </div>
             <div class="article-cta">
-              <a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
-              <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
-              <a class="btn btn-ghost" href="/dich-vu">Xem dịch vụ logistics</a>
+              ${ctaHtml}
             </div>
           </article>${relatedHtml(post, all)}
         </div>
@@ -221,7 +230,7 @@ ${jsonLd("schema-breadcrumb", {
     <footer class="footer">
       <div class="container footer-bottom">
         <p>© 2026 CÔNG TY TNHH XNK TM DV MINH TUẤN. All Rights Reserved.</p>
-        <a href="/tin-tuc">← Tất cả tin tức</a>
+        <a href="${listHref}">${listBack}</a>
       </div>
     </footer>
     <script src="/translations.js"></script>

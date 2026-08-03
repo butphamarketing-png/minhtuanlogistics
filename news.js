@@ -25,7 +25,7 @@
           <span class="news-card-tag">${esc(p.categoryLabel)}</span>
         </div>
         <div class="news-card-body">
-          <time datetime="${p.date}">${esc(p.dateLabel)}</time>
+          <time datetime="${p.date}">${esc(formatDateLabel(p))}</time>
           <h2 class="news-card-title">${esc(p.title)}</h2>
           <p>${esc(p.excerpt)}</p>
           <span class="news-card-more">Đọc tiếp →</span>
@@ -44,13 +44,23 @@
       })
       .join("");
 
+  const listBase = () => document.body?.dataset?.newsBase || "/tin-tuc";
+
+  const formatDateLabel = (p) => {
+    if (p.dateLabel) return p.dateLabel;
+    const d = String(p.date || "");
+    const m = d.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? `${m[3]}/${m[2]}/${m[1]}` : d;
+  };
+
   const paginationHtml = (page, pages, params) => {
     if (pages <= 1) return "";
+    const base = listBase();
     const mk = (p, label, active = false) => {
       const q = new URLSearchParams(params);
       if (p > 1) q.set("page", String(p));
       else q.delete("page");
-      const href = `/tin-tuc${q.toString() ? `?${q}` : ""}`;
+      const href = `${base}${q.toString() ? `?${q}` : ""}`;
       return active
         ? `<span class="news-page is-active" aria-current="page">${label}</span>`
         : `<a class="news-page" href="${href}">${label}</a>`;
@@ -79,7 +89,8 @@
     const grid = document.getElementById("newsGrid");
     if (grid) {
       const params = new URLSearchParams(window.location.search);
-      const cat = params.get("cat") || "";
+      const forcedCat = document.body?.dataset?.newsCat || "";
+      const cat = forcedCat || params.get("cat") || "";
       const q = (params.get("q") || "").trim();
       const page = Math.max(1, parseInt(params.get("page") || "1", 10) || 1);
       const result = window.getNewsPage?.(page, PER_PAGE, { cat, q }) || {
@@ -93,8 +104,12 @@
 
       const count = document.getElementById("newsCount");
       if (count) {
-        const filterNote = q || cat ? ` (đang lọc: ${result.total} kết quả)` : "";
-        count.textContent = `${result.total} bài viết SEO${filterNote}`;
+        if (forcedCat === "careers") {
+          count.textContent = `${result.total} vị trí đang tuyển`;
+        } else {
+          const filterNote = q || cat ? ` (đang lọc: ${result.total} kết quả)` : "";
+          count.textContent = `${result.total} bài viết SEO${filterNote}`;
+        }
       }
 
       let pag = document.getElementById("newsPagination");
@@ -104,7 +119,7 @@
         grid.parentElement.appendChild(pag);
       }
       const pagParams = {};
-      if (cat) pagParams.cat = cat;
+      if (cat && !forcedCat) pagParams.cat = cat;
       if (q) pagParams.q = q;
       pag.innerHTML = paginationHtml(result.page, result.pages, pagParams);
     }
@@ -129,6 +144,9 @@
       const related = posts
         .filter((p) => p.category === post.category && p.slug !== post.slug)
         .slice(0, 3);
+      const isCareers = post.category === "careers";
+      const listHref = isCareers ? "/tuyen-dung" : "/tin-tuc";
+      const listLabel = isCareers ? "Tuyển dụng" : "Tin tức";
 
       const contentHtml = post.sections ? sectionHtml(post.sections) : post.body.map((p) => `<p>${esc(p)}</p>`).join("");
 
@@ -136,7 +154,7 @@
       <article class="article-detail" itemscope itemtype="https://schema.org/Article">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="/">Trang chủ</a><span aria-hidden="true">/</span>
-          <a href="/tin-tuc">Tin tức</a><span aria-hidden="true">/</span>
+          <a href="${listHref}">${listLabel}</a><span aria-hidden="true">/</span>
           <span>${esc(post.keyword)}</span>
         </nav>
         <div class="article-hero">
@@ -144,7 +162,7 @@
         </div>
         <div class="article-meta">
           <span class="news-card-tag">${esc(post.categoryLabel)}</span>
-          <time datetime="${post.date}" itemprop="datePublished">${esc(post.dateLabel)}</time>
+          <time datetime="${post.date}" itemprop="datePublished">${esc(formatDateLabel(post))}</time>
           <span class="article-keyword">Từ khóa chính: <strong>${esc(post.keyword)}</strong></span>
         </div>
         <h1 itemprop="headline">${esc(post.title)}</h1>
@@ -156,8 +174,13 @@
           ${contentHtml}
         </div>
         <div class="article-cta">
-          <a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
-          <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>
+          ${
+            isCareers
+              ? `<a class="btn btn-cta" href="mailto:hcnsminhtuan@gmail.com">Gửi CV ứng tuyển</a>
+          <a class="btn btn-ghost" href="tel:0938961012">Gọi 0938 961 012</a>`
+              : `<a class="btn btn-cta" href="tel:0938961012">Gọi tư vấn 0938 961 012</a>
+          <a class="btn btn-ghost" href="/lien-he">Gửi yêu cầu tư vấn</a>`
+          }
         </div>
       </article>
       ${
@@ -170,14 +193,16 @@
     const homeNews = document.getElementById("homeNewsFeed");
     const homeFeatured = document.getElementById("homeNewsFeatured");
     if (homeNews || homeFeatured) {
-      const latest = window.getLatestNews?.(4) || [];
+      const latest = (window.getLatestNews?.(12) || [])
+        .filter((p) => p.category !== "careers")
+        .slice(0, 4);
       if (homeFeatured && latest[0]) {
         const p = latest[0];
         homeFeatured.innerHTML = `
         <a href="/bai-viet/${encodeURIComponent(p.slug)}" class="news-featured-link">
           <img src="${p.cover}" alt="${esc(p.imageAlt || p.keyword)}" loading="lazy" />
           <div class="news-featured-overlay">
-            <time class="news-date news-date--light" datetime="${p.date}">${esc(p.dateLabel)}</time>
+            <time class="news-date news-date--light" datetime="${p.date}">${esc(formatDateLabel(p))}</time>
             <h3>${esc(p.title)}</h3>
           </div>
         </a>`;
@@ -192,7 +217,7 @@
           <a href="/bai-viet/${encodeURIComponent(p.slug)}" class="news-feed-link">
             <div class="news-feed-thumb"><img src="${p.cover}" alt="${esc(p.imageAlt || p.keyword)}" loading="lazy" /></div>
             <div class="news-feed-body">
-              <time class="news-date" datetime="${p.date}">${esc(p.dateLabel)}</time>
+              <time class="news-date" datetime="${p.date}">${esc(formatDateLabel(p))}</time>
               <h3>${esc(p.title)}</h3>
             </div>
           </a>
