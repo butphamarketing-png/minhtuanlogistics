@@ -233,9 +233,9 @@ ${jsonLd("schema-breadcrumb", {
         <a href="${listHref}">${listBack}</a>
       </div>
     </footer>
-    <script src="/translations.js"></script>
+    <script src="/translations.js?v=20260803c"></script>
     <script src="/i18n.js"></script>
-    <script src="/nav.js"></script>
+    <script src="/nav.js?v=20260803c"></script>
     <script src="/site-cms.js"></script>
     <script src="/script.js"></script>
   </body>

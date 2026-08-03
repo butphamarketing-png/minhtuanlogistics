@@ -69,7 +69,43 @@
     },
   ];
 
-  const label = (key) => (window.I18N ? window.I18N.t(key) : key);
+  // Vietnamese fallbacks so menu never shows raw keys if translations.js is stale-cached
+  const LABEL_FALLBACK = {
+    "nav.home": "Trang chủ",
+    "nav.about": "Giới thiệu",
+    "nav.about_us": "Về chúng tôi",
+    "nav.vision": "Tầm nhìn & Sứ mệnh",
+    "nav.values": "Giá trị cốt lõi",
+    "nav.services": "Dịch vụ",
+    "services.import_export": "Xuất nhập khẩu",
+    "services.sea": "Vận chuyển đường biển",
+    "services.domestic": "Vận chuyển đường bộ",
+    "services.air": "Vận chuyển hàng không",
+    "services.warehouse": "Kho bãi & Logistics",
+    "nav.projects": "Dự án",
+    "nav.featured_projects": "Dự án tiêu biểu",
+    "nav.partners": "Khách hàng đối tác",
+    "nav.news": "Tin tức",
+    "nav.news_events": "Tin tức & Sự kiện",
+    "nav.knowledge": "Kiến thức logistics",
+    "nav.careers": "Tuyển dụng",
+    "nav.careers_all": "Tất cả vị trí",
+    "nav.careers_amazon": "Nhân viên sàn Amazon",
+    "nav.careers_warehouse": "Trợ lý kho — Chứng từ",
+    "nav.gallery": "Hình ảnh",
+    "nav.photo_gallery": "Thư viện ảnh",
+    "nav.videos": "Video hoạt động",
+    "nav.contact": "Liên hệ",
+    "nav.contact_info": "Thông tin liên hệ",
+    "nav.contact_form": "Gửi yêu cầu tư vấn",
+  };
+
+  const label = (key) => {
+    const fallback = LABEL_FALLBACK[key] || key;
+    if (!window.I18N) return fallback;
+    const value = window.I18N.t(key, fallback);
+    return value === key ? fallback : value;
+  };
 
   const normalize = (href) => {
     const path = (href || "/").split("#")[0].replace(/\.html$/, "");
